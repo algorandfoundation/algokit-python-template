@@ -1,0 +1,56 @@
+name: Check Template
+
+on:
+  workflow_call:
+
+jobs:
+  check-python:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install algokit
+        run: pipx install algokit
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Check formatting with Ruff
+        run: |
+          # stop the build if there are files that don't meet formatting requirements
+          poetry run ruff format --check .
+
+      - name: Check linting with Ruff
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          poetry run ruff .
+
+      - name: Configure git
+        shell: bash
+        run: |
+          # set git user and email as test invoke git
+          git config --global user.email "actions@github.com" && git config --global user.name "github-actions"
+
+      - name: Run tests
+        shell: bash
+        run: |
+          set -o pipefail
+          poetry run pytest --junitxml=pytest-junit.xml -n auto
+
+      - name: Check generated templates have been reviewed
+        shell: bash
+        run: |
+          # Add untracked files as empty so they come up in diff
+          git add -N ./tests_generated
+          # Look for changes in generated templates and error if there are any
+          git diff --exit-code --minimal ./tests_generated

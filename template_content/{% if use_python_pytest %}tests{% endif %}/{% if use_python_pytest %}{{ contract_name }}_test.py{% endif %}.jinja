@@ -1,0 +1,36 @@
+import pytest
+from algokit_utils import (
+    ApplicationClient,
+    ApplicationSpecification,
+    get_localnet_default_account,
+)
+from algosdk.v2client.algod import AlgodClient
+
+from smart_contracts.{{ contract_name }} import contract as {{ contract_name }}_contract
+
+
+@pytest.fixture(scope="session")
+def {{ contract_name }}_app_spec(algod_client: AlgodClient) -> ApplicationSpecification:
+    return {{ contract_name }}_contract.app.build(algod_client)
+
+
+@pytest.fixture(scope="session")
+def {{ contract_name }}_client(
+    algod_client: AlgodClient, {{ contract_name }}_app_spec: ApplicationSpecification
+) -> ApplicationClient:
+    client = ApplicationClient(
+        algod_client,
+        app_spec={{ contract_name }}_app_spec,
+        signer=get_localnet_default_account(algod_client),
+        {%- if preset_name == 'production' %}
+        template_values={"UPDATABLE": 1, "DELETABLE": 1},
+        {%- endif %}
+    )
+    client.create()
+    return client
+
+
+def test_says_hello({{ contract_name }}_client: ApplicationClient) -> None:
+    result = {{ contract_name }}_client.call({{ contract_name }}_contract.hello, name="World")
+
+    assert result.return_value == "Hello, World"

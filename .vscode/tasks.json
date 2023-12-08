@@ -1,0 +1,94 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run template using algokit (Python, no-prompts)",
+      "command": "algokit",
+      "args": [
+        "-v",
+        "init",
+        "--name",
+        "test_output",
+        "--no-git",
+        "--defaults",
+        "--UNSAFE-SECURITY-accept-template-url",
+        "--template-url",
+        "${workspaceFolder}",
+        "--template-url-ref",
+        "HEAD",
+        "--no-bootstrap"
+      ],
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Delete test_output folder"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run template using algokit (TypeScript, no-prompts)",
+      "command": "algokit",
+      "args": [
+        "-v",
+        "init",
+        "--name",
+        "test_output",
+        "--no-git",
+        "--defaults",
+        "--UNSAFE-SECURITY-accept-template-url",
+        "--template-url",
+        "${workspaceFolder}",
+        "--template-url-ref",
+        "HEAD",
+        "--no-bootstrap",
+        "-a",
+        "deployment_language",
+        "typescript"
+      ],
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["Delete test_output folder"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run template using algokit (template prompts)",
+      "command": "algokit",
+      "args": [
+        "-v",
+        "init",
+        "--name",
+        "test_output",
+        "--no-git",
+        "--UNSAFE-SECURITY-accept-template-url",
+        "--template-url",
+        "${workspaceFolder}",
+        "--template-url-ref",
+        "HEAD",
+        "--no-bootstrap"
+      ],
+      "type": "shell",
+      "dependsOn": ["Delete test_output folder"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Delete test_output folder",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "test_output"
+      ],
+      "type": "shell",
+      "windows": {
+        "command": "./.vscode/clear.ps1"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
