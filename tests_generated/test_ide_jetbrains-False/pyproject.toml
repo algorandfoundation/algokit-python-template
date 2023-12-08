@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "test_ide_jetbrains-False"
+version = "0.1.0"
+description = "Algorand smart contracts"
+authors = ["None <None>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+beaker-pyteal = "^1.1.1"
+algokit-utils = "^2.0.1"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+black = {extras = ["d"], version = "*"}
+pytest = "*"
+pytest-cov = "*"
+pip-audit = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+pythonpath = ["smart_contracts", "tests"]

@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    {% if python_linter == 'ruff' -%}
+    "charliermarsh.ruff",
+    {% elif python_linter == 'flake8' -%}
+    "ms-python.flake8",
+    {% endif -%}
+    {% if use_python_mypy -%}
+    "matangover.mypy",
+    {% endif -%}
+    {% if use_python_black -%}
+    "ms-python.black-formatter",
+    {% endif -%}
+    {% if deployment_language == 'typescript' -%}
+    "esbenp.prettier-vscode",
+    {% endif -%}
+    "tamasfe.even-better-toml",
+    "editorconfig.editorconfig"
+  ]
+}

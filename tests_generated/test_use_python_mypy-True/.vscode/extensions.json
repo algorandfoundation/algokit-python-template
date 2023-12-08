@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "matangover.mypy",
+    "ms-python.black-formatter",
+    "tamasfe.even-better-toml",
+    "editorconfig.editorconfig"
+  ]
+}

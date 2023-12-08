@@ -1,0 +1,22 @@
+[algokit]
+min_version = "v1.7.3"
+
+[deploy]
+{%- if deployment_language == 'python' %}
+command = "poetry run python -m smart_contracts deploy"
+{%- elif deployment_language == 'typescript' %}
+command = "npm run deploy:ci"
+{%- endif %}
+environment_secrets = [
+  "DEPLOYER_MNEMONIC",
+{%- if use_dispenser %}
+  "DISPENSER_MNEMONIC",
+{%- endif %}
+]
+
+[deploy.localnet]
+environment_secrets = []
+
+[generate.smart_contract]
+description = "Adds new smart contract to existing project"
+path = ".algokit/generators/create_contract"
