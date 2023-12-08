@@ -1,10 +1,13 @@
-import beaker
-import pyteal as pt
+from algopy import (
+    ARC4Contract,
+    arc4,
+)
 
 
-app = beaker.Application("hello_world")
+class HelloWorldApp(ARC4Contract):
+    def clear_state_program(self) -> bool:
+        return True
 
-
-@app.external
-def hello(name: pt.abi.String, *, output: pt.abi.String) -> pt.Expr:
-    return output.set(pt.Concat(pt.Bytes("Hello, "), name.get()))
+    @arc4.abimethod()
+    def hello(self) -> arc4.String:
+        return arc4.String("Hello World!")

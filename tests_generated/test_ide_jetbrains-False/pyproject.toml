@@ -6,7 +6,7 @@ authors = ["None <None>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 beaker-pyteal = "^1.1.1"
 algokit-utils = "^2.0.1"
 python-dotenv = "^1.0.0"

@@ -9,14 +9,25 @@ logger = logging.getLogger(__name__)
 deployment_extension = "py"
 
 
-def build(output_dir: Path, app: beaker.Application) -> Path:
+def build(output_dir: Path, contract_path: Path) -> Path:
     output_dir = output_dir.resolve()
     if output_dir.exists():
         rmtree(output_dir)
     output_dir.mkdir(exist_ok=True, parents=True)
-    logger.info(f"Exporting {app.name} to {output_dir}")
-    specification = app.build()
-    specification.export(output_dir)
+    logger.info(f"Exporting {contract_path} to {output_dir}")
+
+    subprocess.run(
+        [
+            "poetry",
+            "run",
+            "puya",
+            contract_path.absolute(),
+            f"--out-dir={output_dir}",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
 
     result = subprocess.run(
         [

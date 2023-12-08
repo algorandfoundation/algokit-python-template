@@ -6,10 +6,10 @@ authors = ["{{ author_name }} <{{ author_email }}>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-beaker-pyteal = "^1.1.1"
+python = "^3.11"
 algokit-utils = "^2.0.1"
 python-dotenv = "^1.0.0"
+puya = {git = "https://github.com/algorandfoundation/puya.git"}
 
 [tool.poetry.group.dev.dependencies]
 {% if use_python_black -%}
