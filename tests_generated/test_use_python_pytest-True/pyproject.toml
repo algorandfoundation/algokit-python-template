@@ -6,10 +6,10 @@ authors = ["None <None>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-beaker-pyteal = "^1.1.1"
+python = "^3.12"
 algokit-utils = "^2.0.1"
 python-dotenv = "^1.0.0"
+puya = "^0.1.3"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["d"], version = "*"}

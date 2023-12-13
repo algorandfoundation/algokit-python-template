@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "ms-python.python",
-    "charliermarsh.ruff",
-    "ms-python.black-formatter",
-    "tamasfe.even-better-toml",
-    "editorconfig.editorconfig"
-  ]
-}

@@ -120,13 +120,7 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [BLACK_ARGS]
-
-    # Starter template does not have ruff config or mypy config by default
-    # so only check for them if the starter template is not used
-    processed_questions = _load_copier_yaml(copier_answers)
-    if processed_questions["preset_name"] == "production":
-        check_args += [RUFF_ARGS, MYPY_ARGS]
+    check_args = [BLACK_ARGS, RUFF_ARGS, MYPY_ARGS]
 
     for check_arg in check_args:
         result = subprocess.run(

@@ -1,36 +1,32 @@
+import algokit_utils
 import pytest
-from algokit_utils import (
-    ApplicationClient,
-    ApplicationSpecification,
-    get_localnet_default_account,
-)
+from algokit_utils import get_localnet_default_account
 from algosdk.v2client.algod import AlgodClient
+from algosdk.v2client.indexer import IndexerClient
 
-from smart_contracts.{{ contract_name }} import contract as {{ contract_name }}_contract
-
-
-@pytest.fixture(scope="session")
-def {{ contract_name }}_app_spec(algod_client: AlgodClient) -> ApplicationSpecification:
-    return {{ contract_name }}_contract.app.build(algod_client)
+from smart_contracts.artifacts.{{ contract_name }}.client import {{ contract_name.split('_')|map('capitalize')|join }}Client
 
 
 @pytest.fixture(scope="session")
 def {{ contract_name }}_client(
-    algod_client: AlgodClient, {{ contract_name }}_app_spec: ApplicationSpecification
-) -> ApplicationClient:
-    client = ApplicationClient(
+    algod_client: AlgodClient, indexer_client: IndexerClient
+) -> {{ contract_name.split('_')|map('capitalize')|join }}Client:
+    client = {{ contract_name.split('_')|map('capitalize')|join }}Client(
         algod_client,
-        app_spec={{ contract_name }}_app_spec,
-        signer=get_localnet_default_account(algod_client),
-        {%- if preset_name == 'production' %}
-        template_values={"UPDATABLE": 1, "DELETABLE": 1},
-        {%- endif %}
+        creator=get_localnet_default_account(algod_client),
+        indexer_client=indexer_client,
     )
-    client.create()
+
+    client.deploy(
+        on_schema_break=algokit_utils.OnSchemaBreak.ReplaceApp,
+        on_update=algokit_utils.OnUpdate.UpdateApp,
+        allow_delete=True,
+        allow_update=True,
+    )
     return client
 
 
-def test_says_hello({{ contract_name }}_client: ApplicationClient) -> None:
-    result = {{ contract_name }}_client.call({{ contract_name }}_contract.hello, name="World")
+def test_says_hello({{ contract_name }}_client: {{ contract_name.split('_')|map('capitalize')|join }}Client) -> None:
+    result = {{ contract_name }}_client.hello(name="World")
 
     assert result.return_value == "Hello, World"

@@ -1,13 +1,8 @@
-from algopy import (
-    ARC4Contract,
-    arc4,
-)
+from puyapy import ARC4Contract, Bytes
+from puyapy.arc4 import String, abimethod
 
 
-class HelloWorldApp(ARC4Contract):
-    def clear_state_program(self) -> bool:
-        return True
-
-    @arc4.abimethod()
-    def hello(self) -> arc4.String:
-        return arc4.String("Hello World!")
+class HelloWorld(ARC4Contract):
+    @abimethod()
+    def hello(self, name: String) -> String:
+        return String.encode(Bytes(b"Hello ") + name.decode())

@@ -3,8 +3,6 @@ import subprocess
 from pathlib import Path
 from shutil import rmtree
 
-import beaker
-
 logger = logging.getLogger(__name__)
 deployment_extension = "ts"
 
@@ -16,20 +14,23 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     output_dir.mkdir(exist_ok=True, parents=True)
     logger.info(f"Exporting {contract_path} to {output_dir}")
 
-    subprocess.run(
+    build_result = subprocess.run(
         [
             "poetry",
             "run",
-            "puya",
+            "puyapy",
             contract_path.absolute(),
             f"--out-dir={output_dir}",
+            "--output-arc32",
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
     )
+    if build_result.returncode:
+        raise Exception(f"Could not build contract:\n{build_result.stdout}")
 
-    result = subprocess.run(
+    generate_result = subprocess.run(
         [
             "algokit",
             "generate",
@@ -42,13 +43,14 @@ def build(output_dir: Path, contract_path: Path) -> Path:
         stderr=subprocess.STDOUT,
         text=True,
     )
-    if result.returncode:
-        if "No such command" in result.stdout:
+    if generate_result.returncode:
+        if "No such command" in generate_result.stdout:
             raise Exception(
                 "Could not generate typed client, requires AlgoKit 1.1 or "
                 "later. Please update AlgoKit"
             )
         else:
-            raise Exception(f"Could not generate typed client:\n{result.stdout}")
-
+            raise Exception(
+                f"Could not generate typed client:\n{generate_result.stdout}"
+            )
     return output_dir / "application.json"

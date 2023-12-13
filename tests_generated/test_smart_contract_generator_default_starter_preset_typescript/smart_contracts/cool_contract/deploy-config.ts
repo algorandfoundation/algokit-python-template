@@ -1,9 +1,9 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { CoolContractClient } from '../artifacts/cool_contract/client'
+import { HelloWorldClient } from '../artifacts/hello_world/client'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
-  console.log('=== Deploying CoolContract ===')
+  console.log('=== Deploying HelloWorld ===')
 
   const algod = algokit.getAlgoClient()
   const indexer = algokit.getAlgoIndexerClient()
@@ -16,7 +16,7 @@ export async function deploy() {
     },
     algod,
   )
-  const appClient = new CoolContractClient(
+  const appClient = new HelloWorldClient(
     {
       resolveBy: 'creatorAndName',
       findExistingUsing: indexer,
@@ -25,11 +25,12 @@ export async function deploy() {
     },
     algod,
   )
+
   const app = await appClient.deploy({
     onSchemaBreak: 'append',
     onUpdate: 'append',
   })
-  
+
 
   // If app was just created fund the app account
   if (['create', 'replace'].includes(app.operationPerformed)) {

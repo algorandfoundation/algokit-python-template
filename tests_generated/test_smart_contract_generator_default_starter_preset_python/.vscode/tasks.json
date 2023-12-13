@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Beaker application",
+      "label": "Build Puya application",
       "command": "${workspaceFolder}/.venv/bin/python",
       "windows": {
         "command": "${workspaceFolder}/.venv/Scripts/python.exe"
@@ -18,7 +18,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Build Beaker application (+ LocalNet)",
+      "label": "Build Puya application (+ LocalNet)",
       "command": "${workspaceFolder}/.venv/bin/python",
       "windows": {
         "command": "${workspaceFolder}/.venv/Scripts/python.exe"

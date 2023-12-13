@@ -26,20 +26,11 @@ export async function deploy() {
     algod,
   )
 
-  {%- if preset_name == 'starter' %}
   const app = await appClient.deploy({
     onSchemaBreak: 'append',
     onUpdate: 'append',
   })
-  {% elif preset_name == 'production' %}
-  const isMainNet = await algokit.isMainNet(algod)
-  const app = await appClient.deploy({
-    allowDelete: !isMainNet,
-    allowUpdate: !isMainNet,
-    onSchemaBreak: isMainNet ? 'append' : 'replace',
-    onUpdate: isMainNet ? 'append' : 'update',
-  })
-  {% endif %}
+
 
   // If app was just created fund the app account
   if (['create', 'replace'].includes(app.operationPerformed)) {

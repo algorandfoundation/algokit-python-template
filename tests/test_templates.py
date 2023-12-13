@@ -116,13 +116,7 @@ def run_init(
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [BLACK_ARGS]
-
-    # Starter template does not have ruff config or mypy config by default
-    # so only check for them if the starter template is not used
-    processed_questions = _load_copier_yaml(copier_answers)
-    if processed_questions["preset_name"] == "production":
-        check_args += [RUFF_ARGS, MYPY_ARGS]
+    check_args = [BLACK_ARGS, RUFF_ARGS, MYPY_ARGS]
 
     for check_arg in check_args:
         result = subprocess.run(
@@ -182,6 +176,12 @@ def get_questions_from_copier_yaml(
         "use_python_pip_audit",
         "use_dispenser",
         "use_pre_commit",
+        "python_linter",
+        "use_python_black",
+        "use_python_mypy",
+        "use_python_pytest",
+        "use_github_actions",
+        "ide_vscode",
     }
     ignored_keys.update(DEFAULT_PARAMETERS)
 

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Build &amp; Deploy Beaker application" type="PythonConfigurationType" factoryName="Python">
+  <configuration default="false" name="Build &amp; Deploy Puya application" type="PythonConfigurationType" factoryName="Python">
     <module name="test_ide_jetbrains-True" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />

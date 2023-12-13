@@ -25,11 +25,12 @@ export async function deploy() {
     },
     algod,
   )
+
   const app = await appClient.deploy({
     onSchemaBreak: 'append',
     onUpdate: 'append',
   })
-  
+
 
   // If app was just created fund the app account
   if (['create', 'replace'].includes(app.operationPerformed)) {

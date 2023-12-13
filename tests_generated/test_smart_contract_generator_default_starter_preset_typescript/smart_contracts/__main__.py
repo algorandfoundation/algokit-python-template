@@ -21,8 +21,8 @@ def main(action: str) -> None:
     match action:
         case "build":
             for contract in contracts:
-                logger.info(f"Building app {contract.app.name}")
-                build(artifact_path / contract.app.name, contract.app)
+                logger.info(f"Building app at {contract.path}")
+                build(artifact_path / contract.name, contract.path)
 
 
 if __name__ == "__main__":
