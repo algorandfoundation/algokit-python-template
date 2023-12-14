@@ -1,34 +1,32 @@
+import algokit_utils
 import pytest
-from algokit_utils import (
-    ApplicationClient,
-    ApplicationSpecification,
-    get_localnet_default_account,
-)
+from algokit_utils import get_localnet_default_account
 from algosdk.v2client.algod import AlgodClient
+from algosdk.v2client.indexer import IndexerClient
 
-from smart_contracts.hello_world import contract as hello_world_contract
-
-
-@pytest.fixture(scope="session")
-def hello_world_app_spec(algod_client: AlgodClient) -> ApplicationSpecification:
-    return hello_world_contract.app.build(algod_client)
+from smart_contracts.artifacts.hello_world.client import HelloWorldClient
 
 
 @pytest.fixture(scope="session")
 def hello_world_client(
-    algod_client: AlgodClient, hello_world_app_spec: ApplicationSpecification
-) -> ApplicationClient:
-    client = ApplicationClient(
+    algod_client: AlgodClient, indexer_client: IndexerClient
+) -> HelloWorldClient:
+    client = HelloWorldClient(
         algod_client,
-        app_spec=hello_world_app_spec,
-        signer=get_localnet_default_account(algod_client),
-        template_values={"UPDATABLE": 1, "DELETABLE": 1},
+        creator=get_localnet_default_account(algod_client),
+        indexer_client=indexer_client,
     )
-    client.create()
+
+    client.deploy(
+        on_schema_break=algokit_utils.OnSchemaBreak.ReplaceApp,
+        on_update=algokit_utils.OnUpdate.UpdateApp,
+        allow_delete=True,
+        allow_update=True,
+    )
     return client
 
 
-def test_says_hello(hello_world_client: ApplicationClient) -> None:
-    result = hello_world_client.call(hello_world_contract.hello, name="World")
+def test_says_hello(hello_world_client: HelloWorldClient) -> None:
+    result = hello_world_client.hello(name="World")
 
     assert result.return_value == "Hello, World"

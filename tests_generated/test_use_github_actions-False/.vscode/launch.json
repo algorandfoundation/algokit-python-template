@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Build & Deploy Beaker application",
+      "name": "Build & Deploy Puya application",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",
@@ -11,7 +11,7 @@
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Deploy Built Beaker application",
+      "name": "Deploy Built Puya application",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",
@@ -20,7 +20,7 @@
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Build Beaker application",
+      "name": "Build Puya application",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",

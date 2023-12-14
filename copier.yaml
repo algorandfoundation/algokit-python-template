@@ -8,13 +8,13 @@ project_name:
   help: Name for this project.
   placeholder: "algorand-app"
 
-preset_name:
-  type: str
-  help: Name of the preset to use. Starter is optimal for simpler projects, Production is optimal for more complex projects that require CI/CD and other features.
-  choices:
-    Starter: "starter"
-    Production: "production"
-  default: "starter"
+# preset_name:
+#   type: str
+#   help: Name of the preset to use. Starter is optimal for simpler projects, Production is optimal for more complex projects that require CI/CD and other features.
+#   choices:
+#     Starter: "starter"
+#     Production: "production"
+#   default: "starter"
 
 contract_name:
   type: str
@@ -58,17 +58,12 @@ deployment_language:
 python_linter:
   type: str
   help: Do you want to use a Python linter?
-  when: "{{ preset_name == 'production' }}"
   choices:
     Ruff: "ruff"
     Flake8: "flake8"
     No thanks: "none"
   default: |-
-    {% if preset_name == 'production' -%}
-        ruff
-    {%- else -%}
-        none
-    {%- endif %}
+    ruff
 
 use_python_black:
   type: bool
@@ -77,14 +72,9 @@ use_python_black:
 
 use_python_mypy:
   type: bool
-  when: "{{ preset_name == 'production' }}"
   help: Do you want to use a Python type checker (via mypy)?
   default: |-
-    {% if preset_name == 'production' -%}
-        yes
-    {%- else -%}
-        no
-    {%- endif %}
+    yes
 
 use_python_pytest:
   type: bool
@@ -93,35 +83,23 @@ use_python_pytest:
 
 use_python_pip_audit:
   type: bool
-  when: "{{ preset_name == 'production' }}"
   help: Do you want to include Python dependency vulnerability scanning (via pip-audit)?
   default: yes
 
 use_github_actions:
   type: bool
-  when: "{{ preset_name == 'production' }}"
   help: Do you want to include Github Actions workflows for build and testnet deployment?
   default: |-
-    {% if preset_name == 'production' -%}
-        yes
-    {%- else -%}
-        no
-    {%- endif %}
+    yes
 
 use_pre_commit:
   type: bool
-  when: "{{ preset_name == 'production' }}"
   help: Do you want to include pre-commit for linting, type checking and formatting?
   default: |-
-    {% if preset_name == 'production' -%}
-        yes
-    {%- else -%}
-        no
-    {%- endif %}
+    yes
 
 use_dispenser:
   type: bool
-  when: "{{ preset_name == 'production' }}"
   help: Do you want to fund your deployment account using an optional dispenser account?
   default: no
 

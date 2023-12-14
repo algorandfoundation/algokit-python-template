@@ -12,8 +12,13 @@ ide_vscode: true
 indexer_port: 8980
 indexer_server: http://localhost
 indexer_token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-preset_name: starter
 project_name: test_ide_jetbrains-True
+python_linter: ruff
+use_dispenser: false
+use_github_actions: true
+use_pre_commit: true
 use_python_black: true
+use_python_mypy: true
+use_python_pip_audit: true
 use_python_pytest: true
 

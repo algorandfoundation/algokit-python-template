@@ -6,10 +6,10 @@ authors = ["{{ author_name }} <{{ author_email }}>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-beaker-pyteal = "^1.1.1"
+python = "^3.12"
 algokit-utils = "^2.0.1"
 python-dotenv = "^1.0.0"
+puya = "^0.1.3"
 
 [tool.poetry.group.dev.dependencies]
 {% if use_python_black -%}
@@ -58,7 +58,7 @@ pythonpath = ["smart_contracts", "tests"]
 {% if use_python_mypy %}
 [tool.mypy]
 files = "smart_contracts/"
-python_version = "3.10"
+python_version = "3.12"
 check_untyped_defs = true
 warn_redundant_casts = true
 warn_unused_ignores = true

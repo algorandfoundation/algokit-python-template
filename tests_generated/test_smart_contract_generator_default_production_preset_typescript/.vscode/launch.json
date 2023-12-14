@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Build & Deploy Beaker application",
+      "name": "Build & Deploy Puya application",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
@@ -10,11 +10,11 @@
       "cwd": "${workspaceFolder}/smart_contracts",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
-      "preLaunchTask": "Build Beaker application (+ LocalNet)",
+      "preLaunchTask": "Build Puya application (+ LocalNet)",
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Deploy Built Beaker application",
+      "name": "Deploy Built Puya application",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
@@ -25,7 +25,7 @@
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Build Beaker application",
+      "name": "Build Puya application",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",

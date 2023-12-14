@@ -1,10 +1,8 @@
-import beaker
-import pyteal as pt
+from puyapy import ARC4Contract, Bytes
+from puyapy.arc4 import String, abimethod
 
 
-app = beaker.Application("hello_world")
-
-
-@app.external
-def hello(name: pt.abi.String, *, output: pt.abi.String) -> pt.Expr:
-    return output.set(pt.Concat(pt.Bytes("Hello, "), name.get()))
+class HelloWorld(ARC4Contract):
+    @abimethod()
+    def hello(self, name: String) -> String:
+        return String.encode(Bytes(b"Hello ") + name.decode())

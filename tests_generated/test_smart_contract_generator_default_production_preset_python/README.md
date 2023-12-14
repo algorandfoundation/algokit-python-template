@@ -4,14 +4,21 @@ This project has been generated using AlgoKit. See below for default getting sta
 
 # Setup
 
+### Pre-requisites
+
+- [Python 3.12](https://www.python.org/downloads/) or later
+- [Docker](https://www.docker.com/) (only required for LocalNet)
+
+> Please note `Puya` smart contract development language is currently in alpha / developer preview. It is not recommended for production usage yet.
+
 ### Initial setup
 
 1. Clone this repository locally
 2. Install pre-requisites:
    - Make sure to have [Docker](https://www.docker.com/) installed and running on your machine.
-   - Install `AlgoKit` - [Link](https://github.com/algorandfoundation/algokit-cli#install): The minimum required version is `1.1`. Ensure you can execute `algokit --version` and get `1.1` or later.
+   - Install `AlgoKit` - [Link](https://github.com/algorandfoundation/algokit-cli#install): The recommended version is `1.7.3`. Ensure you can execute `algokit --version` and get `1.7.1` or later.
    - Bootstrap your local environment; run `algokit bootstrap all` within this folder, which will:
-     - Install `Poetry` - [Link](https://python-poetry.org/docs/#installation): The minimum required version is `1.2`. Ensure you can execute `poetry -V` and get `1.2`+
+     - Install `Poetry` - [Link](https://python-poetry.org/docs/#installation): The minimum required version is `^1.7`. Ensure you can execute `poetry -V` and get `1.2`+
      - Run `poetry install` in the root directory, which will set up a `.venv` folder with a Python virtual environment and also install all Python dependencies
      - Copy `.env.template` to `.env`
    - Run `algokit localnet start` to start a local Algorand network in Docker. If you are using VS Code launch configurations provided by the template, this will be done automatically for you.
@@ -86,7 +93,7 @@ This project makes use of Python to build Algorand smart contracts. The followin
 
 - [Algorand](https://www.algorand.com/) - Layer 1 Blockchain; [Developer portal](https://developer.algorand.org/), [Why Algorand?](https://developer.algorand.org/docs/get-started/basics/why_algorand/)
 - [AlgoKit](https://github.com/algorandfoundation/algokit-cli) - One-stop shop tool for developers building on the Algorand network; [docs](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md), [intro tutorial](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/tutorials/intro.md)
-- [Beaker](https://github.com/algorand-devrel/beaker) - Smart contract development framework for PyTeal; [docs](https://beaker.algo.xyz), [examples](https://github.com/algorand-devrel/beaker/tree/master/examples)
+- [Puya](https://github.com/algorand-foundation/puya) - Smart contract development framework for developing Algorand smart contracts in pure Python; [docs](https://github.com/algorandfoundation/puya), [examples](https://github.com/algorandfoundation/puya/tree/main/examples)
 - [PyTEAL](https://github.com/algorand/pyteal) - Python language binding for Algorand smart contracts; [docs](https://pyteal.readthedocs.io/en/stable/)
 - [AlgoKit Utils](https://github.com/algorandfoundation/algokit-utils-py) - A set of core Algorand utilities that make it easier to build solutions on Algorand.
 - [Poetry](https://python-poetry.org/): Python packaging and dependency management.- [Black](https://github.com/psf/black): A Python code formatter.- [Ruff](https://github.com/charliermarsh/ruff): An extremely fast Python linter.
