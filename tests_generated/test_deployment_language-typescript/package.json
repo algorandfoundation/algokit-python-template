@@ -12,7 +12,7 @@
     "node": ">=18.0"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "^3.0.0",
+    "@algorandfoundation/algokit-utils": "^5.1.0",
     "algosdk": "^2.5.0"
   },
   "devDependencies": {

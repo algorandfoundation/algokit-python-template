@@ -50,6 +50,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+coverage/
 
 # Translations
 *.mo
@@ -172,3 +173,6 @@ cython_debug/
 
 # NPM
 node_modules
+
+# AlgoKit
+debug_traces/

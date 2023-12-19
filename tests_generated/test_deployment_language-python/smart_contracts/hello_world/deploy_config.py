@@ -23,6 +23,7 @@ def deploy(
         creator=deployer,
         indexer_client=indexer_client,
     )
+
     app_client.deploy(
         on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
         on_update=algokit_utils.OnUpdate.AppendApp,
