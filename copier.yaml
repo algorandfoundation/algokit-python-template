@@ -30,11 +30,13 @@ author_name:
   type: str
   help: Package author name
   placeholder: "Your Name"
+  default: "Your Name"
 
 author_email:
   type: str
   help: Package author email
   placeholder: "your@email.tld"
+  default: "your@email.tld"
 
 ide_vscode:
   type: bool
@@ -55,9 +57,33 @@ deployment_language:
     TypeScript: "typescript"
   default: "python"
 
+use_python_pytest:
+  type: bool
+  when: false
+  help: Do you want to include unit tests (via pytest)?
+  # deployment_language is empty when using the default_language
+  default: |-
+    {% if deployment_language|length == 0 or deployment_language == 'python' -%}
+        yes
+    {%- else -%}
+        no
+    {%- endif %}
+
+use_typescript_jest:
+  type: bool
+  when: false
+  help: Do you want to include unit tests (via jest)?
+  default: |-
+    {% if deployment_language == 'typescript' -%}
+        yes
+    {%- else -%}
+        no
+    {%- endif %}
+
 python_linter:
   type: str
   help: Do you want to use a Python linter?
+  when: false
   choices:
     Ruff: "ruff"
     Flake8: "flake8"
@@ -67,39 +93,40 @@ python_linter:
 
 use_python_black:
   type: bool
+  when: false
   help: Do you want to use a Python formatter (via Black)?
   default: yes
 
 use_python_mypy:
   type: bool
+  when: false
   help: Do you want to use a Python type checker (via mypy)?
   default: |-
     yes
 
-use_python_pytest:
-  type: bool
-  help: Do you want to include unit tests (via pytest)?
-  default: yes
-
 use_python_pip_audit:
   type: bool
+  when: false
   help: Do you want to include Python dependency vulnerability scanning (via pip-audit)?
   default: yes
 
 use_github_actions:
   type: bool
+  when: false
   help: Do you want to include Github Actions workflows for build and testnet deployment?
   default: |-
     yes
 
 use_pre_commit:
   type: bool
+  when: false
   help: Do you want to include pre-commit for linting, type checking and formatting?
   default: |-
     yes
 
 use_dispenser:
   type: bool
+  when: false
   help: Do you want to fund your deployment account using an optional dispenser account?
   default: no
 

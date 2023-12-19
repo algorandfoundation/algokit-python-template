@@ -16,7 +16,7 @@ export async function deploy() {
     },
     algod,
   )
-  const appClient = new {{ contract_name.split('_')|map('capitalize')|join }}Client(
+  const appClient = new {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client(
     {
       resolveBy: 'creatorAndName',
       findExistingUsing: indexer,

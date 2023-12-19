@@ -15,14 +15,15 @@ def deploy(
     deployer: algokit_utils.Account,
 ) -> None:
     from smart_contracts.artifacts.{{ contract_name }}.client import (
-        {{ contract_name.split('_')|map('capitalize')|join }}Client,
+        {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client,
     )
 
-    app_client = {{ contract_name.split('_')|map('capitalize')|join }}Client(
+    app_client = {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client(
         algod_client,
         creator=deployer,
         indexer_client=indexer_client,
     )
+
     app_client.deploy(
         on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
         on_update=algokit_utils.OnUpdate.AppendApp,

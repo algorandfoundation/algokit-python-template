@@ -6,6 +6,7 @@
     "ms-python.black-formatter",
     "esbenp.prettier-vscode",
     "tamasfe.even-better-toml",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "algorandfoundation.algokit-avm-vscode-debugger"
   ]
 }

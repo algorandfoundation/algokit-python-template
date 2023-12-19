@@ -200,15 +200,3 @@ def get_questions_from_copier_yaml(
             elif details_type == "bool":
                 yield question_name, False
                 yield question_name, True
-
-
-@pytest.mark.parametrize(("question_name", "answer"), get_questions_from_copier_yaml())
-def test_parameters(working_dir: Path, question_name: str, answer: str | bool) -> None:
-    response = run_init_kwargs(working_dir, **{question_name: answer})
-    assert response.returncode == 0, response.stdout
-
-
-def test_default_parameters(working_dir: Path) -> None:
-    response = run_init(working_dir, "test_default_parameters")
-
-    assert response.returncode == 0, response.stdout

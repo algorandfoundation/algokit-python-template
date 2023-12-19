@@ -51,6 +51,15 @@ This project has been generated using AlgoKit. See below for default getting sta
 
 This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [`.github/workflows`](./.github/workflows) folder.
 
+### Debugging Smart Contracts
+
+This project is optimized to work with AlgoKit AVM Debugger extension. To activate it:
+Refer to the commented header in the `index.ts` file in the `smart_contracts` folder.
+
+If you have opted in to include VSCode launch configurations in your project, you can also use the `Debug TEAL via AlgoKit AVM Debugger` launch configuration to interactively select an available trace file and launch the debug session for your smart contract.
+
+For information on using and setting up the `AlgoKit AVM Debugger` VSCode extension refer [here](https://github.com/algorandfoundation/algokit-avm-vscode-debugger). To install the extension from the VSCode Marketplace, use the following link: [AlgoKit AVM Debugger extension](https://marketplace.visualstudio.com/items?itemName=algorandfoundation.algokit-avm-vscode-debugger).
+
 #### Setting up GitHub for CI/CD workflow and TestNet deployment
 
   1. Every time you have a change to your smart contract, and when you first initialize the project you need to [build the contract](#initial-setup) and then commit the `smart_contracts/artifacts` folder so the [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md) tests pass
@@ -76,7 +85,6 @@ For pull requests and pushes to `main` branch against this repository the follow
  - Code formatting is checked using [Black](https://github.com/psf/black)
  - Linting is checked using [Ruff](https://github.com/charliermarsh/ruff)
  - Types are checked using [mypy](https://mypy-lang.org/)
- - Python tests are executed using [pytest](https://docs.pytest.org/)
  - Smart contract artifacts are built
  - Smart contract artifacts are checked for [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md)
  - Smart contract is deployed to a AlgoKit LocalNet instance
@@ -100,7 +108,6 @@ This project makes use of Python to build Algorand smart contracts. The followin
 - [Poetry](https://python-poetry.org/): Python packaging and dependency management.- [Black](https://github.com/psf/black): A Python code formatter.- [Ruff](https://github.com/charliermarsh/ruff): An extremely fast Python linter.
 
 - [mypy](https://mypy-lang.org/): Static type checker.
-- [pytest](https://docs.pytest.org/): Automated testing.
 - [pip-audit](https://pypi.org/project/pip-audit/): Tool for scanning Python environments for packages with known vulnerabilities.
  - [pre-commit](https://pre-commit.com/): A framework for managing and maintaining multi-language pre-commit hooks, to enable pre-commit you need to run `pre-commit install` in the root of the repository. This will install the pre-commit hooks and run them against modified files when committing. If any of the hooks fail, the commit will be aborted. To run the hooks on all files, use `pre-commit run --all-files`.
 - [npm](https://www.npmjs.com/): Node.js package manager
