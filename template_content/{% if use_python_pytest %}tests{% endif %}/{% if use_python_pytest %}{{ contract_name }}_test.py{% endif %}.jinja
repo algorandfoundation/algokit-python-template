@@ -24,10 +24,8 @@ def {{ contract_name }}_client(
     )
 
     client.deploy(
-        on_schema_break=algokit_utils.OnSchemaBreak.ReplaceApp,
-        on_update=algokit_utils.OnUpdate.UpdateApp,
-        allow_delete=True,
-        allow_update=True,
+        on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
+        on_update=algokit_utils.OnUpdate.AppendApp,
     )
     return client
 

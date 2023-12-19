@@ -3,8 +3,13 @@ import * as path from 'path'
 import { consoleLogger } from '@algorandfoundation/algokit-utils/types/logging'
 import * as algokit from '@algorandfoundation/algokit-utils'
 
+// Uncomment the debug and traceAll options to enable auto generation of AVM Debugger compliant sourceMap and simulation trace file.
+// Learn more about using AlgoKit AVM Debugger to debug your TEAL source codes and inspect various kinds of Algorand transactions in atomic groups -> https://github.com/algorandfoundation/algokit-avm-vscode-Debugger
+
 algokit.Config.configure({
   logger: consoleLogger,
+  //  debug: true,
+  //  traceAll: true,
 })
 
 // base directory
