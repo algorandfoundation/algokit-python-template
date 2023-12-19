@@ -24,10 +24,8 @@ describe('hello world contract', () => {
       algod,
     )
     await client.deploy({
-      allowDelete: true,
-      allowUpdate: true,
-      onSchemaBreak: 'replace',
-      onUpdate: 'update',
+      onSchemaBreak: 'append',
+      onUpdate: 'append',
     })
     return { client }
   }
