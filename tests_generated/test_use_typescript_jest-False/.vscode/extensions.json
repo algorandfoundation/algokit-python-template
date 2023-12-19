@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "matangover.mypy",
+    "ms-python.black-formatter",
+    "tamasfe.even-better-toml",
+    "editorconfig.editorconfig",
+    "algorandfoundation.algokit-avm-vscode-debugger"
+  ]
+}

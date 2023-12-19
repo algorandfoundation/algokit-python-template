@@ -13,12 +13,4 @@ indexer_port: 8980
 indexer_server: http://localhost
 indexer_token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 project_name: test_deployment_language-typescript
-python_linter: ruff
-use_dispenser: false
-use_github_actions: true
-use_pre_commit: true
-use_python_black: true
-use_python_mypy: true
-use_python_pip_audit: true
-use_python_pytest: true
 
