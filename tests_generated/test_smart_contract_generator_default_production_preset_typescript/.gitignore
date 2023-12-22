@@ -177,7 +177,4 @@ node_modules
 # AlgoKit
 debug_traces/
 
-.algokit/*
-!.algokit/sources/
-!.algokit/generators/
-!.algokit/static-analysis/snapshots/
+.algokit/static-analysis/tealer
