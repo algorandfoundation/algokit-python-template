@@ -24,7 +24,3 @@ path = ".algokit/generators/create_contract"
 [project]
 type = 'backend'
 name = '{{ project_name }}'
-
-[project.commands]
-test = { command = "poetry run pytest", description = "Run unit tests for the smart contracts" }
-build = { command = "poetry run python -m smart_contracts build", description = "Transpile puya smart contracts into TEAL and ABI specs" }
