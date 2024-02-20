@@ -6,7 +6,7 @@
     <a target="_blank" href="https://github.com/algorandfoundation/algokit-cli"><img src="https://img.shields.io/badge/docs-repository-00dc94?logo=github&style=flat.svg" /></a>
     <a target="_blank" href="https://developer.algorand.org/algokit/"><img src="https://img.shields.io/badge/learn-AlgoKit-00dc94?logo=algorand&mac=flat.svg" /></a>
     <a target="_blank" href="https://github.com/algorandfoundation/algokit-puya-template"><img src="https://img.shields.io/github/stars/algorandfoundation/algokit-puya-template?color=00dc94&logo=star&style=flat" /></a>
-    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://vbr.wocr.tk/badge?page_id=algorandfoundation%2Falgokit-puya-template&color=%2300dc94&style=flat" /></a>
+    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Falgorandfoundation%2Falgokit-react-puya-template&countColor=%2300dc94&style=flat" /></a>
 </p>
 
 ---
@@ -38,6 +38,18 @@ This template supports the following features:
 - CI/CD pipeline using GitHub Actions:
 - - Optionally pick deployments to Netlify or Vercel
 
-# Getting started
+## Getting started
 
 Once the template is instantiated you can follow the [README.md](template_content/README.md.jinja) file to see instructions for how to use the template.
+
+### Interactive wizard
+
+Prefer to run the interactive wizard directly from the `algokit-cli`?
+
+Run `algokit init` to get started. The wizard will guide you through the process of selecting the template that best suits your needs.
+
+Prefer to try out any of the official templates interactively on `GitHub Codespaces`? Follow the steps below to get started:
+
+1. Navigate to [algokit-base-template](https://github.com/algorandfoundation/algokit-base-template)
+2. Click `Create codespace on main` by clicking on `Code` button under `Codespaces` tab.
+3. Once the codespace is ready, algokit will automatically invoke an interactive prompt to help you choose the template best suited for your needs.

@@ -32,7 +32,7 @@ author_email:
 
 preset_name:
   type: str
-  help: Name of the preset to use. Starter is optimal for simpler projects, Production is optimal for more complex projects that require CI/CD and other features.
+  help: Name of the preset to use. Starter is the simplest starting point ideal for prototyping projects, Production is designed for confiden
   choices:
     Starter: "starter"
     Production: "production"

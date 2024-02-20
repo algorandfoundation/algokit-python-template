@@ -12,7 +12,7 @@ commit_pattern = re.compile(r"^_commit: .*", flags=re.MULTILINE)
 src_path_pattern = re.compile(r"_src_path: .*")
 tests_path = Path(__file__).parent
 root = tests_path.parent
-generated_folder = "tests_generated"
+generated_folder = "examples/generators"
 generated_root = root / generated_folder
 DEFAULT_PARAMETERS = {
     "author_name": "None",
@@ -88,7 +88,8 @@ def run_init(
         "--defaults",
         "--no-ide",
         "--no-git",
-        "--no-bootstrap",
+        "--no-bootstrap", 
+        "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
 
@@ -171,7 +172,7 @@ def run_generator(
 def test_smart_contract_generator_default_starter_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"test_smart_contract_generator_default_starter_preset_{language}"
+    test_name = f"starter_puya_smart_contract_{language}"
 
     response = run_init(
         working_dir,
@@ -202,7 +203,7 @@ def test_smart_contract_generator_default_starter_preset(
 def test_smart_contract_generator_default_production_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"test_smart_contract_generator_default_production_preset_{language}"
+    test_name = f"production_puya_smart_contract_{language}"
 
     response = run_init(
         working_dir,

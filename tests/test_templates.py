@@ -12,7 +12,7 @@ commit_pattern = re.compile(r"^_commit: .*", flags=re.MULTILINE)
 src_path_pattern = re.compile(r"_src_path: .*")
 tests_path = Path(__file__).parent
 root = tests_path.parent
-generated_folder = "tests_generated"
+generated_folder = "examples"
 generated_root = root / generated_folder
 DEFAULT_PARAMETERS = {
     "author_name": "None",
@@ -89,6 +89,7 @@ def run_init(
         "--no-ide",
         "--no-git",
         "--no-bootstrap",
+        "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
 
@@ -155,8 +156,8 @@ def run_init_kwargs(
     working_dir: Path, **kwargs: str | bool
 ) -> subprocess.CompletedProcess:
     answers = {k: str(v) for k, v in kwargs.items()}
-    name_suffix = "_".join(f"{k}-{v}" for k, v in answers.items())
-    return run_init(working_dir, f"test_{name_suffix}", answers=answers)
+    name_suffix = "_".join(f"{v}_beaker" for _, v in answers.items())
+    return run_init(working_dir, f"{name_suffix}", answers=answers)
 
 
 def get_questions_from_copier_yaml(
@@ -192,11 +193,14 @@ def get_questions_from_copier_yaml(
         if allowed_questions and question_name not in allowed_questions:
             continue
         if isinstance(details, dict):
-            details_type = details["type"]
-            if details_type == "str" and isinstance(details, dict):
-                if "choices" in details:
-                    for choice in details["choices"].values():
-                        yield question_name, choice
-            elif details_type == "bool":
-                yield question_name, False
-                yield question_name, True
+            is_preset_question = question_name == "preset_name"
+
+            if is_preset_question:
+                for preset_choice in ["starter", "production"]:
+                    yield question_name, preset_choice
+
+
+@pytest.mark.parametrize(("question_name", "answer"), get_questions_from_copier_yaml())
+def test_parameters(working_dir: Path, question_name: str, answer: str | bool) -> None:
+    response = run_init_kwargs(working_dir, **{question_name: answer})
+    assert response.returncode == 0, response.stdout
