@@ -16,4 +16,4 @@ path = ".algokit/generators/create_contract"
 
 [project]
 type = 'backend'
-name = 'production_beaker'
+name = 'production_puya'

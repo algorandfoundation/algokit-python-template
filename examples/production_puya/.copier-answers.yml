@@ -6,5 +6,5 @@ author_name: None
 contract_name: hello_world
 deployment_language: python
 preset_name: production
-project_name: production_beaker
+project_name: production_puya
 

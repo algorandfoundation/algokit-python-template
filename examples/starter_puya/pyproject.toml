@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "starter_beaker"
+name = "starter_puya"
 version = "0.1.0"
 description = "Algorand smart contracts"
 authors = ["None <None>"]
