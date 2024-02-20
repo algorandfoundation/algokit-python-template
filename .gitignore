@@ -169,3 +169,11 @@ cython_debug/
 
 # NPM
 node_modules
+
+# Ignore lockfiles in all directories and subdirectories under examples, recursively
+examples/**/package-lock.json
+examples/**/poetry.lock
+
+# playground folder for previewing templates
+.playground/*
+!.playground/.gitkeep
