@@ -3,7 +3,7 @@
   "configurations": [
     {% if deployment_language == 'python' -%}
     {
-      "name": "Build & Deploy Puya application",
+      "name": "Build & Deploy contracts",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",
@@ -12,7 +12,7 @@
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Deploy Contracts",
+      "name": "Deploy contracts",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",
@@ -22,7 +22,7 @@
     },
     {% elif deployment_language == 'typescript' -%}
     {
-      "name": "Build & Deploy Puya application",
+      "name": "Build & Deploy contracts",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
@@ -30,11 +30,11 @@
       "cwd": "${workspaceFolder}/smart_contracts",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
-      "preLaunchTask": "Build Puya application (+ LocalNet)",
+      "preLaunchTask": "Build contracts (+ LocalNet)",
       "envFile": "${workspaceFolder}/.env.localnet"
     },
     {
-      "name": "Deploy Contracts",
+      "name": "Deploy contracts",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
@@ -46,7 +46,7 @@
     },
     {% endif -%}
     {
-      "name": "Build Puya application",
+      "name": "Build contracts",
       "type": "python",
       "request": "launch",
       "module": "smart_contracts",

@@ -116,35 +116,3 @@ use_dispenser:
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to fund your deployment account using an optional dispenser account?
   default: no
-
-# The following should never get prompted; algokit should always pass these values through by convention
-
-algod_token:
-  type: str
-  help: Default Algod Token
-  default: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-algod_server:
-  type: str
-  help: Default Algod server
-  default: "http://localhost"
-
-algod_port:
-  type: int
-  help: Default Algod port
-  default: 4001
-
-indexer_token:
-  type: str
-  help: Default Indexer token
-  default: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-indexer_server:
-  type: str
-  help: Default Indexer server
-  default: "http://localhost"
-
-indexer_port:
-  type: int
-  help: Default Indexer port
-  default: 8980

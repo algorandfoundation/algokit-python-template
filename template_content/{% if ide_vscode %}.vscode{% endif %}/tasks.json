@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Puya application",
+      "label": "Build contracts",
       "command": "${workspaceFolder}/.venv/bin/python",
       "windows": {
         "command": "${workspaceFolder}/.venv/Scripts/python.exe"
@@ -18,7 +18,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Build Puya application (+ LocalNet)",
+      "label": "Build contracts (+ LocalNet)",
       "command": "${workspaceFolder}/.venv/bin/python",
       "windows": {
         "command": "${workspaceFolder}/.venv/Scripts/python.exe"
