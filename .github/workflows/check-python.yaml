@@ -51,6 +51,6 @@ jobs:
         shell: bash
         run: |
           # Add untracked files as empty so they come up in diff
-          git add -N ./tests_generated
+          git add -N ./examples
           # Look for changes in generated templates and error if there are any
-          git diff --exit-code --minimal ./tests_generated
+          git diff --exit-code --minimal ./examples
