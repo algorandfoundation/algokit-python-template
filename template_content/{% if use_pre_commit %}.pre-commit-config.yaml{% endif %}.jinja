@@ -36,3 +36,13 @@ repos:
         minimum_pre_commit_version: '2.9.2'
         files: '^(src|tests)/'
       {% endif %}
+      - id: tealer
+        name: tealer
+        description: "Run AlgoKit `Tealer` for TEAL static analysis"
+        entry: algokit
+        language: system
+        args: [task, analyze, ".algokit", "--recursive", "--force"]
+        require_serial: false
+        additional_dependencies: []
+        minimum_pre_commit_version: "0"
+        files: '^.*\.teal$'

@@ -67,6 +67,9 @@ jobs:
       - name: Build smart contracts
         run: poetry run python -m smart_contracts build
 
+      - name: Scan TEAL files for issues
+        run: algokit task analyze .algokit --recursive --force # add --diff flag if you want output stability checks instead
+
       - name: Check output stability of the smart contracts
         shell: bash
         run: |
