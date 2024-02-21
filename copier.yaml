@@ -34,9 +34,9 @@ preset_name:
   type: str
   help: Name of the template preset to use.
   choices:
-    "Starter - for simpler starting point ideal for prototyping": "starter"
+    "Starter - for a simpler starting point ideal for prototyping": "starter"
     "Production - for confidently deploying to MainNet and/or more complex projects": "production"
-    "Custom - for tailoring of the template output to your needs": "custom"
+    "Custom - for tailoring the template output to your needs": "custom"
   default: "starter"
 
 deployment_language:
