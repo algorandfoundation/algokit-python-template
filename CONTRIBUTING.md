@@ -1,6 +1,6 @@
 # AlgoKit Official Template for contributors
 
-This repository is a template for creating new AlgoKit projects. It includes a basic structure for creating a beaker based smart contract project.
+This repository is a template for creating new AlgoKit projects. It includes a basic structure for creating a puya based smart contract project.
 
 ## Pre-requisites
 
@@ -30,7 +30,7 @@ We are using the [Conventional Commits](https://www.conventionalcommits.org/en/v
 
 ### Guiding Principles
 
-AlgoKit development is done within the [AlgoKit Guiding Principles](./docs/algokit.md#guiding-principles).
+AlgoKit development is done within the [AlgoKit Guiding Principles](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md#guiding-principles).
 
 ### Pull Requests
 

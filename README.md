@@ -42,14 +42,16 @@ This template supports the following features:
 
 Once the template is instantiated you can follow the [README.md](template_content/README.md.jinja) file to see instructions for how to use the template.
 
-### Interactive wizard
+### Interactive Wizard
 
-Prefer to run the interactive wizard directly from the `algokit-cli`?
+**To initialize using the `algokit` CLI**:
 
-Run `algokit init` to get started. The wizard will guide you through the process of selecting the template that best suits your needs.
+- Execute the command `algokit init`. This initiates an interactive wizard that assists in selecting the most appropriate template for your project requirements.
 
-Prefer to try out any of the official templates interactively on `GitHub Codespaces`? Follow the steps below to get started:
+**To initialize within GitHub Codespaces**:
 
-1. Navigate to [algokit-base-template](https://github.com/algorandfoundation/algokit-base-template)
-2. Click `Create codespace on main` by clicking on `Code` button under `Codespaces` tab.
-3. Once the codespace is ready, algokit will automatically invoke an interactive prompt to help you choose the template best suited for your needs.
+- Follow these steps to leverage GitHub Codespaces for template selection:
+
+  1. Go to the [algokit-base-template](https://github.com/algorandfoundation/algokit-base-template) repository.
+  2. Initiate a new codespace by selecting the `Create codespace on main` option. This can be found by clicking the `Code` button, then navigating to the `Codespaces` tab.
+  3. Upon codespace preparation, `algokit` will automatically start `LocalNet` and present a prompt with the next steps. Executing `algokit init` will initiate the interactive wizard.
