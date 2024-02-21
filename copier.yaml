@@ -34,9 +34,9 @@ preset_name:
   type: str
   help: Name of the preset to use. Starter is the simplest starting point ideal for prototyping projects, Production is designed for confiden
   choices:
-    Starter: "starter"
-    Production: "production"
-    Custom: "custom"
+    "Starter - for simpler starting point ideal for prototyping": "starter"
+    "Production - for confidently deploying to MainNet and/or more complex projects": "production"
+    "Custom - for tailoring of the template output to your needs": "custom"
   default: "starter"
 
 deployment_language:
