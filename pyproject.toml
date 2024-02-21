@@ -42,7 +42,7 @@ select = [
   "I",
 ]
 extend-exclude = [
-  "tests_generated/*", # Ignoring generated tests, ruff specific errors are to be caught by pytest
+  "examples/*",       # Ignoring generated tests, ruff specific errors are to be caught by pytest
   "template_content",
   ".git",
   ".mypy_cache",
