@@ -63,13 +63,13 @@ use_python_pytest:
   type: bool
   when: "{{ deployment_language == 'python' and preset_name == 'custom' }}"
   help: Do you want to include unit tests (via pytest)?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'python' else 'no' }}"
 
 use_typescript_jest:
   type: bool
   when: "{{ deployment_language == 'typescript' and preset_name == 'custom' }}"
   help: Do you want to include unit tests (via jest)?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'typescript' else 'no' }}"
 
 python_linter:
   type: str
