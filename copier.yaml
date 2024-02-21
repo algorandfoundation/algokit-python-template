@@ -32,7 +32,7 @@ author_email:
 
 preset_name:
   type: str
-  help: Name of the preset to use. Starter is the simplest starting point ideal for prototyping projects, Production is designed for confiden
+  help: Name of the template preset to use.
   choices:
     "Starter - for simpler starting point ideal for prototyping": "starter"
     "Production - for confidently deploying to MainNet and/or more complex projects": "production"
