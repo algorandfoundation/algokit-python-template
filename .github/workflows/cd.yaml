@@ -17,7 +17,7 @@ jobs:
     needs: ci-check-python
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Tag release
         id: tag
@@ -26,7 +26,7 @@ jobs:
           skip-commit: "true"
           tag-prefix: ""
           skip-on-empty: "false"
-          
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         if: ${{ steps.tag.outputs.skipped == 'false' }}
