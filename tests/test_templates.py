@@ -92,6 +92,7 @@ def run_init(
         "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
+    answers["deployment_language"] = "python"
 
     for question, answer in answers.items():
         init_args.extend(["-a", question, answer])
@@ -164,32 +165,8 @@ def get_questions_from_copier_yaml(
     allowed_questions: list[str] | None = None,
 ) -> Iterator[tuple[str, str | bool]]:
     copier_yaml = root / "copier.yaml"
-    ignored_keys = {
-        "_subdirectory",  # copier setting
-        # the following are ignored as they are passed automatically by algokit
-        "project_name",
-        "algod_token",
-        "algod_server",
-        "algod_port",
-        "indexer_token",
-        "indexer_server",
-        "indexer_port",
-        "use_python_pip_audit",
-        "use_dispenser",
-        "use_pre_commit",
-        "python_linter",
-        "use_python_black",
-        "use_python_mypy",
-        "use_python_pytest",
-        "use_github_actions",
-        "ide_vscode",
-    }
-    ignored_keys.update(DEFAULT_PARAMETERS)
-
     questions = _load_copier_yaml(copier_yaml)
     for question_name, details in questions.items():
-        if question_name in ignored_keys:
-            continue
         if allowed_questions and question_name not in allowed_questions:
             continue
         if isinstance(details, dict):

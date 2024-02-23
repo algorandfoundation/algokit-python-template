@@ -24,6 +24,7 @@
     "editor.defaultFormatter": "ms-python.black-formatter",
     },
   "black-formatter.args": ["--config=pyproject.toml"],
+  "python.testing.pytestEnabled": true,
   "ruff.enable": true,
   "ruff.lint.run": "onSave",
   "ruff.lint.args": ["--config=pyproject.toml"],

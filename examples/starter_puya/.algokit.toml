@@ -15,5 +15,5 @@ description = "Adds new smart contract to existing project"
 path = ".algokit/generators/create_contract"
 
 [project]
-type = 'backend'
+type = 'contract'
 name = 'starter_puya'
