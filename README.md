@@ -6,7 +6,7 @@
     <a target="_blank" href="https://github.com/algorandfoundation/algokit-cli"><img src="https://img.shields.io/badge/docs-repository-00dc94?logo=github&style=flat.svg" /></a>
     <a target="_blank" href="https://developer.algorand.org/algokit/"><img src="https://img.shields.io/badge/learn-AlgoKit-00dc94?logo=algorand&mac=flat.svg" /></a>
     <a target="_blank" href="https://github.com/algorandfoundation/algokit-puya-template"><img src="https://img.shields.io/github/stars/algorandfoundation/algokit-puya-template?color=00dc94&logo=star&style=flat" /></a>
-    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://vbr.wocr.tk/badge?page_id=algorandfoundation%2Falgokit-puya-template&color=%2300dc94&style=flat" /></a>
+    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Falgorandfoundation%2Falgokit-react-puya-template&countColor=%2300dc94&style=flat" /></a>
 </p>
 
 ---
@@ -38,6 +38,20 @@ This template supports the following features:
 - CI/CD pipeline using GitHub Actions:
 - - Optionally pick deployments to Netlify or Vercel
 
-# Getting started
+## Getting started
 
 Once the template is instantiated you can follow the [README.md](template_content/README.md.jinja) file to see instructions for how to use the template.
+
+### Interactive Wizard
+
+**To initialize using the `algokit` CLI**:
+
+- Execute the command `algokit init`. This initiates an interactive wizard that assists in selecting the most appropriate template for your project requirements.
+
+**To initialize within GitHub Codespaces**:
+
+- Follow these steps to leverage GitHub Codespaces for template selection:
+
+  1. Go to the [algokit-base-template](https://github.com/algorandfoundation/algokit-base-template) repository.
+  2. Initiate a new codespace by selecting the `Create codespace on main` option. This can be found by clicking the `Code` button, then navigating to the `Codespaces` tab.
+  3. Upon codespace preparation, `algokit` will automatically start `LocalNet` and present a prompt with the next steps. Executing `algokit init` will initiate the interactive wizard.

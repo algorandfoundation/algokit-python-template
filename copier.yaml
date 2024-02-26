@@ -8,14 +8,6 @@ project_name:
   help: Name for this project.
   placeholder: "algorand-app"
 
-# preset_name:
-#   type: str
-#   help: Name of the preset to use. Starter is optimal for simpler projects, Production is optimal for more complex projects that require CI/CD and other features.
-#   choices:
-#     Starter: "starter"
-#     Production: "production"
-#   default: "starter"
-
 contract_name:
   type: str
   help: Name of the default smart contract app.
@@ -38,16 +30,14 @@ author_email:
   placeholder: "your@email.tld"
   default: "your@email.tld"
 
-ide_vscode:
-  type: bool
-  help: Do you want to add VSCode configuration?
-  default: yes
-
-ide_jetbrains:
-  type: bool
-  help: Do you want to add JetBrains configuration (primarily optimized for PyCharm CE)?
-  when: "{{ ide_vscode == false }}"
-  default: no
+preset_name:
+  type: str
+  help: Name of the template preset to use.
+  choices:
+    "Starter - for a simpler starting point ideal for prototyping": "starter"
+    "Production - for confidently deploying to MainNet and/or more complex projects": "production"
+    "Custom - for tailoring the template output to your needs": "custom"
+  default: "starter"
 
 deployment_language:
   type: str
@@ -57,107 +47,72 @@ deployment_language:
     TypeScript: "typescript"
   default: "python"
 
+ide_vscode:
+  type: bool
+  help: Do you want to add VSCode configuration?
+  when: "{{ preset_name == 'custom' }}"
+  default: yes
+
+ide_jetbrains:
+  type: bool
+  help: Do you want to add JetBrains configuration (primarily optimized for PyCharm CE)?
+  when: "{{ preset_name == 'custom' }}"
+  default: no
+
 use_python_pytest:
   type: bool
-  when: false
+  when: "{{ deployment_language == 'python' and preset_name == 'custom' }}"
   help: Do you want to include unit tests (via pytest)?
-  # deployment_language is empty when using the default_language
-  default: |-
-    {% if deployment_language|length == 0 or deployment_language == 'python' -%}
-        yes
-    {%- else -%}
-        no
-    {%- endif %}
+  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'python' else 'no' }}"
 
 use_typescript_jest:
   type: bool
-  when: false
+  when: "{{ deployment_language == 'typescript' and preset_name == 'custom' }}"
   help: Do you want to include unit tests (via jest)?
-  default: |-
-    {% if deployment_language == 'typescript' -%}
-        yes
-    {%- else -%}
-        no
-    {%- endif %}
+  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'typescript' else 'no' }}"
 
 python_linter:
   type: str
   help: Do you want to use a Python linter?
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   choices:
     Ruff: "ruff"
     Flake8: "flake8"
     No thanks: "none"
-  default: |-
-    ruff
+  default: "ruff"
 
 use_python_black:
   type: bool
-  when: false
   help: Do you want to use a Python formatter (via Black)?
+  when: "{{ preset_name == 'custom' }}"
   default: yes
 
 use_python_mypy:
   type: bool
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to use a Python type checker (via mypy)?
-  default: |-
-    yes
+  default: yes
 
 use_python_pip_audit:
   type: bool
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to include Python dependency vulnerability scanning (via pip-audit)?
   default: yes
 
 use_github_actions:
   type: bool
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to include Github Actions workflows for build and testnet deployment?
-  default: |-
-    yes
+  default: yes
 
 use_pre_commit:
   type: bool
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to include pre-commit for linting, type checking and formatting?
-  default: |-
-    yes
+  default: yes
 
 use_dispenser:
   type: bool
-  when: false
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to fund your deployment account using an optional dispenser account?
   default: no
-
-# The following should never get prompted; algokit should always pass these values through by convention
-
-algod_token:
-  type: str
-  help: Default Algod Token
-  default: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-algod_server:
-  type: str
-  help: Default Algod server
-  default: "http://localhost"
-
-algod_port:
-  type: int
-  help: Default Algod port
-  default: 4001
-
-indexer_token:
-  type: str
-  help: Default Indexer token
-  default: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-indexer_server:
-  type: str
-  help: Default Indexer server
-  default: "http://localhost"
-
-indexer_port:
-  type: int
-  help: Default Indexer port
-  default: 8980
