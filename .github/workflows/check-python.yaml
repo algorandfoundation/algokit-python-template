@@ -14,7 +14,8 @@ jobs:
         run: pipx install poetry
 
       - name: Install algokit
-        run: pipx install algokit
+        # TODO: restore to algokit prior to release
+        run: pipx install git+https://github.com/algorandfoundation/algokit-cli@feat/orchestration-linking
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
