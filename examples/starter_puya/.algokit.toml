@@ -1,5 +1,5 @@
 [algokit]
-min_version = "v1.8.0"
+min_version = "v1.12.1"
 
 [generate.smart_contract]
 description = "Adds new smart contract to existing project"
