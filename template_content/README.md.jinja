@@ -54,7 +54,9 @@ This project has been generated using AlgoKit. See below for default getting sta
 {%- if use_github_actions -%}
 ### Continuous Integration / Continuous Deployment (CI/CD)
 
-This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [`.github/workflows`](./.github/workflows) folder.
+This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`{% if use_workspace %}../../.github/workflows{% else %}.github/workflows{% endif %}`) folder.
+
+> Please note, if you instantiated the project with --workspace flag in `algokit init` it will automatically attempt to move the contents of the `.github` folder to the root of the workspace.
 
 ### Debugging Smart Contracts
 
