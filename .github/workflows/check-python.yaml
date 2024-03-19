@@ -15,7 +15,7 @@ jobs:
 
       - name: Install algokit
         # TODO: restore to algokit prior to release
-        run: pipx install git+https://github.com/algorandfoundation/algokit-cli@feat/orchestration-linking
+        run: pipx install git+https://github.com/algorandfoundation/algokit-cli@feat/command_orchestration
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
