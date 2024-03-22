@@ -28,15 +28,9 @@ environment_secrets = []
 
 [project.run]
 # Commands intented for use locally and in CI
-{%- if deployment_language == 'python' %}
 build = { commands = [
   'poetry run python -m smart_contracts build',
 ], description = 'Build all smart contracts in the project' }
-{%- elif deployment_language == 'typescript' %}
-build = { commands = [ 
-  'npm run build',
-], description = 'Build all smart contracts in the project' }
-{%- endif %}
 {%- if deployment_language == 'python' and use_python_pytest %}
 test = { commands = [
   'poetry run pytest',
@@ -70,7 +64,7 @@ audit-teal = { commands = [
   'algokit task analyze smart_contracts/artifacts --recursive --force --exclude rekey-to --exclude is-updatable --exclude missing-fee-check --exclude is-deletable --exclude can-close-asset --exclude can-close-account --exclude unprotected-deletable --exclude unprotected-updatable',
 ], description = 'Audit TEAL files' }
 
-# Commands indented for CI only, prefixed with `ci-` by convention
+# Commands intented for CI only, prefixed with `ci-` by convention
 ci-teal-diff = { commands = [
   'git add -N ./smart_contracts/artifacts',
   'git diff --exit-code --minimal ./smart_contracts/artifacts',

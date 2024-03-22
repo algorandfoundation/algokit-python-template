@@ -31,7 +31,7 @@ audit-teal = { commands = [
   'algokit task analyze smart_contracts/artifacts --recursive --force --exclude rekey-to --exclude is-updatable --exclude missing-fee-check --exclude is-deletable --exclude can-close-asset --exclude can-close-account --exclude unprotected-deletable --exclude unprotected-updatable',
 ], description = 'Audit TEAL files' }
 
-# Commands indented for CI only, prefixed with `ci-` by convention
+# Commands intented for CI only, prefixed with `ci-` by convention
 ci-teal-diff = { commands = [
   'git add -N ./smart_contracts/artifacts',
   'git diff --exit-code --minimal ./smart_contracts/artifacts',
