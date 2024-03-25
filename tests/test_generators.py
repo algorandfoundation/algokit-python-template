@@ -172,7 +172,7 @@ def run_generator(
 def test_smart_contract_generator_default_starter_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"starter_puya_smart_contract_{language}"
+    test_name = f"starter_python_smart_contract_{language}"
 
     response = run_init(
         working_dir,
@@ -203,7 +203,7 @@ def test_smart_contract_generator_default_starter_preset(
 def test_smart_contract_generator_default_production_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"production_puya_smart_contract_{language}"
+    test_name = f"production_python_smart_contract_{language}"
 
     response = run_init(
         working_dir,

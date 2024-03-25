@@ -157,7 +157,7 @@ def run_init_kwargs(
     working_dir: Path, **kwargs: str | bool
 ) -> subprocess.CompletedProcess:
     answers = {k: str(v) for k, v in kwargs.items()}
-    name_suffix = "_".join(f"{v}_puya" for _, v in answers.items())
+    name_suffix = "_".join(f"{v}_python" for _, v in answers.items())
     return run_init(working_dir, f"{name_suffix}", answers=answers)
 
 

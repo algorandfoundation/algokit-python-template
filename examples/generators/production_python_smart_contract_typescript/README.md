@@ -1,4 +1,4 @@
-# {{ project_name }}
+# production_python_smart_contract_typescript
 
 This project has been generated using AlgoKit. See below for default getting started instructions.
 
@@ -20,9 +20,7 @@ This project has been generated using AlgoKit. See below for default getting sta
      - Run `poetry install` in the root directory, which will set up a `.venv` folder with a Python virtual environment and also install all Python dependencies
      - Copy `.env.template` to `.env`
    - Run `algokit localnet start` to start a local Algorand network in Docker. If you are using VS Code launch configurations provided by the template, this will be done automatically for you.
-{%- if deployment_language == "typescript" %}
    - Run `npm install` to install NPM packages
-{%- endif %}
 3. Open the project and start debugging / developing via:
    - VS Code
      1. Open the repository root in VS Code
@@ -47,23 +45,16 @@ This project has been generated using AlgoKit. See below for default getting sta
 1. If you update to the latest source code and there are new dependencies you will need to run `algokit bootstrap all` again
 2. Follow step 3 above
 
-> For guidance on `smart_contracts` folder and adding new contracts to the project please see [README](smart_contracts/README.md) on the respective folder.
+> For guidance on `smart_contracts` folder and adding new contracts to the project please see [README](smart_contracts/README.md) on the respective folder.### Continuous Integration / Continuous Deployment (CI/CD)
 
-{%- if use_github_actions -%}
-### Continuous Integration / Continuous Deployment (CI/CD)
-
-This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`{% if use_workspace %}../../.github/workflows{% else %}.github/workflows{% endif %}`) folder.
+This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`.github/workflows`) folder.
 
 > Please note, if you instantiated the project with --workspace flag in `algokit init` it will automatically attempt to move the contents of the `.github` folder to the root of the workspace.
 
 ### Debugging Smart Contracts
 
 This project is optimized to work with AlgoKit AVM Debugger extension. To activate it:
-{%- if deployment_language == 'python' %}
-Refer to the commented header in the `__main__.py` file in the `smart_contracts` folder.
-{%- elif deployment_language == 'typescript' %}
 Refer to the commented header in the `index.ts` file in the `smart_contracts` folder.
-{%- endif %}
 
 If you have opted in to include VSCode launch configurations in your project, you can also use the `Debug TEAL via AlgoKit AVM Debugger` launch configuration to interactively select an available trace file and launch the debug session for your smart contract.
 
@@ -72,15 +63,9 @@ For information on using and setting up the `AlgoKit AVM Debugger` VSCode extens
 #### Setting up GitHub for CI/CD workflow and TestNet deployment
 
   1. Every time you have a change to your smart contract, and when you first initialize the project you need to [build the contract](#initial-setup) and then commit the `smart_contracts/artifacts` folder so the [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md) tests pass
-{%- if deployment_language == 'python' %}
-  2. Decide what values you want to use for the `allow_update`, `allow_delete` and the `on_schema_break`, `on_update` parameters specified in [`contract.py`](./smart_contracts/{{ contract_name }}/contract.py).
-     When deploying to LocalNet these values are both set to allow update and replacement of the app for convenience. But for non-LocalNet networks
-     the defaults are more conservative.
-{%- elif deployment_language == 'typescript' %}
-  2. Decide what values you want to use for the `allowUpdate` and `allowDelete` parameters specified in [`deploy-config.ts`](./smart_contracts/{{ contract_name }}/deploy-config.ts).
+  2. Decide what values you want to use for the `allowUpdate` and `allowDelete` parameters specified in [`deploy-config.ts`](./smart_contracts/hello_world/deploy-config.ts).
      When deploying to LocalNet these values are both set to `true` for convenience. But for non-LocalNet networks
      they are more conservative and use `false`
-{%- endif %}
      These default values will allow the smart contract to be deployed initially, but will not allow the app to be updated or deleted if is changed and the build will instead fail.
      To help you decide it may be helpful to read the [AlgoKit Utils app deployment documentation](https://github.com/algorandfoundation/algokit-utils-ts/blob/main/docs/capabilities/app-deploy.md) or the [AlgoKit smart contract deployment architecture](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/architecture-decisions/2023-01-12_smart-contract-deployment.md#upgradeable-and-deletable-contracts).
   3. Create a [Github Environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#creating-an-environment) named `Test`.
@@ -96,23 +81,10 @@ For information on using and setting up the `AlgoKit AVM Debugger` VSCode extens
 #### Continuous Integration
 
 For pull requests and pushes to `main` branch against this repository the following checks are automatically performed by GitHub Actions:
-{%- if use_python_pip_audit %}
  - Python dependencies are audited using [pip-audit](https://pypi.org/project/pip-audit/)
-{%- endif %}
-{%- if use_python_black %}
  - Code formatting is checked using [Black](https://github.com/psf/black)
-{%- endif %}
-{%- if python_linter == 'ruff' %}
  - Linting is checked using [Ruff](https://github.com/charliermarsh/ruff)
-{%- elif python_linter == 'flake8' %}
- - Linting is checked using [Flake8](https://flake8.pycqa.org/en/latest/)
-{%- endif %}
-{%- if use_python_mypy %}
  - Types are checked using [mypy](https://mypy-lang.org/)
-{%- endif %}
-{%- if use_python_pytest %}
- - Python tests are executed using [pytest](https://docs.pytest.org/)
-{%- endif %}
  - Smart contract artifacts are built
  - Smart contract artifacts are checked for [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md)
  - Smart contract is deployed to a AlgoKit LocalNet instance
@@ -124,8 +96,6 @@ For pushes to `main` branch, after the above checks pass, the following deployme
 
 > Please note deployment is also performed via `algokit deploy` command which can be invoked both via CI as seen on this project, or locally. For more information on how to use `algokit deploy` please see [AlgoKit documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/deploy.md).
 
-{%- endif %}
-
 # Tools
 
 This project makes use of Python to build Algorand smart contracts. The following tools are in use:
@@ -134,34 +104,15 @@ This project makes use of Python to build Algorand smart contracts. The followin
 - [AlgoKit](https://github.com/algorandfoundation/algokit-cli) - One-stop shop tool for developers building on the Algorand network; [docs](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md), [intro tutorial](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/tutorials/intro.md)
 - [Puya](https://github.com/algorand-foundation/puya) - Smart contract development framework for developing Algorand smart contracts in pure Python; [docs](https://github.com/algorandfoundation/puya), [examples](https://github.com/algorandfoundation/puya/tree/main/examples)
 - [PyTEAL](https://github.com/algorand/pyteal) - Python language binding for Algorand smart contracts; [docs](https://pyteal.readthedocs.io/en/stable/)
-- [AlgoKit Utils]({% if deployment_language == "typescript" %}https://github.com/algorandfoundation/algokit-utils-ts{% else %}https://github.com/algorandfoundation/algokit-utils-py{% endif %}) - A set of core Algorand utilities that make it easier to build solutions on Algorand.
-- [Poetry](https://python-poetry.org/): Python packaging and dependency management.
-{%- if use_python_black -%}
-- [Black](https://github.com/psf/black): A Python code formatter.
-{%- endif %}
-{%- if python_linter == "ruff" -%}
-- [Ruff](https://github.com/charliermarsh/ruff): An extremely fast Python linter.
-{% elif python_linter == "flake8" -%}
-- [Flake8](https://flake8.pycqa.org/en/latest/): A Python linter for style guide enforcement.
-{%- endif %}
-{%- if use_python_mypy %}
+- [AlgoKit Utils](https://github.com/algorandfoundation/algokit-utils-ts) - A set of core Algorand utilities that make it easier to build solutions on Algorand.
+- [Poetry](https://python-poetry.org/): Python packaging and dependency management.- [Black](https://github.com/psf/black): A Python code formatter.- [Ruff](https://github.com/charliermarsh/ruff): An extremely fast Python linter.
+
 - [mypy](https://mypy-lang.org/): Static type checker.
-{%- endif %}
-{%- if use_python_pytest %}
-- [pytest](https://docs.pytest.org/): Automated testing.
-{%- endif %}
-{%- if use_python_pip_audit %}
 - [pip-audit](https://pypi.org/project/pip-audit/): Tool for scanning Python environments for packages with known vulnerabilities.
-{%- endif %}
-{%- if use_pre_commit %}
  - [pre-commit](https://pre-commit.com/): A framework for managing and maintaining multi-language pre-commit hooks, to enable pre-commit you need to run `pre-commit install` in the root of the repository. This will install the pre-commit hooks and run them against modified files when committing. If any of the hooks fail, the commit will be aborted. To run the hooks on all files, use `pre-commit run --all-files`.
-{%- endif %}
-{%- if deployment_language == "typescript" %}
 - [npm](https://www.npmjs.com/): Node.js package manager
 - [TypeScript](https://www.typescriptlang.org/): Strongly typed programming language that builds on JavaScript
 - [ts-node-dev](https://github.com/wclr/ts-node-dev): TypeScript development execution environment
-{% endif -%}
 
-{% if ide_vscode %}
 It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
-{% endif %}
+
