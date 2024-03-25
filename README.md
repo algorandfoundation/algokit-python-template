@@ -1,12 +1,12 @@
 <div align="center">
-<a href="https://github.com/algorandfoundation/algokit-puya-template"><img src="https://bafkreihnmpvtrgloxz5exuk2ybfxkeq5b2ka5vxfjejjslswl5ecr7pvpy.ipfs.nftstorage.link/" width=60%></a>
+<a href="https://github.com/algorandfoundation/algokit-python-template"><img src="https://bafkreihnmpvtrgloxz5exuk2ybfxkeq5b2ka5vxfjejjslswl5ecr7pvpy.ipfs.nftstorage.link/" width=60%></a>
 </div>
 
 <p align="center">
     <a target="_blank" href="https://github.com/algorandfoundation/algokit-cli"><img src="https://img.shields.io/badge/docs-repository-00dc94?logo=github&style=flat.svg" /></a>
     <a target="_blank" href="https://developer.algorand.org/algokit/"><img src="https://img.shields.io/badge/learn-AlgoKit-00dc94?logo=algorand&mac=flat.svg" /></a>
-    <a target="_blank" href="https://github.com/algorandfoundation/algokit-puya-template"><img src="https://img.shields.io/github/stars/algorandfoundation/algokit-puya-template?color=00dc94&logo=star&style=flat" /></a>
-    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Falgorandfoundation%2Falgokit-react-puya-template&countColor=%2300dc94&style=flat" /></a>
+    <a target="_blank" href="https://github.com/algorandfoundation/algokit-python-template"><img src="https://img.shields.io/github/stars/algorandfoundation/algokit-python-template?color=00dc94&logo=star&style=flat" /></a>
+    <a target="_blank" href="https://developer.algorand.org/algokit/"><img  src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Falgorandfoundation%2Falgokit-python-template&countColor=%2300dc94&style=flat" /></a>
 </p>
 
 ---
