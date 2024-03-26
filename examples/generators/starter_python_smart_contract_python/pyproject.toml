@@ -9,9 +9,10 @@ readme = "README.md"
 python = "^3.12"
 algokit-utils = "^2.2.0"
 python-dotenv = "^1.0.0"
-puya = { git = "https://github.com/algorandfoundation/puya.git" } # TODO: Update this once Puya v1.0.0 is released
+algorand-python = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
+puyapy = "^0.7.1"
 
 [build-system]
 requires = ["poetry-core"]
