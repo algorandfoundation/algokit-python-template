@@ -156,10 +156,8 @@ dmypy.json
 cython_debug/
 
 # PyCharm
-.idea
-!.idea/
-.idea/*
-!.idea/runConfigurations/
+.idea/
+!.idea/runConfigurations
 
 # macOS
 .DS_Store
@@ -170,13 +168,3 @@ cython_debug/
 # NPM
 node_modules
 
-# Ignore lockfiles in all directories and subdirectories under examples, recursively
-examples/**/package-lock.json
-examples/**/poetry.lock
-
-# playground folder for previewing templates
-.playground/*
-
-# Misc
-examples/**/smart_contracts/artifacts
-examples/**/.algokit/sources 

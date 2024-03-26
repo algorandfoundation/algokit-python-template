@@ -19,13 +19,9 @@ DEFAULT_PARAMETERS = {
     "author_email": "None",
 }
 config_path = Path(__file__).parent.parent / "pyproject.toml"
-BLACK_ARGS = ["black", "--check", "--diff", "--config", str(config_path), "."]
-RUFF_ARGS = ["ruff", "--diff", "--config", str(config_path), "."]
-MYPY_ARGS = [
-    "mypy",
-    "--ignore-missing-imports",  # TODO: only ignore missing typed clients in config.py
-    ".",
-]
+BUILD_ARGS = ["algokit", "project", "run", "build"]
+TEST_ARGS = ["algokit", "project", "run", "test"]
+LINT_ARGS = ["algokit", "project", "run", "lint"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -93,7 +89,6 @@ def run_init(
         "--defaults",
         "--no-ide",
         "--no-git",
-        "--no-bootstrap",
         "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
@@ -123,7 +118,11 @@ def run_init(
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [BLACK_ARGS, RUFF_ARGS, MYPY_ARGS]
+    check_args = [BUILD_ARGS]
+
+    processed_questions = _load_copier_yaml(copier_answers)
+    if processed_questions["preset_name"] == "production":
+        check_args += [LINT_ARGS, TEST_ARGS]
 
     for check_arg in check_args:
         result = subprocess.run(

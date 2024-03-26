@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "./",
+      "name": "ROOT"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "projects/": true
+    },
+    "jest.disabledWorkspaceFolders": ["ROOT", "projects"]
+  },
+  "extensions": {
+    "recommendations": ["joshx.workspace-terminals"]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": []
+  },
+  "launch": {
+    "configurations": []
+  }
+}
