@@ -52,7 +52,12 @@ def working_dir() -> Iterator[Path]:
 
             dest_dir = generated_root / src_dir.stem
             shutil.rmtree(dest_dir, ignore_errors=True)
-            shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+            shutil.copytree(
+                src_dir,
+                dest_dir,
+                dirs_exist_ok=True,
+                ignore=shutil.ignore_patterns(".*_cache", ".venv", "__pycache__"),
+            )
 
 
 def run_init(
