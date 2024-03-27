@@ -19,6 +19,7 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     build_result = subprocess.run(
         [
             "algokit",
+            "--no-color",
             "compile",
             "python",
             contract_path.absolute(),
@@ -39,7 +40,6 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     generate_result = subprocess.run(
         [
             "algokit",
-            "--no-color",
             "generate",
             "client",
             output_dir / app_spec_file_name,
