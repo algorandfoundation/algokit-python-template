@@ -52,7 +52,9 @@ def working_dir() -> Iterator[Path]:
                 src_dir,
                 dest_dir,
                 dirs_exist_ok=True,
-                ignore=shutil.ignore_patterns(".*_cache", ".venv", "__pycache__"),
+                ignore=shutil.ignore_patterns(
+                    ".*_cache", ".venv", "__pycache__", "node_modules"
+                ),
             )
 
 

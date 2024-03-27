@@ -44,8 +44,6 @@ def build(output_dir: Path, contract_path: Path) -> Path:
             output_dir / app_spec_file_name,
             "--output",
             output_dir / f"client.{deployment_extension}",
-            "--version",
-            "1.1.3"
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
