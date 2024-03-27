@@ -18,9 +18,9 @@ def build(output_dir: Path, contract_path: Path) -> Path:
 
     build_result = subprocess.run(
         [
-            "poetry",
-            "run",
-            "puyapy",
+            "algokit",
+            "compile",
+            "python",
             contract_path.absolute(),
             f"--out-dir={output_dir}",
             "--output-arc32",
