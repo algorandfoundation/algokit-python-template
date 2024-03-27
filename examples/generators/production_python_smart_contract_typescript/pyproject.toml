@@ -17,7 +17,7 @@ ruff = "^0.1.6"
 mypy = "*"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "^0.7.1"
+puyapy = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -12,7 +12,7 @@ python-dotenv = "^1.0.0"
 algorand-python = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
-puyapy = "^0.7.1"
+puyapy = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core"]
