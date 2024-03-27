@@ -38,7 +38,7 @@ def import_deploy_if_exists(
         deploy_module = importlib.import_module(
             f"{folder.parent.name}.{folder.name}.deploy_config"
         )
-        return deploy_module.deploy
+        return deploy_module.deploy  # type: ignore
     except ImportError:
         return None
 
