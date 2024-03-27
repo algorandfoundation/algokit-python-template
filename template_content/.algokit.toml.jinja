@@ -1,7 +1,16 @@
 [algokit]
-min_version = "v1.8.0"
+min_version = "v2.0.0"
 
-[deploy]
+[generate.smart_contract]
+description = "Adds new smart contract to existing project"
+path = ".algokit/generators/create_contract"
+
+[project]
+type = 'contract'
+name = '{{ project_name }}'
+artifacts = 'smart_contracts/artifacts'
+
+[project.deploy]
 {%- if deployment_language == 'python' %}
 command = "poetry run python -m smart_contracts deploy"
 {%- elif deployment_language == 'typescript' %}
@@ -14,13 +23,49 @@ environment_secrets = [
 {%- endif %}
 ]
 
-[deploy.localnet]
+[project.deploy.localnet]
 environment_secrets = []
 
-[generate.smart_contract]
-description = "Adds new smart contract to existing project"
-path = ".algokit/generators/create_contract"
+[project.run]
+# Commands intented for use locally and in CI
+build = { commands = [
+  'poetry run python -m smart_contracts build',
+], description = 'Build all smart contracts in the project' }
+{%- if deployment_language == 'python' and use_python_pytest %}
+test = { commands = [
+  'poetry run pytest',
+], description = 'Run smart contract tests' }
+{%- elif deployment_language == 'typescript' and use_typescript_jest %}
+test = { commands = [
+  'npm run test',
+], description = 'Run smart contract tests using Jest' }
+{%- endif %}
+{%- if use_python_pip_audit %}
+audit = { commands = [
+  'poetry export --without=dev -o requirements.txt',
+  'poetry run pip-audit -r requirements.txt',
+], description = 'Audit with pip-audit' }
+{%- endif %}
+lint = { commands = [
+{%- if use_python_black %}
+  'poetry run black --check .',
+{%- endif %}
+{%- if python_linter == 'ruff' %}
+  'poetry run ruff .',
+{%- elif python_linter == 'flake8' %}
+  'poetry run flake8 .',
+{%- endif %}
+{%- if use_python_mypy %}
+  'poetry run mypy',
+{%- endif %}
+], description = 'Perform linting' }
+audit-teal = { commands = [
+  # 🚨 IMPORTANT 🚨: For strict TEAL validation, remove --exclude statements. The default starter contract is not for production. Ensure thorough testing and adherence to best practices in smart contract development. This is not a replacement for a professional audit.
+  'algokit task analyze smart_contracts/artifacts --recursive --force --exclude rekey-to --exclude is-updatable --exclude missing-fee-check --exclude is-deletable --exclude can-close-asset --exclude can-close-account --exclude unprotected-deletable --exclude unprotected-updatable',
+], description = 'Audit TEAL files' }
 
-[project]
-type = 'contract'
-name = '{{ project_name }}'
+# Commands intented for CI only, prefixed with `ci-` by convention
+ci-teal-diff = { commands = [
+  'git add -N ./smart_contracts/artifacts',
+  'git diff --exit-code --minimal ./smart_contracts/artifacts',
+], description = 'Check TEAL files for differences' }

@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: <commit>
+_src_path: <src>
+author_email: None
+author_name: None
+contract_name: hello_world
+deployment_language: python
+preset_name: production
+project_name: production_python_smart_contract_python
+

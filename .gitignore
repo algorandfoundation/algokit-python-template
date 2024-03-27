@@ -176,4 +176,7 @@ examples/**/poetry.lock
 
 # playground folder for previewing templates
 .playground/*
-!.playground/.gitkeep
+
+# Misc
+examples/**/smart_contracts/artifacts
+examples/**/.algokit/sources 

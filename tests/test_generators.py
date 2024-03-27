@@ -19,13 +19,9 @@ DEFAULT_PARAMETERS = {
     "author_email": "None",
 }
 config_path = Path(__file__).parent.parent / "pyproject.toml"
-BLACK_ARGS = ["black", "--check", "--diff", "--config", str(config_path), "."]
-RUFF_ARGS = ["ruff", "--diff", "--config", str(config_path), "."]
-MYPY_ARGS = [
-    "mypy",
-    "--ignore-missing-imports",  # TODO: only ignore missing typed clients in config.py
-    ".",
-]
+BUILD_ARGS = ["algokit", "project", "run", "build"]
+TEST_ARGS = ["algokit", "project", "run", "test"]
+LINT_ARGS = ["algokit", "project", "run", "lint"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -52,7 +48,14 @@ def working_dir() -> Iterator[Path]:
 
             dest_dir = generated_root / src_dir.stem
             shutil.rmtree(dest_dir, ignore_errors=True)
-            shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+            shutil.copytree(
+                src_dir,
+                dest_dir,
+                dirs_exist_ok=True,
+                ignore=shutil.ignore_patterns(
+                    ".*_cache", ".venv", "__pycache__", "node_modules"
+                ),
+            )
 
 
 def run_init(
@@ -88,7 +91,6 @@ def run_init(
         "--defaults",
         "--no-ide",
         "--no-git",
-        "--no-bootstrap",
         "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
@@ -121,7 +123,11 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [BLACK_ARGS, RUFF_ARGS, MYPY_ARGS]
+    check_args = [BUILD_ARGS]
+
+    processed_questions = _load_copier_yaml(copier_answers)
+    if processed_questions["preset_name"] == "production":
+        check_args += [LINT_ARGS, TEST_ARGS]
 
     for check_arg in check_args:
         result = subprocess.run(
@@ -172,7 +178,7 @@ def run_generator(
 def test_smart_contract_generator_default_starter_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"starter_puya_smart_contract_{language}"
+    test_name = f"starter_python_smart_contract_{language}"
 
     response = run_init(
         working_dir,
@@ -203,7 +209,7 @@ def test_smart_contract_generator_default_starter_preset(
 def test_smart_contract_generator_default_production_preset(
     language: str, working_dir: Path
 ) -> None:
-    test_name = f"production_puya_smart_contract_{language}"
+    test_name = f"production_python_smart_contract_{language}"
 
     response = run_init(
         working_dir,

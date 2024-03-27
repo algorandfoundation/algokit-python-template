@@ -1,0 +1,63 @@
+name: Validate {{ project_name }}
+
+on:
+  workflow_call:
+
+  {%- if not use_workspace %}
+  pull_request:
+  {%- endif %}
+
+jobs:
+  validate:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "poetry"
+
+      - name: Install algokit
+        run: pipx install algokit
+
+      - name: Start LocalNet
+        run: algokit localnet start
+
+      - name: Bootstrap dependencies
+        run: algokit bootstrap all --project-name '{{ project_name }}'
+
+      - name: Configure git
+        shell: bash
+        run: |
+          # set git user and email as test invoke git
+          git config --global user.email "actions@github.com" && git config --global user.name "github-actions"
+
+      - name: Audit python dependencies
+        run: algokit project run audit --project-name '{{ project_name }}'
+
+      - name: Lint and format python dependencies
+        run: algokit project run lint --project-name '{{ project_name }}'
+
+      - name: Run tests
+        shell: bash
+        run: |
+          set -o pipefail
+          algokit project run test --project-name '{{ project_name }}'
+
+      - name: Build smart contracts
+        run: algokit project run build --project-name '{{ project_name }}'
+
+      - name: Scan TEAL files for issues
+        run: algokit project run audit-teal --project-name '{{ project_name }}'
+
+      - name: Check output stability of the smart contracts
+        run: algokit project run ci-teal-diff --project-name '{{ project_name }}'
+
+      - name: Run deployer against LocalNet
+        run: algokit project deploy localnet --project-name '{{ project_name }}'

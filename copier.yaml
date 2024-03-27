@@ -1,22 +1,17 @@
 _subdirectory: template_content
 _templates_suffix: ".jinja"
 
+use_workspace:
+  type: bool
+  when: false # never prompted to user explicitly, instead expect cli to auto fill (supported cli versions > v1.13.x)
+  help: Automatically filled by AlgoKit CLI (>1.13.x) - passes the --workspace/--no-workspace flag's value, can be used to reason whether this template is currently being instantiated as part of a workspace or not.
+  default: no
+
 # questions
-# project_name should never get prompted, AlgoKit should always pass it by convention
 project_name:
   type: str
   help: Name for this project.
   placeholder: "algorand-app"
-
-contract_name:
-  type: str
-  help: Name of the default smart contract app.
-  placeholder: "hello_world"
-  default: "hello_world"
-  validator: >-
-    {% if not (contract_name | regex_search('^[a-z]+(?:_[a-z]+)*$')) %}
-    contract_name must be formatted in snake case.
-    {% endif %}
 
 author_name:
   type: str
@@ -29,6 +24,16 @@ author_email:
   help: Package author email
   placeholder: "your@email.tld"
   default: "your@email.tld"
+
+contract_name:
+  type: str
+  help: Name of the default smart contract app.
+  placeholder: "hello_world"
+  default: "hello_world"
+  validator: >-
+    {% if not (contract_name | regex_search('^[a-z]+(?:_[a-z]+)*$')) %}
+    contract_name must be formatted in snake case.
+    {% endif %}
 
 preset_name:
   type: str
@@ -57,7 +62,7 @@ ide_jetbrains:
   type: bool
   help: Do you want to add JetBrains configuration (primarily optimized for PyCharm CE)?
   when: "{{ preset_name == 'custom' }}"
-  default: no
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_python_pytest:
   type: bool
@@ -79,40 +84,40 @@ python_linter:
     Ruff: "ruff"
     Flake8: "flake8"
     No thanks: "none"
-  default: "ruff"
+  default: "{{ 'ruff' if preset_name == 'production' else 'none' }}"
 
 use_python_black:
   type: bool
   help: Do you want to use a Python formatter (via Black)?
   when: "{{ preset_name == 'custom' }}"
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_python_mypy:
   type: bool
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to use a Python type checker (via mypy)?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_python_pip_audit:
   type: bool
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to include Python dependency vulnerability scanning (via pip-audit)?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_github_actions:
   type: bool
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to include Github Actions workflows for build and testnet deployment?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_pre_commit:
   type: bool
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to include pre-commit for linting, type checking and formatting?
-  default: yes
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 use_dispenser:
   type: bool
   when: "{{ preset_name == 'custom' }}"
   help: Do you want to fund your deployment account using an optional dispenser account?
-  default: no
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"

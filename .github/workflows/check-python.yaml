@@ -16,6 +16,9 @@ jobs:
       - name: Install algokit
         run: pipx install algokit
 
+      - name: Run algokit localnet
+        run: algokit localnet start
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -23,7 +26,7 @@ jobs:
           cache: "poetry"
 
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+        run: poetry env use 3.12 && poetry install --no-interaction --no-root
 
       - name: Check formatting with Black
         run: |
