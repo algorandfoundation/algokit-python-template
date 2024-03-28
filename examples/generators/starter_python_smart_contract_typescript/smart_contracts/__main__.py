@@ -13,6 +13,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 logger.info("Loading .env")
 load_dotenv()
+load_dotenv(".env.localnet")
 root_path = Path(__file__).parent
 
 

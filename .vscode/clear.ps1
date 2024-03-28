@@ -1,1 +1,1 @@
-Remove-Item -Recurse -Force .playground -ErrorAction Ignore
+Remove-Item -Recurse -Force playground -ErrorAction Ignore

@@ -8,7 +8,7 @@
         "-v",
         "init",
         "--name",
-        ".playground",
+        "playground",
         "--no-git",
         "--defaults",
         "--UNSAFE-SECURITY-accept-template-url",
@@ -23,7 +23,7 @@
         "kind": "build",
         "isDefault": true
       },
-      "dependsOn": ["Cleanup .playground folder"],
+      "dependsOn": ["Cleanup playground folder"],
       "problemMatcher": []
     },
     {
@@ -33,7 +33,7 @@
         "-v",
         "init",
         "--name",
-        ".playground",
+        "playground",
         "--no-git",
         "--defaults",
         "--UNSAFE-SECURITY-accept-template-url",
@@ -51,7 +51,7 @@
         "kind": "build",
         "isDefault": true
       },
-      "dependsOn": ["Cleanup .playground folder"],
+      "dependsOn": ["Cleanup playground folder"],
       "problemMatcher": []
     },
     {
@@ -61,7 +61,7 @@
         "-v",
         "init",
         "--name",
-        ".playground",
+        "playground",
         "--no-git",
         "--UNSAFE-SECURITY-accept-template-url",
         "--template-url",
@@ -71,13 +71,13 @@
         "--no-bootstrap"
       ],
       "type": "shell",
-      "dependsOn": ["Cleanup .playground folder"],
+      "dependsOn": ["Cleanup playground folder"],
       "problemMatcher": []
     },
     {
-      "label": "Cleanup .playground folder",
+      "label": "Cleanup playground folder",
       "command": "rm",
-      "args": ["-rf", ".playground"],
+      "args": ["-rf", "playground"],
       "type": "shell",
       "windows": {
         "command": "./.vscode/clear.ps1"

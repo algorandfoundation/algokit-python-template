@@ -175,7 +175,7 @@ examples/**/package-lock.json
 examples/**/poetry.lock
 
 # playground folder for previewing templates
-.playground/*
+playground
 
 # Misc
 examples/**/smart_contracts/artifacts
