@@ -9,19 +9,25 @@ This project has been generated using AlgoKit. See below for default getting sta
 - [Python 3.12](https://www.python.org/downloads/) or later
 - [Docker](https://www.docker.com/) (only required for LocalNet)
 
+> For interactive tour over the codebase, download [vsls-contrib.codetour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) extension for VS Code, then open the [`.codetour.json`](./.tours/getting-started-with-your-algokit-project.tour) file in code tour extension.
+
 ### Initial setup
 
 1. Clone this repository locally
 2. Install pre-requisites:
    - Make sure to have [Docker](https://www.docker.com/) installed and running on your machine.
-   - Install `AlgoKit` - [Link](https://github.com/algorandfoundation/algokit-cli#install): The recommended version is `1.7.3`. Ensure you can execute `algokit --version` and get `1.7.1` or later.
+   - Install `AlgoKit` - [Link](https://github.com/algorandfoundation/algokit-cli#install): The recommended version is the latest available. Ensure you can execute `algokit --version` and get `2.0.0` or later.
    - Bootstrap your local environment; run `algokit bootstrap all` within this folder, which will:
      - Install `Poetry` - [Link](https://python-poetry.org/docs/#installation): The minimum required version is `^1.7`. Ensure you can execute `poetry -V` and get `1.2`+
      - Run `poetry install` in the root directory, which will set up a `.venv` folder with a Python virtual environment and also install all Python dependencies
      - Copy `.env.template` to `.env`
    - Run `algokit localnet start` to start a local Algorand network in Docker. If you are using VS Code launch configurations provided by the template, this will be done automatically for you.
+   - Run `algokit project bootstrap all` to install all project dependencies (unless executed during `algokit init`).
 3. Open the project and start debugging / developing via:
-   - VS Code
+   - Terminal
+     1. Run `algokit project run build` to build all contracts in the project
+     2. Run `algokit project deploy localnet` to deploy all contracts to the local Algorand network.
+   - VS Code (Launch Configurations)
      1. Open the repository root in VS Code
      2. Install recommended extensions
      3. Hit F5 (or whatever you have debug mapped to) and it should start running with breakpoint debugging.
@@ -34,10 +40,6 @@ This project has been generated using AlgoKit. See below for default getting sta
      1. Open the repository root in the IDE
      2. It should automatically detect it's a Poetry project and set up a Python interpreter and virtual environment.
      3. Hit Shift+F10|Ctrl+R (or whatever you have debug mapped to) and it should start running with breakpoint debugging. Please note, JetBrains IDEs on Windows have a known bug that in some cases may prevent executing shell scripts as pre-launch tasks, for workarounds refer to [JetBrains forums](https://youtrack.jetbrains.com/issue/IDEA-277486/Shell-script-configuration-cannot-run-as-before-launch-task).
-   - Other
-     1. Open the repository root in your text editor of choice
-     2. In a terminal run `poetry shell`
-     3. Run `python -m smart_contracts` through your debugger of choice
 
 ### Subsequently
 
@@ -49,6 +51,10 @@ This project has been generated using AlgoKit. See below for default getting sta
 This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`.github/workflows`) folder.
 
 > Please note, if you instantiated the project with --workspace flag in `algokit init` it will automatically attempt to move the contents of the `.github` folder to the root of the workspace.
+
+### AlgoKit Workspaces
+
+To define custom `algokit project run` commands refer to [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md). This allows orchestration of commands spanning across multiple projects within an algokit workspace based project (monorepo).
 
 ### Debugging Smart Contracts
 
@@ -109,6 +115,6 @@ This project makes use of Algorand Python to build Algorand smart contracts. The
 - [mypy](https://mypy-lang.org/): Static type checker.
 - [pytest](https://docs.pytest.org/): Automated testing.
 - [pip-audit](https://pypi.org/project/pip-audit/): Tool for scanning Python environments for packages with known vulnerabilities.
- - [pre-commit](https://pre-commit.com/): A framework for managing and maintaining multi-language pre-commit hooks, to enable pre-commit you need to run `pre-commit install` in the root of the repository. This will install the pre-commit hooks and run them against modified files when committing. If any of the hooks fail, the commit will be aborted. To run the hooks on all files, use `pre-commit run --all-files`.
+- [pre-commit](https://pre-commit.com/): A framework for managing and maintaining multi-language pre-commit hooks, to enable pre-commit you need to run `pre-commit install` in the root of the repository. This will install the pre-commit hooks and run them against modified files when committing. If any of the hooks fail, the commit will be aborted. To run the hooks on all files, use `pre-commit run --all-files`.
 It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
 

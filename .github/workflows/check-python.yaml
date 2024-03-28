@@ -48,7 +48,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          poetry run pytest --junitxml=pytest-junit.xml -n auto
+          poetry run pytest --junitxml=pytest-junit.xml
 
       - name: Check generated templates have been reviewed
         shell: bash
