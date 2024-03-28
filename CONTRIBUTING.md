@@ -12,7 +12,7 @@ This repository is a template for creating new AlgoKit projects. It includes a b
 Ensure localnet is running by executing `algokit localnet reset`.
 
 ```bash
-poetry run pytest -n auto
+poetry run pytest
 ```
 
 This will regenerate the tests for default `starter` and `production` presets as well as default tests for `generators` available on the template.
