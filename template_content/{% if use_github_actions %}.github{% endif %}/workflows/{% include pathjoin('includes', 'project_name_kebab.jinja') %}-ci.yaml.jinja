@@ -30,7 +30,7 @@ jobs:
         run: algokit localnet start
 
       - name: Bootstrap dependencies
-        run: algokit bootstrap all --project-name '{{ project_name }}'
+        run: algokit project bootstrap all --project-name '{{ project_name }}'
 
       - name: Configure git
         shell: bash

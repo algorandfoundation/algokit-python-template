@@ -26,11 +26,10 @@ Ensure the following pre-requisites are installed and properly configured:
 Run the following commands within the project folder:
 
 - **Install Poetry**: Required for Python dependency management. [Installation Guide](https://python-poetry.org/docs/#installation). Verify with `poetry -V` to see version `1.2`+.
-- **Setup Project**: Execute `algokit bootstrap all` to:
+- **Setup Project**: Execute `algokit project bootstrap all` to:
   - Install dependencies and setup a Python virtual environment in `.venv`.
   - Copy `.env.template` to `.env`.
 - **Start LocalNet**: Use `algokit localnet start` to initiate a local Algorand network.
-- **Install Project Dependencies**: With `algokit project bootstrap all`, ensure all dependencies are ready.
 
 ### Development Workflow
 
