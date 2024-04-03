@@ -27,7 +27,7 @@ jobs:
         run: algokit localnet start
 
       - name: Bootstrap dependencies
-        run: algokit bootstrap all --project-name 'production_python'
+        run: algokit project bootstrap all --project-name 'production_python'
 
       - name: Configure git
         shell: bash
