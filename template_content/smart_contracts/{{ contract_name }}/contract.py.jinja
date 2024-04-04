@@ -1,4 +1,3 @@
-# pyright: reportMissingModuleSource=false
 from algopy import ARC4Contract, arc4
 
 
