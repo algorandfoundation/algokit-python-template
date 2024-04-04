@@ -14,6 +14,9 @@
   
   // Python
   "python.analysis.extraPaths": ["${workspaceFolder}/smart_contracts"],
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingModuleSource": "none"
+  },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
   "[python]": {
     "editor.codeActionsOnSave": {
