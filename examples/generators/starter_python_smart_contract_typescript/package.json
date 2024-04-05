@@ -9,7 +9,8 @@
     "format": "prettier --write ."
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=18.0",
+    "npm": ">=9.0"
   },
   "dependencies": {
     "@algorandfoundation/algokit-utils": "^5.1.0",
