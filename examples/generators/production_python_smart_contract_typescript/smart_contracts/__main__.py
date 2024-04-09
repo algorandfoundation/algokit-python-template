@@ -12,8 +12,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 logger.info("Loading .env")
+# For manual script execution (bypassing `algokit project deploy`) with a custom .env,
+# modify `load_dotenv()` accordingly. For example, `load_dotenv('.env.localnet')`.
 load_dotenv()
-load_dotenv(".env.localnet")
 root_path = Path(__file__).parent
 
 
