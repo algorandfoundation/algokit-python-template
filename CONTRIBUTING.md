@@ -22,7 +22,7 @@ This will regenerate the tests for default `starter` and `production` presets as
 ### Manual
 
 ```bash
-poetry run copier copy . playground --vcs-ref=HEAD --trust
+algokit -v init --name playground --no-git --UNSAFE-SECURITY-accept-template-url --template-url . --template-url-ref HEAD --no-bootstrap
 ```
 
 To generate a dummy project into the `playground` folder. This is useful for testing the template to quickly preview the output of the template before testing via `pytest`.
