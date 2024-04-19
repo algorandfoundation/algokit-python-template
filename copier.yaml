@@ -1,5 +1,9 @@
 _subdirectory: template_content
 _templates_suffix: ".jinja"
+_tasks:
+  - "echo '==== Explicitly setting 3.12 for poetry env ==='"
+  - 'poetry env use 3.12'
+
 
 use_workspace:
   type: bool
