@@ -20,7 +20,7 @@ pytest = "*"
 pytest-cov = "*"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "^1.0.0"
+puyapy = "*"
 
 [build-system]
 requires = ["poetry-core"]

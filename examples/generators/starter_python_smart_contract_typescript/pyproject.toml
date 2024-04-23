@@ -13,7 +13,7 @@ algorand-python = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 algokit-client-generator = "^1.1.3"
-puyapy = "^1.0.0"
+puyapy = "*"
 
 [build-system]
 requires = ["poetry-core"]
