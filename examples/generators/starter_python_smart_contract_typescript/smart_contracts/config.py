@@ -2,6 +2,7 @@ import dataclasses
 import importlib
 from collections.abc import Callable
 from pathlib import Path
+from typing import Optional
 
 from algokit_utils import Account, ApplicationSpecification
 from algosdk.v2client.algod import AlgodClient
@@ -13,7 +14,7 @@ class SmartContract:
     path: Path
     name: str
     deploy: (
-        Callable[[AlgodClient, IndexerClient, ApplicationSpecification, Account], None]
+        Callable[[AlgodClient, IndexerClient, ApplicationSpecification, Account, Optional[str]], None]
         | None
     ) = None
 
@@ -30,7 +31,7 @@ def import_contract(folder: Path) -> Path:
 def import_deploy_if_exists(
     folder: Path,
 ) -> (
-    Callable[[AlgodClient, IndexerClient, ApplicationSpecification, Account], None]
+    Callable[[AlgodClient, IndexerClient, ApplicationSpecification, Account, Optional[str]], None]
     | None
 ):
     """Imports the deploy function from a folder if it exists."""

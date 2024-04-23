@@ -11,12 +11,8 @@ def find_app_spec_file(output_dir: Path) -> str | None:
 
 
 def find_pyproject_version(pyproject_toml: Path) -> str | None:
-    with open(pyproject_toml, "rb") as f:
-        content = tomllib.load(f)
-    return (
-        content["tool"]["poetry"]["version"]
-        if "tool" in content
-        and "poetry" in content["tool"]
-        and "version" in content["tool"]["poetry"]
-        else None
-    )
+    try:
+        data = tomllib.load(open(pyproject_toml, "rb"))
+        return data.get("tool", {}).get("poetry", {}).get("version")
+    except (FileNotFoundError, tomllib.TOMLDecodeError):
+        return None

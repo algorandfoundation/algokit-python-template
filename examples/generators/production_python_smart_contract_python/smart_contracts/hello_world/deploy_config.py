@@ -13,6 +13,7 @@ def deploy(
     indexer_client: IndexerClient,
     app_spec: algokit_utils.ApplicationSpecification,
     deployer: algokit_utils.Account,
+    version: str | None,
 ) -> None:
     from smart_contracts.artifacts.hello_world.client import (
         HelloWorldClient,
@@ -27,6 +28,8 @@ def deploy(
     app_client.deploy(
         on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
         on_update=algokit_utils.OnUpdate.AppendApp,
+        # Uncomment this next line to pin the deployment version to the project version.
+        version=version,
     )
     name = "world"
     response = app_client.hello(name=name)

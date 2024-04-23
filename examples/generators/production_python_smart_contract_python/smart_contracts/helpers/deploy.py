@@ -4,6 +4,7 @@
 import logging
 from collections.abc import Callable
 from pathlib import Path
+from typing import Optional
 
 from algokit_utils import (
     Account,
@@ -24,8 +25,9 @@ logger = logging.getLogger(__name__)
 def deploy(
     app_spec_path: Path,
     deploy_callback: Callable[
-        [AlgodClient, IndexerClient, ApplicationSpecification, Account], None
+        [AlgodClient, IndexerClient, ApplicationSpecification, Account, Optional[str]], None
     ],
+    version: str | None = None,
     deployer_initial_funds: int = 2,
 ) -> None:
     # get clients
@@ -50,4 +52,4 @@ def deploy(
     )
 
     # use provided callback to deploy the app
-    deploy_callback(algod_client, indexer_client, app_spec, deployer)
+    deploy_callback(algod_client, indexer_client, app_spec, deployer, version)
