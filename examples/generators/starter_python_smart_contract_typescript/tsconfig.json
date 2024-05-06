@@ -14,11 +14,12 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["smart_contracts/**/*.ts"],
   "exclude": ["node_modules", "dist", "coverage"]
 }
