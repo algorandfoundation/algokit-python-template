@@ -1,9 +1,9 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { HelloWorldClient } from '../artifacts/hello_world/client'
+import { {{ contract_name.split('_')|map('capitalize')|join }}Client } from '../artifacts/{{ contract_name }}/client'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
-  console.log('=== Deploying HelloWorld ===')
+  console.log('=== Deploying {{ contract_name.split('_')|map('capitalize')|join }} ===')
 
   const algod = algokit.getAlgoClient()
   const indexer = algokit.getAlgoIndexerClient()
@@ -16,7 +16,7 @@ export async function deploy() {
     },
     algod,
   )
-  const appClient = new HelloWorldClient(
+  const appClient = new {{ contract_name.split('_')|map('capitalize')|join }}Client(
     {
       resolveBy: 'creatorAndName',
       findExistingUsing: indexer,

@@ -14,11 +14,11 @@ def deploy(
     app_spec: algokit_utils.ApplicationSpecification,
     deployer: algokit_utils.Account,
 ) -> None:
-    from smart_contracts.artifacts.hello_world.client import (
-        HelloWorldClient,
+    from smart_contracts.artifacts.cool_contract.client import (
+        CoolContractClient,
     )
 
-    app_client = HelloWorldClient(
+    app_client = CoolContractClient(
         algod_client,
         creator=deployer,
         indexer_client=indexer_client,
