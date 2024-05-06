@@ -53,7 +53,7 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     if generate_result.returncode:
         if "No such command" in generate_result.stdout:
             raise Exception(
-                "Could not generate typed client, requires AlgoKit 1.1 or "
+                "Could not generate typed client, requires AlgoKit 2.0.0 or "
                 "later. Please update AlgoKit"
             )
         else:
