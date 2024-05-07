@@ -13,10 +13,11 @@
     "npm": ">=9.0"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "^5.1.0",
-    "algosdk": "^2.5.0"
+    "@algorandfoundation/algokit-utils": "^6.0.2",
+    "algosdk": "^2.7.0"
   },
   "devDependencies": {
+    "@algorandfoundation/algokit-client-generator": "^3.0.3",
     "dotenv": "^16.0.3",
     "prettier": "^2.8.4",
     "ts-node-dev": "^2.0.0",
