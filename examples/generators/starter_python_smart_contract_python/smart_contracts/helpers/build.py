@@ -3,14 +3,11 @@ import subprocess
 from pathlib import Path
 from shutil import rmtree
 
-from smart_contracts._helpers.util import find_app_spec_file
+from smart_contracts.helpers.util import find_app_spec_file
 
 logger = logging.getLogger(__name__)
-{% if deployment_language == 'python' -%}
 deployment_extension = "py"
-{% elif deployment_language == 'typescript' -%}
-deployment_extension = "ts"
-{% endif %}
+
 
 def build(output_dir: Path, contract_path: Path) -> Path:
     output_dir = output_dir.resolve()

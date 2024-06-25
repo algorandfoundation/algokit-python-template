@@ -4,10 +4,10 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from smart_contracts._helpers.build import build
-from smart_contracts._helpers.deploy import deploy
-from smart_contracts._helpers.util import find_app_spec_file
 from smart_contracts.config import contracts
+from smart_contracts.helpers.build import build
+from smart_contracts.helpers.deploy import deploy
+from smart_contracts.helpers.util import find_app_spec_file
 
 # Uncomment the following lines to enable auto generation of AVM Debugger compliant sourcemap and simulation trace file.
 # Learn more about using AlgoKit AVM Debugger to debug your TEAL source codes and inspect various kinds of
