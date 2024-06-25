@@ -4,8 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from smart_contracts.config import contracts
-from smart_contracts.helpers.build import build
+from smart_contracts._helpers.build import build
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s %(levelname)-10s: %(message)s"

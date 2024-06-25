@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 from shutil import rmtree
 
-from smart_contracts.helpers.util import find_app_spec_file
+from smart_contracts._helpers.util import find_app_spec_file
 
 logger = logging.getLogger(__name__)
 deployment_extension = "py"
