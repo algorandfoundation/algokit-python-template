@@ -102,7 +102,9 @@ For pull requests and pushes to `main` branch against this repository the follow
  - Code formatting is checked using [Black](https://github.com/psf/black)
  - Linting is checked using [Ruff](https://github.com/charliermarsh/ruff)
  - Types are checked using [mypy](https://mypy-lang.org/)
- - Python tests are executed using [pytest](https://docs.pytest.org/)
+- The base framework for testing is [pytest](https://docs.pytest.org/), and the project includes two separate kinds of tests:
+- - `Algorand Python` smart contract unit tests, that are run using [`algorand-python-testing`](https://pypi.org/project/algorand-python-testing/), which are executed in a Python intepreter emulating major AVM behaviour
+- - Python `ApplicationClient` tests that are run against `algokit localnet` and test the behaviour in a real network enviornment
  - Smart contract artifacts are built
  - Smart contract artifacts are checked for [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md)
  - Smart contract is deployed to a AlgoKit LocalNet instance

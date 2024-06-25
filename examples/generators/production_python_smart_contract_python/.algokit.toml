@@ -34,7 +34,7 @@ audit = { commands = [
 ], description = 'Audit with pip-audit' }
 lint = { commands = [
   'poetry run black --check .',
-  'poetry run ruff .',
+  'poetry run ruff check .',
   'poetry run mypy',
 ], description = 'Perform linting' }
 audit-teal = { commands = [

@@ -18,7 +18,7 @@ repos:
         entry: poetry run ruff
         language: system
         types: [ python ]
-        args: [ --fix ]
+        args: [ "check", "--fix" ]
         require_serial: false
         additional_dependencies: [ ]
         minimum_pre_commit_version: '0'

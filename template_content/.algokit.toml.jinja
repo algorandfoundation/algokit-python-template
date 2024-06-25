@@ -51,7 +51,7 @@ lint = { commands = [
   'poetry run black --check .',
 {%- endif %}
 {%- if python_linter == 'ruff' %}
-  'poetry run ruff .',
+  'poetry run ruff check .',
 {%- elif python_linter == 'flake8' %}
   'poetry run flake8 .',
 {%- endif %}

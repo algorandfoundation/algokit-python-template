@@ -7,9 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-algokit-utils = "^2.2.0"
+algokit-utils = "^2.3.0"
 python-dotenv = "^1.0.0"
 algorand-python = "^1.0.0"
+algorand-python-testing = {git = "https://github.com/algorandfoundation/puya.git", rev = "fix/algopy_testing_refinements", subdirectory = "algopy_testing"}
 
 [tool.poetry.group.dev.dependencies]
 algokit-client-generator = "^1.1.3"
