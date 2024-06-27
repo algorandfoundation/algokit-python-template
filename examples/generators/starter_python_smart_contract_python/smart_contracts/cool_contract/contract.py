@@ -7,4 +7,3 @@ class CoolContract(ARC4Contract):
     @abimethod()
     def hello(self, name: String) -> String:
         return "Hello, " + name
-
