@@ -33,7 +33,7 @@ audit = { commands = [
   'poetry run pip-audit -r requirements.txt',
 ], description = 'Audit with pip-audit' }
 lint = { commands = [
-  'poetry run black --check .',
+  'poetry run black --check --diff .',
   'poetry run ruff check .',
   'poetry run mypy',
 ], description = 'Perform linting' }

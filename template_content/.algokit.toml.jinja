@@ -48,7 +48,7 @@ audit = { commands = [
 {%- endif %}
 lint = { commands = [
 {%- if use_python_black %}
-  'poetry run black --check .',
+  'poetry run black --check --diff .',
 {%- endif %}
 {%- if python_linter == 'ruff' %}
   'poetry run ruff check .',
