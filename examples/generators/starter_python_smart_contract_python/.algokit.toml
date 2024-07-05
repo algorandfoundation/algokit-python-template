@@ -1,9 +1,13 @@
 [algokit]
 min_version = "v2.0.0"
 
-[generate.smart_contract]
-description = "Adds new smart contract to existing project"
+[generate.smart-contract]
+description = "Generate a new smart contract for existing project"
 path = ".algokit/generators/create_contract"
+
+[generate.env-file]
+description = "Generate a new generic or Algorand network specific .env file"
+path = ".algokit/generators/create_env_file"
 
 [project]
 type = 'contract'
