@@ -14,7 +14,7 @@ jobs:
         run: pipx install poetry
 
       - name: Install algokit
-        run: pipx install git+https://github.com/algorandfoundation/algokit-cli.git@chore/patching-tests
+        run: pipx install algokit
 
       - name: Run algokit localnet
         run: algokit localnet start
