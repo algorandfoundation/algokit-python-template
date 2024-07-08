@@ -28,7 +28,7 @@ Run the following commands within the project folder:
 - **Install Poetry**: Required for Python dependency management. [Installation Guide](https://python-poetry.org/docs/#installation). Verify with `poetry -V` to see version `1.2`+.
 - **Setup Project**: Execute `algokit project bootstrap all` to:
   - Install dependencies and setup a Python virtual environment in `.venv`.
-  - Copy `.env.template` to `.env`.
+  - Configure '.env' files if needed (see [AlgoKit Generators](#algokit-generators)).
 - **Start LocalNet**: Use `algokit localnet start` to initiate a local Algorand network.
 
 ### Development Workflow
@@ -58,7 +58,26 @@ While primarily optimized for VS Code, JetBrains IDEs are supported:
 ## AlgoKit Workspaces and Project Management
 This project supports both standalone and monorepo setups through AlgoKit workspaces. Leverage [`algokit project run`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md) commands for efficient monorepo project orchestration and management across multiple projects within a workspace.
 
-> For guidance on `smart_contracts` folder and adding new contracts to the project please see [README](smart_contracts/README.md) on the respective folder.
+## AlgoKit Generators
+
+This template provides a set of [algokit generators](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/generate.md) that allow you to further modify the project instantiated from the template to fit your needs, as well as giving you a base to build your own extensions to invoke via the `algokit generate` command.
+
+### Generate Smart Contract 
+
+By default the template creates a single `HelloWorld` contract under hello_world folder in the `smart_contracts` directory. To add a new contract:
+
+1. From the root of the project (`../`) execute `algokit generate smart-contract`. This will create a new starter smart contract and deployment configuration file under `{your_contract_name}` subfolder in the `smart_contracts` directory.
+2. Each contract potentially has different creation parameters and deployment steps. Hence, you need to define your deployment logic in `deploy-config.ts`file.
+3. `config.py` file will automatically build all contracts in the `smart_contracts` directory. If you want to build specific contracts manually, modify the default code provided by the template in `config.py` file.
+4. Since you are generating a TypeScript client, you also need to reference your contract deployment logic in `index.ts` file. However, similar to config.py, by default, `index.ts` will auto import all TypeScript deployment files under `smart_contracts` directory. If you want to manually import specific contracts, modify the default code provided by the template in `index.ts` file.
+
+> Please note, above is just a suggested convention tailored for the base configuration and structure of this template. The default code supplied by the template in `config.py` and `index.ts` (if using ts clients) files are tailored for the suggested convention. You are free to modify the structure and naming conventions as you see fit.
+
+### Generate '.env' files
+
+By default the template instance would not contain any env files. Using [`algokit project deploy`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/deploy.md) against `localnet` | `testnet` | `mainnet` will use default values for `algod` and `indexer` unless overwritten via `.env` or `.env.{target_network}`. 
+
+To generate a new `.env` or `.env.{target_network}` file, run `algokit generate env-file`
 
 # Tools
 
