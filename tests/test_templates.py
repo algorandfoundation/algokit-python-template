@@ -114,7 +114,7 @@ def run_init(
     if result.returncode:
         return result
     # if successful, normalize .copier-answers.yml to make observing diffs easier
-    copier_answers = Path(copy_to / ".copier-answers.yml")
+    copier_answers = Path(copy_to / ".algokit" / ".copier-answers.yml")
     content = copier_answers.read_text("utf-8")
     content = commit_pattern.sub("_commit: <commit>", content)
     content = src_path_pattern.sub("_src_path: <src>", content)
