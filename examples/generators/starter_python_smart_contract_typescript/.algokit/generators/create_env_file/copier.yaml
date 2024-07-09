@@ -1,12 +1,6 @@
 _tasks:
   - "echo '==== Successfully generated new .env file 🚀 ===='"
 
-use_generic_env:
-  type: bool
-  help: Create generic empty .env file (true) or create a network specific .env.{network_name} file (false).
-  placeholder: "true"
-  default: "true"
-
 target_network:
   type: str
   help: Name of your target network.
