@@ -26,9 +26,8 @@ Ensure the following pre-requisites are installed and properly configured:
 Run the following commands within the project folder:
 
 - **Install Poetry**: Required for Python dependency management. [Installation Guide](https://python-poetry.org/docs/#installation). Verify with `poetry -V` to see version `1.2`+.
-- **Setup Project**: Execute `algokit project bootstrap all` to:
-  - Install dependencies and setup a Python virtual environment in `.venv`.
-  - Configure '.env' files if needed (see [AlgoKit Generators](#algokit-generators)).
+- **Setup Project**: Execute `algokit project bootstrap all` to install dependencies and setup a Python virtual environment in `.venv`.
+- **Configure environment**: Execute `algokit generate env-file -a target_network localnet` to create a `.env.localnet` file with default configuration for `localnet`.
 - **Start LocalNet**: Use `algokit localnet start` to initiate a local Algorand network.
 
 ### Development Workflow
@@ -75,7 +74,7 @@ By default the template creates a single `HelloWorld` contract under hello_world
 
 ### Generate '.env' files
 
-By default the template instance would not contain any env files. Using [`algokit project deploy`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/deploy.md) against `localnet` | `testnet` | `mainnet` will use default values for `algod` and `indexer` unless overwritten via `.env` or `.env.{target_network}`. 
+By default the template instance does not contain any env files. Using [`algokit project deploy`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/deploy.md) against `localnet` | `testnet` | `mainnet` will use default values for `algod` and `indexer` unless overwritten via `.env` or `.env.{target_network}`. 
 
 To generate a new `.env` or `.env.{target_network}` file, run `algokit generate env-file`
 
