@@ -14,7 +14,7 @@ def deploy(
     app_spec: algokit_utils.ApplicationSpecification,
     deployer: algokit_utils.Account,
 ) -> None:
-    from smart_contracts.artifacts.hello_world.client import (
+    from smart_contracts.artifacts.hello_world.hello_world_client import (
         HelloWorldClient,
     )
 

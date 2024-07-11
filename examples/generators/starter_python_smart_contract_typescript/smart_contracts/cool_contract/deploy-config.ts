@@ -1,5 +1,5 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { CoolContractClient } from '../artifacts/cool_contract/client'
+import { CoolContractClient } from '../artifacts/cool_contract/CoolContractClient'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {

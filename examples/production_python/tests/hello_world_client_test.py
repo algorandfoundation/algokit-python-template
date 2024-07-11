@@ -5,7 +5,7 @@ from algokit_utils.config import config
 from algosdk.v2client.algod import AlgodClient
 from algosdk.v2client.indexer import IndexerClient
 
-from smart_contracts.artifacts.hello_world.client import HelloWorldClient
+from smart_contracts.artifacts.hello_world.hello_world_client import HelloWorldClient
 
 
 @pytest.fixture(scope="session")
