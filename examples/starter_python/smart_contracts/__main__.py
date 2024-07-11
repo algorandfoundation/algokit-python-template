@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from smart_contracts.config import contracts
 from smart_contracts.helpers.build import build
 from smart_contracts.helpers.deploy import deploy
-from smart_contracts.helpers.util import find_app_spec_file
+from smart_contracts.helpers.util import find_app_spec_file, find_pyproject_version
 
 # Uncomment the following lines to enable auto generation of AVM Debugger compliant sourcemap and simulation trace file.
 # Learn more about using AlgoKit AVM Debugger to debug your TEAL source codes and inspect various kinds of
@@ -27,6 +27,7 @@ root_path = Path(__file__).parent
 
 def main(action: str) -> None:
     artifact_path = root_path / "artifacts"
+    pyproject_version = find_pyproject_version(root_path.parent / "pyproject.toml")
     match action:
         case "build":
             for contract in contracts:
@@ -41,14 +42,14 @@ def main(action: str) -> None:
                     raise Exception("Could not deploy app, .arc32.json file not found")
                 app_spec_path = output_dir / app_spec_file_name
                 if contract.deploy:
-                    deploy(app_spec_path, contract.deploy)
+                    deploy(app_spec_path, contract.deploy, pyproject_version)
         case "all":
             for contract in contracts:
                 logger.info(f"Building app at {contract.path}")
                 app_spec_path = build(artifact_path / contract.name, contract.path)
                 logger.info(f"Deploying {contract.path.name}")
                 if contract.deploy:
-                    deploy(app_spec_path, contract.deploy)
+                    deploy(app_spec_path, contract.deploy, pyproject_version)
 
 
 if __name__ == "__main__":
