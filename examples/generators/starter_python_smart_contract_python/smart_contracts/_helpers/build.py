@@ -3,8 +3,6 @@ import subprocess
 from pathlib import Path
 from shutil import rmtree
 
-from smart_contracts.helpers.util import find_app_spec_files
-
 logger = logging.getLogger(__name__)
 deployment_extension = "py"
 
@@ -41,7 +39,7 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     if build_result.returncode:
         raise Exception(f"Could not build contract:\n{build_result.stdout}")
 
-    app_spec_file_names = find_app_spec_files(output_dir)
+    app_spec_file_names = [file.name for file in output_dir.glob("*.arc32.json")]
 
     for app_spec_file_name in app_spec_file_names:
         if app_spec_file_name is None:
@@ -73,4 +71,4 @@ def build(output_dir: Path, contract_path: Path) -> Path:
                     f"Could not generate typed client:\n{generate_result.stdout}"
                 )
 
-    return output_dir
+    return output_dir / app_spec_file_name
