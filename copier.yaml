@@ -62,7 +62,7 @@ code_tours:
   type: bool
   help: Do you want to add interactive VSCode CodeTour walkthrough?
   when: "{{ preset_name == 'custom' }}"
-  default: "{{ 'yes' if ide_vscode == yes else 'no' }}"
+  default: yes
 
 ide_jetbrains:
   type: bool
