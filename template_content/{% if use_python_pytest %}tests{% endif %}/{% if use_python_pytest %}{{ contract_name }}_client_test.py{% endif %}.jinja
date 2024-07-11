@@ -5,7 +5,7 @@ from algokit_utils.config import config
 from algosdk.v2client.algod import AlgodClient
 from algosdk.v2client.indexer import IndexerClient
 
-from smart_contracts.artifacts.{{ contract_name }}.client import {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client
+from smart_contracts.artifacts.{{ contract_name }}.{{ contract_name }}_client import {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client
 
 
 @pytest.fixture(scope="session")

@@ -1,5 +1,5 @@
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing'
-import { HelloWorldClient } from '../smart_contracts/artifacts/hello_world/client'
+import { HelloWorldClient } from '../smart_contracts/artifacts/hello_world/HelloWorldClient'
 import { Account, Algodv2, Indexer } from 'algosdk'
 import * as algokit from '@algorandfoundation/algokit-utils'
 

@@ -3,10 +3,18 @@ import subprocess
 from pathlib import Path
 from shutil import rmtree
 
-from smart_contracts.helpers.util import find_app_spec_file
+from smart_contracts.helpers.util import find_app_spec_files
 
 logger = logging.getLogger(__name__)
 deployment_extension = "py"
+
+
+def _get_output_path(output_dir: Path, deployment_extension: str) -> Path:
+    return output_dir / Path(
+        "{contract_name}"
+        + ("_client" if deployment_extension == "py" else "Client")
+        + f".{deployment_extension}"
+    )
 
 
 def build(output_dir: Path, contract_path: Path) -> Path:
@@ -33,31 +41,36 @@ def build(output_dir: Path, contract_path: Path) -> Path:
     if build_result.returncode:
         raise Exception(f"Could not build contract:\n{build_result.stdout}")
 
-    app_spec_file_name = find_app_spec_file(output_dir)
-    if app_spec_file_name is None:
-        raise Exception("Could not generate typed client, .arc32.json file not found")
+    app_spec_file_names = find_app_spec_files(output_dir)
 
-    generate_result = subprocess.run(
-        [
-            "algokit",
-            "generate",
-            "client",
-            output_dir / app_spec_file_name,
-            "--output",
-            output_dir / f"client.{deployment_extension}",
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-    )
-    if generate_result.returncode:
-        if "No such command" in generate_result.stdout:
+    for app_spec_file_name in app_spec_file_names:
+        if app_spec_file_name is None:
             raise Exception(
-                "Could not generate typed client, requires AlgoKit 2.0.0 or "
-                "later. Please update AlgoKit"
+                "Could not generate typed client, .arc32.json file not found"
             )
-        else:
-            raise Exception(
-                f"Could not generate typed client:\n{generate_result.stdout}"
-            )
-    return output_dir / app_spec_file_name
+        print(app_spec_file_name)
+        generate_result = subprocess.run(
+            [
+                "algokit",
+                "generate",
+                "client",
+                output_dir,
+                "--output",
+                _get_output_path(output_dir, deployment_extension),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        if generate_result.returncode:
+            if "No such command" in generate_result.stdout:
+                raise Exception(
+                    "Could not generate typed client, requires AlgoKit 2.0.0 or "
+                    "later. Please update AlgoKit"
+                )
+            else:
+                raise Exception(
+                    f"Could not generate typed client:\n{generate_result.stdout}"
+                )
+
+    return output_dir

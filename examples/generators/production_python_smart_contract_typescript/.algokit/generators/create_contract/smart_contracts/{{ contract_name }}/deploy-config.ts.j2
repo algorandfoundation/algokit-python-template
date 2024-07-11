@@ -1,5 +1,5 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { {{ contract_name.split('_')|map('capitalize')|join }}Client } from '../artifacts/{{ contract_name }}/client'
+import { {{ contract_name.split('_')|map('capitalize')|join }}Client } from '../artifacts/{{ contract_name }}/{{ contract_name.split('_')|map('capitalize')|join }}Client'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {

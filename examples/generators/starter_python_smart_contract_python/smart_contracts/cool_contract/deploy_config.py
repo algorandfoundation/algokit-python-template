@@ -14,7 +14,7 @@ def deploy(
     app_spec: algokit_utils.ApplicationSpecification,
     deployer: algokit_utils.Account,
 ) -> None:
-    from smart_contracts.artifacts.cool_contract.client import (
+    from smart_contracts.artifacts.cool_contract.cool_contract_client import (
         CoolContractClient,
     )
 

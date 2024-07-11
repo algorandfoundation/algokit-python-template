@@ -1,5 +1,5 @@
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing'
-import { {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client } from '../smart_contracts/artifacts/{{ contract_name }}/client'
+import { {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client } from '../smart_contracts/artifacts/{{ contract_name }}/{{ contract_name.split('_')|map('capitalize')|join  }}Client'
 import { Account, Algodv2, Indexer } from 'algosdk'
 import * as algokit from '@algorandfoundation/algokit-utils'
 
