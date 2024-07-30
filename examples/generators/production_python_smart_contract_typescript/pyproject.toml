@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.12"
 algokit-utils = "^2.3.0"
 python-dotenv = "^1.0.0"
-algorand-python = "^1.0.0"
+algorand-python = "1.2.1"
 algorand-python-testing = "^0.2.1"
 
 [tool.poetry.group.dev.dependencies]
@@ -18,7 +18,7 @@ ruff = "^0.1.6"
 mypy = "*"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "*"
+puyapy = "2.1.2"
 
 [build-system]
 requires = ["poetry-core"]
