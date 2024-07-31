@@ -21,7 +21,7 @@ pytest = "*"
 pytest-cov = "*"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "2.1.2"
+puyapy = "*"
 
 [build-system]
 requires = ["poetry-core"]

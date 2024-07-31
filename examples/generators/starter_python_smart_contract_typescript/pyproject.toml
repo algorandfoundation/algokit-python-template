@@ -13,7 +13,7 @@ algorand-python = "^1.0.0"
 algorand-python-testing = "^0.2.1"
 
 [tool.poetry.group.dev.dependencies]
-puyapy = "2.1.2"
+puyapy = "*"
 
 [build-system]
 requires = ["poetry-core"]
