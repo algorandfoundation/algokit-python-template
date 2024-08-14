@@ -15,7 +15,7 @@ def context() -> Generator[AlgopyTestContext, None, None]:
 
 def test_hello(context: AlgopyTestContext) -> None:
     # Arrange
-    dummy_input = context.any_string()
+    dummy_input = context.any.string(length=10)
     contract = {{ contract_name.split('_')|map('capitalize')|join }}()
 
     # Act
