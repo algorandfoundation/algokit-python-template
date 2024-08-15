@@ -22,6 +22,7 @@ config_path = Path(__file__).parent.parent / "pyproject.toml"
 BUILD_ARGS = ["algokit", "project", "run", "build"]
 TEST_ARGS = ["algokit", "project", "run", "test"]
 LINT_ARGS = ["algokit", "project", "run", "lint"]
+DEPLOY_ARGS = ["algokit", "project", "deploy", "localnet"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -127,7 +128,7 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":
-        check_args += [LINT_ARGS, TEST_ARGS]
+        check_args += [LINT_ARGS, TEST_ARGS, DEPLOY_ARGS]
 
     for check_arg in check_args:
         result = subprocess.run(

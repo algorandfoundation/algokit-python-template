@@ -5,43 +5,26 @@ import { HelloWorldClient } from '../artifacts/hello_world/HelloWorldClient'
 export async function deploy() {
   console.log('=== Deploying HelloWorld ===')
 
-  const algod = algokit.getAlgoClient()
-  const indexer = algokit.getAlgoIndexerClient()
-  const deployer = await algokit.mnemonicAccountFromEnvironment({ name: 'DEPLOYER', fundWith: algokit.algos(3) }, algod)
-  await algokit.ensureFunded(
-    {
-      accountToFund: deployer,
-      minSpendingBalance: algokit.algos(2),
-      minFundingIncrement: algokit.algos(2),
-    },
-    algod,
-  )
-  const appClient = new HelloWorldClient(
-    {
-      resolveBy: 'creatorAndName',
-      findExistingUsing: indexer,
-      sender: deployer,
-      creatorAddress: deployer.addr,
-    },
-    algod,
-  )
+  const algorand = algokit.AlgorandClient.fromEnvironment()
+  const deployer = await algorand.account.fromEnvironment('DEPLOYER')
+
+  const appClient = algorand.client.getTypedAppClientByCreatorAndName(HelloWorldClient, {
+    sender: deployer,
+    creatorAddress: deployer.addr,
+  })
 
   const app = await appClient.deploy({
     onSchemaBreak: 'append',
     onUpdate: 'append',
   })
 
-
   // If app was just created fund the app account
   if (['create', 'replace'].includes(app.operationPerformed)) {
-    algokit.transferAlgos(
-      {
-        amount: algokit.algos(1),
-        from: deployer,
-        to: app.appAddress,
-      },
-      algod,
-    )
+    await algorand.send.payment({
+      amount: algokit.algos(1),
+      sender: deployer.addr,
+      receiver: app.appAddress,
+    })
   }
 
   const method = 'hello'
