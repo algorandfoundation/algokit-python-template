@@ -17,8 +17,6 @@ To use it [install AlgoKit](https://github.com/algorandfoundation/algokit-cli#re
 
 This is one of the official templates used by AlgoKit to initialize an Algorand smart contract project. It's a [Copier template](https://copier.readthedocs.io/en/stable/).
 
-> Please note `Puya` smart contract development language is currently in alpha / developer preview. It is not recommended for production usage yet.
-
 ## Features
 
 This template supports the following features:
