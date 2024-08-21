@@ -122,8 +122,10 @@ For pull requests and pushes to `main` branch against this repository the follow
  - Types are checked using [mypy](https://mypy-lang.org/)
  - Typescript `ApplicationClient` tests against `algokit localnet` are executed using [jest](https://jestjs.io/)
  - Smart contract artifacts are built
- - Smart contract artifacts are checked for [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md)
+ - Smart contract artifacts are checked for [output stability](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/articles/output_stability.md).
  - Smart contract is deployed to a AlgoKit LocalNet instance
+
+> NOTE: By default smart contract artifacts are compiled with `--debug-level` set to 0, to change this, modify the compiler invocation under `smart_contracts/_helpers/build.py`
 
 #### Continuous Deployment
 
