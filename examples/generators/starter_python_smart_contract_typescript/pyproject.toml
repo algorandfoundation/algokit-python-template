@@ -10,7 +10,7 @@ python = "^3.12"
 algokit-utils = "^2.3.0"
 python-dotenv = "^1.0.0"
 algorand-python = "^2.0.0"
-algorand-python-testing = "^0.3.0b1"
+algorand-python-testing = "^0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 puyapy = "*"

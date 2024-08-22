@@ -55,8 +55,8 @@ def main(action: str) -> None:
             for contract in contracts:
                 logger.info(f"Building app at {contract.path}")
                 app_spec_path = build(artifact_path / contract.name, contract.path)
-                logger.info(f"Deploying {contract.path.name}")
                 if contract.deploy:
+                    logger.info(f"Deploying {contract.path.name}")
                     deploy(app_spec_path, contract.deploy)
         {%- endif %}
 
