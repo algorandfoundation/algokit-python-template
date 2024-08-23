@@ -18,17 +18,25 @@ load_dotenv()
 root_path = Path(__file__).parent
 
 
-def main(action: str) -> None:
+def main(action: str, contract_name: str | None = None) -> None:
     artifact_path = root_path / "artifacts"
+
+    # Filter contracts if a specific contract name is provided
+    filtered_contracts = [
+        c for c in contracts if contract_name is None or c.name == contract_name
+    ]
+
     match action:
         case "build":
-            for contract in contracts:
+            for contract in filtered_contracts:
                 logger.info(f"Building app at {contract.path}")
                 build(artifact_path / contract.name, contract.path)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        main(sys.argv[1], sys.argv[2])
+    elif len(sys.argv) > 1:
         main(sys.argv[1])
     else:
         main("build")
