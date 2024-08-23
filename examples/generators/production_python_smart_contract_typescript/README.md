@@ -35,8 +35,10 @@ Run the following commands within the project folder:
 #### Terminal
 Directly manage and interact with your project using AlgoKit commands:
 
-1. **Build Contracts**: `algokit project run build` compiles all smart contracts.
-2. **Deploy**: Use `algokit project deploy localnet` to deploy contracts to the local network.
+1. **Build Contracts**: `algokit project run build` compiles all smart contracts. You can also specify a specific contract by passing the name of the contract folder as an extra argument.
+For example: `algokit project run build -- hello_world` will only build the `hello_world` contract.
+2. **Deploy**: Use `algokit project deploy localnet` to deploy contracts to the local network. You can also specify a specific contract by passing the name of the contract folder as an extra argument.
+For example: `algokit project deploy localnet -- hello_world` will only deploy the `hello_world` contract.
 
 #### VS Code 
 For a seamless experience with breakpoint debugging and other features:

@@ -20,28 +20,41 @@ async function importDeployerIfExists(dir: string) {
   const deployerPath = path.resolve(dir, 'deploy-config')
   if (fs.existsSync(deployerPath + '.ts') || fs.existsSync(deployerPath + '.js')) {
     const deployer = await import(deployerPath)
-    return deployer.deploy
+    return { ...deployer, name: path.basename(dir) }
   }
+  return null
 }
 
 // get a list of all deployers from the subdirectories
 async function getDeployers() {
-  const directories = fs.readdirSync(baseDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => path.resolve(baseDir, dirent.name))
+  const directories = fs
+    .readdirSync(baseDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => path.resolve(baseDir, dirent.name))
 
-  return Promise.all(directories.map(importDeployerIfExists))
+  const deployers = await Promise.all(directories.map(importDeployerIfExists))
+  return deployers.filter((deployer) => deployer !== null) // Filter out null values
 }
 
 // execute all the deployers
 (async () => {
-  const contractDeployers = (await getDeployers()).filter(Boolean)
+  const contractName = process.argv.length > 2 ? process.argv[2] : undefined
+  const contractDeployers = await getDeployers()
+  
+  const filteredDeployers = contractName
+    ? contractDeployers.filter(deployer => deployer.name === contractName)
+    : contractDeployers
 
-  for (const deployer of contractDeployers) {
+  if (contractName && filteredDeployers.length === 0) {
+    console.warn(`No deployer found for contract name: ${contractName}`)
+    return
+  }
+
+  for (const deployer of filteredDeployers) {
     try {
-      await deployer()
+      await deployer.deploy()
     } catch (e) {
-      console.error(e)
+      console.error(`Error deploying ${deployer.name}:`, e)
     }
   }
 })()
