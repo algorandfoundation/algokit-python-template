@@ -14,7 +14,7 @@ jobs:
         run: pipx install poetry
 
       - name: Install algokit
-        run: pipx install https://github.com/algorandfoundation/algokit-cli/releases/download/v2.3.0-beta.1/algokit-2.3.0b1-py3-none-any.whl
+        run: pipx install algokit
 
       - name: Run algokit localnet
         run: algokit localnet start
