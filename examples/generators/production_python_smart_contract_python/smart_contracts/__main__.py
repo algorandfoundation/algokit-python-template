@@ -39,7 +39,6 @@ def main(action: str, contract_name: str | None = None) -> None:
                 build(artifact_path / contract.name, contract.path)
         case "deploy":
             for contract in filtered_contracts:
-                logger.info(f"Deploying app {contract.name}")
                 output_dir = artifact_path / contract.name
                 app_spec_file_name = next(
                     (
@@ -53,6 +52,7 @@ def main(action: str, contract_name: str | None = None) -> None:
                     raise Exception("Could not deploy app, .arc32.json file not found")
                 app_spec_path = output_dir / app_spec_file_name
                 if contract.deploy:
+                    logger.info(f"Deploying app {contract.name}")
                     deploy(app_spec_path, contract.deploy)
         case "all":
             for contract in filtered_contracts:
