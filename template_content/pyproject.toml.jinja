@@ -38,7 +38,7 @@ pip-audit = "*"
 {% if use_pre_commit -%}
 pre-commit = "*"
 {% endif -%}
-puyapy = "*"
+puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "puya-debug-info" }
 
 [build-system]
 requires = ["poetry-core"]

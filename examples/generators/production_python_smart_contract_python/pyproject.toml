@@ -22,7 +22,7 @@ pytest = "*"
 pytest-cov = "*"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "*"
+puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "puya-debug-info" }
 
 [build-system]
 requires = ["poetry-core"]

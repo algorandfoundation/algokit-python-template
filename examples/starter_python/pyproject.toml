@@ -15,7 +15,7 @@ algorand-python-testing = "^0.4.0"
 
 [tool.poetry.group.dev.dependencies]
 algokit-client-generator = "^1.1.3"
-puyapy = "*"
+puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "puya-debug-info" }
 
 [build-system]
 requires = ["poetry-core"]
