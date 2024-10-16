@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { consoleLogger } from '@algorandfoundation/algokit-utils/types/logging'
 import * as algokit from '@algorandfoundation/algokit-utils'
+// import { registerDebugEventHandlers } from '@algorandfoundation/algokit-utils-debug' // Uncomment to enable persisting artifacts required by AlgoKit AVM Debugger
 
 // Uncomment the debug and traceAll options to enable auto generation of AVM Debugger compliant sourceMap and simulation trace file.
 // Learn more about using AlgoKit AVM Debugger to debug your TEAL source codes and inspect various kinds of Algorand transactions in atomic groups -> https://github.com/algorandfoundation/algokit-avm-vscode-Debugger
@@ -11,6 +12,7 @@ algokit.Config.configure({
   //  debug: true,
   //  traceAll: true,
 })
+// registerDebugEventHandlers() // Uncomment to enable persisting artifacts required by AlgoKit AVM Debugger
 
 // base directory
 const baseDir = path.resolve(__dirname)

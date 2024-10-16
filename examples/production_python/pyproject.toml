@@ -63,3 +63,9 @@ disallow_any_unimported = true
 disallow_any_expr = true
 disallow_any_decorated = true
 disallow_any_explicit = true
+exclude = ["^smart_contracts/artifacts/.*$"]
+
+[[tool.mypy.overrides]]
+module = "smart_contracts.artifacts.*"
+ignore_missing_imports = true
+follow_imports = "silent"
