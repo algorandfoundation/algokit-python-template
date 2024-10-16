@@ -26,7 +26,7 @@ ruff = "^0.1.6"
 flake8 = "*"
 {% endif -%}
 {% if use_python_mypy -%}
-mypy = "*"
+mypy = "1.11.0"
 {% endif -%}
 {% if use_python_pytest -%}
 pytest = "*"
@@ -77,15 +77,9 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_return_any = true
 strict_equality = true
-strict_concatenate = true
+extra_checks = true
 disallow_any_unimported = true
 disallow_any_expr = true
 disallow_any_decorated = true
 disallow_any_explicit = true
-exclude = ["^smart_contracts/artifacts/.*$"]
-
-[[tool.mypy.overrides]]
-module = "smart_contracts.artifacts.*"
-ignore_missing_imports = true
-follow_imports = "silent"
 {% endif -%}
