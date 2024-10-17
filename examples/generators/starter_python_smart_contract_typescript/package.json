@@ -13,8 +13,8 @@
     "npm": ">=9.0"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "7.0.0-beta.14",
-    "@algorandfoundation/algokit-utils-debug": "v1.0.2-beta.2",
+    "@algorandfoundation/algokit-utils": "7.0.0-beta.15",
+    "@algorandfoundation/algokit-utils-debug": "v1.0.2-beta.3",
     "algosdk": "^2.7.0"
   },
   "devDependencies": {
