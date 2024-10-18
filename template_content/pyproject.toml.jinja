@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "Algorand smart contracts"
 authors = ["{{ author_name }} <{{ author_email }}>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -26,7 +25,7 @@ ruff = "^0.1.6"
 flake8 = "*"
 {% endif -%}
 {% if use_python_mypy -%}
-mypy = "*"
+mypy = "1.11.0"
 {% endif -%}
 {% if use_python_pytest -%}
 pytest = "*"
