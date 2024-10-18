@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "Algorand smart contracts"
 authors = ["None <None>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -16,7 +15,7 @@ algorand-python-testing = "^0.4.0"
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["d"], version = "*"}
 ruff = "^0.1.6"
-mypy = "*"
+mypy = "1.11.0"
 pip-audit = "*"
 pre-commit = "*"
 puyapy = "*"
