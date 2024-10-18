@@ -56,8 +56,12 @@ jobs:
       - name: Scan TEAL files for issues
         run: algokit project run audit-teal --project-name '{{ project_name }}'
 
-      - name: Check output stability of the smart contracts
-        run: algokit project run ci-teal-diff --project-name '{{ project_name }}'
+      # # Uncomment to enable TEAL static analysis with snapshoting using Tealer package
+      # # Would first require running locally using audit-teal command and committing the snapshots into source control
+      # # Please note, tealer has a known bug that may result in large snapshot file sizes, track resolution here:
+      # # https://github.com/crytic/tealer/issues/101
+      # - name: Check output stability of the smart contracts
+      #   run: algokit project run ci-teal-diff --project-name '{{ project_name }}'
 
       - name: Run deployer against LocalNet
         run: algokit project deploy localnet --project-name '{{ project_name }}'
