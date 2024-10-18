@@ -31,7 +31,6 @@ def build(output_dir: Path, contract_path: Path) -> Path:
             contract_path.absolute(),
             f"--out-dir={output_dir}",
             "--output-arc32",
-            "--debug-level=0",
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
