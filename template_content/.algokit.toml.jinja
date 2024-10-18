@@ -46,8 +46,7 @@ test = { commands = [
 {%- endif %}
 {%- if use_python_pip_audit %}
 audit = { commands = [
-  'poetry export --without=dev -o requirements.txt',
-  'poetry run pip-audit -r requirements.txt',
+  'poetry run pip-audit',
 ], description = 'Audit with pip-audit' }
 {%- endif %}
 lint = { commands = [
