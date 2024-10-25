@@ -13,7 +13,7 @@ algorand-python = "^2.0.0"
 algorand-python-testing = "^0.4.0"
 
 [tool.poetry.group.dev.dependencies]
-puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "puya-debug-info" }
+puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "main" }
 
 [build-system]
 requires = ["poetry-core"]
