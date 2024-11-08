@@ -14,12 +14,12 @@
     "npm": ">=9.0"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "7.0.0-beta.15",
-    "@algorandfoundation/algokit-utils-debug": "v1.0.2-beta.3",
+    "@algorandfoundation/algokit-utils": "7.0.0-beta.22",
+    "@algorandfoundation/algokit-utils-debug": "v1.0.2-beta.5",
     "algosdk": "^2.7.0"
   },
   "devDependencies": {
-    "@algorandfoundation/algokit-client-generator": "v4.0.0-beta.5",
+    "@algorandfoundation/algokit-client-generator": "v4.0.0-beta.8",
     "@types/jest": "^29.5.11",
     "dotenv": "^16.0.3",
     "prettier": "^2.8.4",
