@@ -1,5 +1,5 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { CoolContractClient } from '../artifacts/cool_contract/CoolContractClient'
+import { CoolContractFactory } from '../artifacts/cool_contract/CoolContractClient'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
@@ -7,27 +7,27 @@ export async function deploy() {
 
   const algorand = algokit.AlgorandClient.fromEnvironment()
   const deployer = await algorand.account.fromEnvironment('DEPLOYER')
-  
-  const appClient = algorand.client.getTypedAppClientByCreatorAndName(CoolContractClient, {
-    sender: deployer,
-    creatorAddress: deployer.addr,
+
+  const factory = algorand.client.getTypedAppFactory(CoolContractFactory, {
+    defaultSender: deployer.addr,
   })
 
-  const app = await appClient.deploy({
-    onSchemaBreak: 'append',
-    onUpdate: 'append',
-  })
+  const { appClient, result } = await factory.deploy({ onUpdate: 'append', onSchemaBreak: 'append' })
 
   // If app was just created fund the app account
-  if (['create', 'replace'].includes(app.operationPerformed)) {
+  if (['create', 'replace'].includes(result.operationPerformed)) {
     await algorand.send.payment({
-      amount: algokit.algos(1),
+      amount: (1).algo(),
       sender: deployer.addr,
       receiver: app.appAddress,
     })
   }
 
-  const method = 'hello'
-  const response = await appClient.hello({ name: 'world' })
-  console.log(`Called ${method} on ${app.name} (${app.appId}) with name = world, received: ${response.return}`)
+  const method = 'hello'  
+  const response = await appClient.send.hello({
+    args: { name: 'world' },
+  })
+  console.log(
+    `Called ${method} on ${appClient.appClient.appName} (${appClient.appClient.appId}) with name = world, received: ${response.return}`,
+  )
 }

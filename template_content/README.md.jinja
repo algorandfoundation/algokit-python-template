@@ -82,17 +82,6 @@ By default the template instance does not contain any env files. Using [`algokit
 
 To generate a new `.env` or `.env.{target_network}` file, run `algokit generate env-file`
 
-{%- if use_github_actions -%}
-### Continuous Integration / Continuous Deployment (CI/CD)
-
-This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`{% if use_workspace %}../../.github/workflows{% else %}.github/workflows{% endif %}`) folder.
-
-> Please note, if you instantiated the project with --workspace flag in `algokit init` it will automatically attempt to move the contents of the `.github` folder to the root of the workspace.
-
-### AlgoKit Workspaces
-
-To define custom `algokit project run` commands refer to [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md). This allows orchestration of commands spanning across multiple projects within an algokit workspace based project (monorepo).
-
 ### Debugging Smart Contracts
 
 This project is optimized to work with AlgoKit AVM Debugger extension. To activate it:
@@ -105,6 +94,17 @@ Refer to the commented header in the `index.ts` file in the `smart_contracts` fo
 If you have opted in to include VSCode launch configurations in your project, you can also use the `Debug TEAL via AlgoKit AVM Debugger` launch configuration to interactively select an available trace file and launch the debug session for your smart contract.
 
 For information on using and setting up the `AlgoKit AVM Debugger` VSCode extension refer [here](https://github.com/algorandfoundation/algokit-avm-vscode-debugger). To install the extension from the VSCode Marketplace, use the following link: [AlgoKit AVM Debugger extension](https://marketplace.visualstudio.com/items?itemName=algorandfoundation.algokit-avm-vscode-debugger).
+
+{%- if use_github_actions -%}
+### Continuous Integration / Continuous Deployment (CI/CD)
+
+This project uses [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) to define CI/CD workflows, which are located in the [.github/workflows](`{% if use_workspace %}../../.github/workflows{% else %}.github/workflows{% endif %}`) folder.
+
+> Please note, if you instantiated the project with --workspace flag in `algokit init` it will automatically attempt to move the contents of the `.github` folder to the root of the workspace.
+
+### AlgoKit Workspaces
+
+To define custom `algokit project run` commands refer to [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md). This allows orchestration of commands spanning across multiple projects within an algokit workspace based project (monorepo).
 
 #### Setting up GitHub for CI/CD workflow and TestNet deployment
 

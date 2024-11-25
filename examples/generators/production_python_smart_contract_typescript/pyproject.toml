@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-algokit-utils = "^2.3.0"
+algokit-utils = { git = "https://github.com/algorandfoundation/algokit-utils-py.git", branch = "feat/puya-debugging" }
 python-dotenv = "^1.0.0"
 algorand-python = "^2.0.0"
 algorand-python-testing = "^0.4.0"
@@ -18,7 +18,7 @@ ruff = "^0.1.6"
 mypy = "1.11.0"
 pip-audit = "*"
 pre-commit = "*"
-puyapy = "*"
+puyapy = { git = "https://github.com/algorandfoundation/puya.git", branch = "main" }
 
 [build-system]
 requires = ["poetry-core"]
@@ -51,7 +51,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_return_any = true
 strict_equality = true
-strict_concatenate = true
+extra_checks = true
 disallow_any_unimported = true
 disallow_any_expr = true
 disallow_any_decorated = true

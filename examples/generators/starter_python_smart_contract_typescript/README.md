@@ -80,6 +80,15 @@ By default the template instance does not contain any env files. Using [`algokit
 
 To generate a new `.env` or `.env.{target_network}` file, run `algokit generate env-file`
 
+### Debugging Smart Contracts
+
+This project is optimized to work with AlgoKit AVM Debugger extension. To activate it:
+Refer to the commented header in the `index.ts` file in the `smart_contracts` folder.
+
+If you have opted in to include VSCode launch configurations in your project, you can also use the `Debug TEAL via AlgoKit AVM Debugger` launch configuration to interactively select an available trace file and launch the debug session for your smart contract.
+
+For information on using and setting up the `AlgoKit AVM Debugger` VSCode extension refer [here](https://github.com/algorandfoundation/algokit-avm-vscode-debugger). To install the extension from the VSCode Marketplace, use the following link: [AlgoKit AVM Debugger extension](https://marketplace.visualstudio.com/items?itemName=algorandfoundation.algokit-avm-vscode-debugger).
+
 # Tools
 
 This project makes use of Algorand Python to build Algorand smart contracts. The following tools are in use:
