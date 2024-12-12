@@ -75,6 +75,27 @@
       "problemMatcher": []
     },
     {
+      "label": "Run template using algokit (template prompts, --no-workspace)",
+      "command": "algokit",
+      "args": [
+        "-v",
+        "init",
+        "--name",
+        "playground",
+        "--no-git",
+        "--UNSAFE-SECURITY-accept-template-url",
+        "--template-url",
+        "${workspaceFolder}",
+        "--template-url-ref",
+        "HEAD",
+        "--no-bootstrap",
+      "--no-workspace"
+      ],
+      "type": "shell",
+      "dependsOn": ["Cleanup playground folder"],
+      "problemMatcher": []
+    },
+    {
       "label": "Cleanup playground folder",
       "command": "rm",
       "args": ["-rf", "playground"],

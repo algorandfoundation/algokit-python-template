@@ -36,7 +36,7 @@ jobs:
         run: pipx install algokit
 
       - name: Bootstrap dependencies
-        run: algokit project bootstrap all --project-name '{{ project_name }}'
+        run: algokit project bootstrap all {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Configure git
         shell: bash
@@ -45,7 +45,7 @@ jobs:
           git config --global user.email "actions@github.com" && git config --global user.name "github-actions"
 
       - name: Deploy to testnet
-        run: algokit deploy testnet --project-name '{{ project_name }}'
+        run: algokit project deploy testnet {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
         env:
 {%- if use_dispenser %}
           # This is the account that becomes the creator of the contract

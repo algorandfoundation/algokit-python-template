@@ -30,7 +30,7 @@ jobs:
         run: algokit localnet start
 
       - name: Bootstrap dependencies
-        run: algokit project bootstrap all --project-name '{{ project_name }}'
+        run: algokit project bootstrap all {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Configure git
         shell: bash
@@ -39,29 +39,29 @@ jobs:
           git config --global user.email "actions@github.com" && git config --global user.name "github-actions"
 
       - name: Audit python dependencies
-        run: algokit project run audit --project-name '{{ project_name }}'
+        run: algokit project run audit {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Lint and format python dependencies
-        run: algokit project run lint --project-name '{{ project_name }}'
+        run: algokit project run lint {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Run tests
         shell: bash
         run: |
           set -o pipefail
-          algokit project run test --project-name '{{ project_name }}'
+          algokit project run test {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Build smart contracts
-        run: algokit project run build --project-name '{{ project_name }}'
+        run: algokit project run build {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Scan TEAL files for issues
-        run: algokit project run audit-teal --project-name '{{ project_name }}'
+        run: algokit project run audit-teal {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       # # Uncomment to enable TEAL static analysis with snapshoting using Tealer package
       # # Would first require running locally using audit-teal command and committing the snapshots into source control
       # # Please note, tealer has a known bug that may result in large snapshot file sizes, track resolution here:
       # # https://github.com/crytic/tealer/issues/101
       # - name: Check output stability of the smart contracts
-      #   run: algokit project run ci-teal-diff --project-name '{{ project_name }}'
+      #   run: algokit project run ci-teal-diff {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
 
       - name: Run deployer against LocalNet
-        run: algokit project deploy localnet --project-name '{{ project_name }}'
+        run: algokit project deploy localnet {% if use_workspace %}--project-name '{{ project_name }}'{% endif %}
