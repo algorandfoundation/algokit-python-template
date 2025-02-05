@@ -1,11 +1,11 @@
-import * as algokit from '@algorandfoundation/algokit-utils'
+import { AlgorandClient } from '@algorandfoundation/algokit-utils'
 import { CoolContractFactory } from '../artifacts/cool_contract/CoolContractClient'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
   console.log('=== Deploying CoolContract ===')
 
-  const algorand = algokit.AlgorandClient.fromEnvironment()
+  const algorand = AlgorandClient.fromEnvironment()
   const deployer = await algorand.account.fromEnvironment('DEPLOYER')
 
   const factory = algorand.client.getTypedAppFactory(CoolContractFactory, {

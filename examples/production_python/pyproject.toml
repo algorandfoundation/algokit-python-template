@@ -7,13 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-algokit-utils = "^3.0.0b4"
+algokit-utils = "^3.0.0b5"
 python-dotenv = "^1.0.0"
 algorand-python = "^2.0.0"
 algorand-python-testing = "^0.4.0"
 
 [tool.poetry.group.dev.dependencies]
-algokit-client-generator = "^2.0.0b3"
+algokit-client-generator = "^2.0.0b4"
 black = {extras = ["d"], version = "*"}
 ruff = "^0.9.4"
 mypy = "1.14.1"
@@ -30,10 +30,6 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 120
 lint.select = ["E", "F", "ANN", "UP", "N", "C4", "B", "A", "YTT", "W", "FBT", "Q", "RUF", "I"]
-ignore = [
-  "ANN101", # no type for self
-  "ANN102", # no type for cls
-]
 lint.unfixable = ["B", "RUF"]
 
 [tool.ruff.lint.flake8-annotations]

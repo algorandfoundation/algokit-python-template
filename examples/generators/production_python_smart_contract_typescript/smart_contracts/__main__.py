@@ -68,7 +68,7 @@ contracts: list[SmartContract] = [
 
 # -------------------------- Build Logic -------------------------- #
 
-deployment_extension = "py"
+deployment_extension = "ts"
 
 
 def _get_output_path(output_dir: Path, deployment_extension: str) -> Path:

@@ -7,8 +7,8 @@ from collections.abc import Callable
 from pathlib import Path
 from shutil import rmtree
 
-from dotenv import load_dotenv
 from algokit_utils.config import config
+from dotenv import load_dotenv
 
 # Set trace_all to True to capture all transactions, defaults to capturing traces only on failure
 # Learn more about using AlgoKit AVM Debugger to debug your TEAL source codes and inspect various kinds of

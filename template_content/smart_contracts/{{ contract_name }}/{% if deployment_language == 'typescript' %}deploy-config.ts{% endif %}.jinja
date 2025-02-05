@@ -1,11 +1,11 @@
-import * as algokit from '@algorandfoundation/algokit-utils'
+import { AlgorandClient } from '@algorandfoundation/algokit-utils'
 import { {{ contract_name.split('_')|map('capitalize')|join }}Factory } from '../artifacts/{{ contract_name }}/{{ contract_name.split('_')|map('capitalize')|join  }}Client'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
   console.log('=== Deploying {{ contract_name.split('_')|map('capitalize')|join }} ===')
 
-  const algorand = algokit.AlgorandClient.fromEnvironment()
+  const algorand = AlgorandClient.fromEnvironment()
   const deployer = await algorand.account.fromEnvironment('DEPLOYER')
 
   const factory = algorand.client.getTypedAppFactory({{ contract_name.split('_')|map('capitalize')|join }}Factory, {

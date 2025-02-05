@@ -1,11 +1,6 @@
 import pytest
-from algokit_utils import (
-    get_algod_client,
-    get_default_localnet_config,
-    get_indexer_client,
-)
-from algosdk.v2client.algod import AlgodClient
-from algosdk.v2client.indexer import IndexerClient
+from algokit_utils import AlgorandClient
+from algokit_utils.config import config
 
 # Uncomment if you want to load network specific or generic .env file
 # @pytest.fixture(autouse=True, scope="session")
@@ -13,14 +8,13 @@ from algosdk.v2client.indexer import IndexerClient
 #     env_path = Path(__file__).parent.parent / ".env"
 #     load_dotenv(env_path)
 
+config.configure(
+    debug=True,
+    # trace_all=True, # uncomment to trace all transactions
+)
+
 
 @pytest.fixture(scope="session")
-def algod_client() -> AlgodClient:
+def algorand_client() -> AlgorandClient:
     # by default we are using localnet algod
-    client = get_algod_client(get_default_localnet_config("algod"))
-    return client
-
-
-@pytest.fixture(scope="session")
-def indexer_client() -> IndexerClient:
-    return get_indexer_client(get_default_localnet_config("indexer"))
+    return AlgorandClient.from_environment()

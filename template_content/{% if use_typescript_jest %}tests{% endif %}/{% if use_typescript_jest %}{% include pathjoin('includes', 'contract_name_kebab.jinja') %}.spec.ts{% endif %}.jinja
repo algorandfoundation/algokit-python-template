@@ -1,18 +1,18 @@
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing'
 import { {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Factory } from '../smart_contracts/artifacts/{{ contract_name }}/{{ contract_name.split('_')|map('capitalize')|join  }}Client'
 import { Account, Algodv2, Indexer } from 'algosdk'
-import * as algokit from '@algorandfoundation/algokit-utils'
+import { Config } from '@algorandfoundation/algokit-utils'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
 
 describe('{{ contract_name.split('_')|join(' ') }} contract', () => {
   const localnet = algorandFixture()
   beforeAll(() => {
-    algokit.Config.configure({
+    Config.configure({
       debug: true,
       // traceAll: true,
     })
   })
-  beforeEach(localnet.beforeEach)
+  beforeEach(localnet.newScope)
 
   const deploy = async (account: Account & TransactionSignerAccount) => {
     const factory = localnet.algorand.client.getTypedAppFactory({% include pathjoin('includes', 'contract_name_pascal.jinja') %}Factory, {
