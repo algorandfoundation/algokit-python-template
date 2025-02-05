@@ -28,11 +28,6 @@ jobs:
       - name: Install dependencies
         run: poetry env use 3.12 && poetry install --no-interaction --no-root
 
-      - name: Check formatting with Black
-        run: |
-          # stop the build if there are files that don't meet formatting requirements
-          poetry run black --check .
-
       - name: Check linting with Ruff
         run: |
           # stop the build if there are Python syntax errors or undefined names

@@ -8,13 +8,11 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-algokit-utils = "^3.0.0b4"
+algokit-utils = "^3.0.0b5"
 python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.6"
-black = { extras = ["d"], version = "^22.10.0" }
-flake8 = "^6.0.0"
+ruff = "^0.9.4"
 pytest = "^8.3.2"
 mypy = "^1.1.1"
 pre-commit = "^3.2.1"
