@@ -2,12 +2,12 @@
 
 [[package]]
 name = "algokit-utils"
-version = "3.0.0b7"
+version = "3.0.0"
 description = "Utilities for Algorand development for use by AlgoKit"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "algokit_utils-3.0.0b7-py3-none-any.whl", hash = "sha256:f6b49cad1bc0aa92df228cbe46b88a69aa15c850abdf5d6a0dbec4ef42d5dda1"},
+    {file = "algokit_utils-3.0.0-py3-none-any.whl", hash = "sha256:f044a433ff9e102c92ddfb762e40996bbd14aa1634f269ae99b23575dba8bf16"},
 ]
 
 [package.dependencies]
@@ -833,4 +833,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "6248bfab84958376c94815afc42a58cbdddf15ac4e38fb45f8635a88b791aae4"
+content-hash = "0ae798dcc9e026609852316f56702c9a8f9f2ad40d8a02a39e32ee60fb37e621"
