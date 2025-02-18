@@ -1,18 +1,18 @@
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing'
 import { HelloWorldFactory } from '../smart_contracts/artifacts/hello_world/HelloWorldClient'
 import { Account, Algodv2, Indexer } from 'algosdk'
-import * as algokit from '@algorandfoundation/algokit-utils'
+import { Config } from '@algorandfoundation/algokit-utils'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
 
 describe('hello world contract', () => {
   const localnet = algorandFixture()
   beforeAll(() => {
-    algokit.Config.configure({
+    Config.configure({
       debug: true,
       // traceAll: true,
     })
   })
-  beforeEach(localnet.beforeEach)
+  beforeEach(localnet.newScope)
 
   const deploy = async (account: Account & TransactionSignerAccount) => {
     const factory = localnet.algorand.client.getTypedAppFactory(HelloWorldFactory, {

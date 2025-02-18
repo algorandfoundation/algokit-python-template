@@ -16,6 +16,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   
   // Python
+  "python.analysis.autoImportCompletions": true,
   "python.analysis.extraPaths": ["${workspaceFolder}/smart_contracts"],
   "python.analysis.diagnosticSeverityOverrides": {
     "reportMissingModuleSource": "none"

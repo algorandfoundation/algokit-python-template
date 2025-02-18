@@ -47,7 +47,7 @@ test = { commands = [
 {%- if use_python_pip_audit %}
 audit = { commands = [
   'poetry run pip-audit',
-], description = 'Audit with pip-audit' }
+], description = 'Audit with pip-audit. NOTE: If used with poetry >v2, make sure to install `poetry-plugin-export` as per https://github.com/python-poetry/poetry-plugin-export#installation.' }
 {%- endif %}
 lint = { commands = [
 {%- if use_python_black %}

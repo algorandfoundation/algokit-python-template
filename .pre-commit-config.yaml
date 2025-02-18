@@ -1,21 +1,12 @@
 repos:
   - repo: local
     hooks:
-      - id: black
-        name: black
-        description: "Black: The uncompromising Python code formatter"
-        entry: poetry run black
-        language: system
-        minimum_pre_commit_version: 2.9.2
-        require_serial: true
-        types_or: [ python, pyi ]
       - id: ruff
         name: ruff
         description: "Run 'ruff' for extremely fast Python linting"
-        entry: poetry run ruff
+        entry: poetry run ruff check --fix
         language: system
         'types': [python]
-        args: [--fix]
         require_serial: false
         additional_dependencies: []
         minimum_pre_commit_version: '0'
