@@ -14,18 +14,15 @@ This project has been generated using AlgoKit. See below for default getting sta
 ### Initial Setup
 
 #### 1. Clone the Repository
-
 Start by cloning this repository to your local machine.
 
 #### 2. Install Pre-requisites
-
 Ensure the following pre-requisites are installed and properly configured:
 
 - **Docker**: Required for running a local Algorand network. [Install Docker](https://www.docker.com/).
 - **AlgoKit CLI**: Essential for project setup and operations. Install the latest version from [AlgoKit CLI Installation Guide](https://github.com/algorandfoundation/algokit-cli#install). Verify installation with `algokit --version`, expecting `2.0.0` or later.
 
 #### 3. Bootstrap Your Local Environment
-
 Run the following commands within the project folder:
 
 - **Install Poetry**: Required for Python dependency management. [Installation Guide](https://python-poetry.org/docs/#installation). Verify with `poetry -V` to see version `1.2`+.
@@ -36,16 +33,14 @@ Run the following commands within the project folder:
 ### Development Workflow
 
 #### Terminal
-
 Directly manage and interact with your project using AlgoKit commands:
 
 1. **Build Contracts**: `algokit project run build` compiles all smart contracts. You can also specify a specific contract by passing the name of the contract folder as an extra argument.
-   For example: `algokit project run build -- hello_world` will only build the `hello_world` contract.
+For example: `algokit project run build -- hello_world` will only build the `hello_world` contract.
 2. **Deploy**: Use `algokit project deploy localnet` to deploy contracts to the local network. You can also specify a specific contract by passing the name of the contract folder as an extra argument.
-   For example: `algokit project deploy localnet -- hello_world` will only deploy the `hello_world` contract.
+For example: `algokit project deploy localnet -- hello_world` will only deploy the `hello_world` contract.
 
-#### VS Code
-
+#### VS Code 
 For a seamless experience with breakpoint debugging and other features:
 
 1. **Open Project**: In VS Code, open the repository root.
@@ -55,7 +50,6 @@ For a seamless experience with breakpoint debugging and other features:
    - **Windows Users**: Select the Python interpreter at `./.venv/Scripts/python.exe` via `Ctrl/Cmd + Shift + P` > `Python: Select Interpreter` before the first run.
 
 #### JetBrains IDEs
-
 While primarily optimized for VS Code, JetBrains IDEs are supported:
 
 1. **Open Project**: In your JetBrains IDE, open the repository root.
@@ -63,14 +57,13 @@ While primarily optimized for VS Code, JetBrains IDEs are supported:
 3. **Debugging**: Use `Shift+F10` or `Ctrl+R` to start debugging. Note: Windows users may encounter issues with pre-launch tasks due to a known bug. See [JetBrains forums](https://youtrack.jetbrains.com/issue/IDEA-277486/Shell-script-configuration-cannot-run-as-before-launch-task) for workarounds.
 
 ## AlgoKit Workspaces and Project Management
-
 This project supports both standalone and monorepo setups through AlgoKit workspaces. Leverage [`algokit project run`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md) commands for efficient monorepo project orchestration and management across multiple projects within a workspace.
 
 ## AlgoKit Generators
 
 This template provides a set of [algokit generators](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/generate.md) that allow you to further modify the project instantiated from the template to fit your needs, as well as giving you a base to build your own extensions to invoke via the `algokit generate` command.
 
-### Generate Smart Contract
+### Generate Smart Contract 
 
 By default the template creates a single `HelloWorld` contract under hello_world folder in the `smart_contracts` directory. To add a new contract:
 
@@ -82,7 +75,7 @@ By default the template creates a single `HelloWorld` contract under hello_world
 
 ### Generate '.env' files
 
-By default the template instance does not contain any env files. Using [`algokit project deploy`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/deploy.md) against `localnet` | `testnet` | `mainnet` will use default values for `algod` and `indexer` unless overwritten via `.env` or `.env.{target_network}`.
+By default the template instance does not contain any env files. Using [`algokit project deploy`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/deploy.md) against `localnet` | `testnet` | `mainnet` will use default values for `algod` and `indexer` unless overwritten via `.env` or `.env.{target_network}`. 
 
 To generate a new `.env` or `.env.{target_network}` file, run `algokit generate env-file`
 
@@ -104,4 +97,5 @@ This project makes use of Algorand Python to build Algorand smart contracts. The
 - [Algorand Python](https://github.com/algorandfoundation/puya) - A semantically and syntactically compatible, typed Python language that works with standard Python tooling and allows you to express smart contracts (apps) and smart signatures (logic signatures) for deployment on the Algorand Virtual Machine (AVM); [docs](https://github.com/algorandfoundation/puya), [examples](https://github.com/algorandfoundation/puya/tree/main/examples)
 - [AlgoKit Utils](https://github.com/algorandfoundation/algokit-utils-py) - A set of core Algorand utilities that make it easier to build solutions on Algorand.
 - [Poetry](https://python-poetry.org/): Python packaging and dependency management.
-  It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
+It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
+
