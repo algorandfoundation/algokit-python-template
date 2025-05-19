@@ -9,11 +9,11 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.12"
 algokit-utils = "^3.0.0"
-python-dotenv = "^1.0.0"
+python-dotenv = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.9.4"
-pytest = "^8.3.2"
+ruff = "^0.11.10"
+pytest = "^8.3.5"
 mypy = "^1.1.1"
 pre-commit = "^3.2.1"
 types-pyyaml = "^6.0.12.9"
