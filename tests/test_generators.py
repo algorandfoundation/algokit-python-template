@@ -32,6 +32,8 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
     "--",
     "hello_world",
 ]
+JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
+PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -133,7 +135,12 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [BUILD_ARGS, BUILD_SINGLE_CONTRACT_ARGS]
+    check_args = [
+        JS_PKG_MGR_ARGS,
+        PY_PKG_MGR_ARGS,
+        BUILD_ARGS,
+        BUILD_SINGLE_CONTRACT_ARGS,
+    ]
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":
