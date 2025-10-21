@@ -105,14 +105,16 @@ def build(output_dir: Path, contract_path: Path) -> Path:
             "python",
             str(contract_path.resolve()),
             f"--out-dir={output_dir}",
-            "--no-output-arc32",
-            "--output-arc56",
             "--output-source-map",
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
     )
+
+    if build_result.stdout:
+        print(build_result.stdout)
+
     if build_result.returncode:
         raise Exception(f"Could not build contract:\n{build_result.stdout}")
 
@@ -143,6 +145,10 @@ def build(output_dir: Path, contract_path: Path) -> Path:
                 stderr=subprocess.STDOUT,
                 text=True,
             )
+
+            if generate_result.stdout:
+                print(generate_result.stdout)
+
             if generate_result.returncode:
                 if "No such command" in generate_result.stdout:
                     raise Exception(
