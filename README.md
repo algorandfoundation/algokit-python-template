@@ -1,5 +1,5 @@
 <div align="center">
-<a href="https://github.com/algorandfoundation/algokit-python-template"><img src="https://bafkreihnmpvtrgloxz5exuk2ybfxkeq5b2ka5vxfjejjslswl5ecr7pvpy.ipfs.nftstorage.link/" width=60%></a>
+<a href="https://github.com/algorandfoundation/algokit-python-template"><img src="./docs/images/banner.png" width=60%></a>
 </div>
 
 <p align="center">
