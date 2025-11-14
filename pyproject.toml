@@ -8,16 +8,16 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-python-dotenv = "^1.0.0"
+python-dotenv = "^1.2.1"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.9.4"
+ruff = "^0.14.5"
 pytest = "^8.3.2"
-mypy = "^1.1.1"
+mypy = "^1.18.2"
 pre-commit = "^3.2.1"
 types-pyyaml = "^6.0.12.9"
-pytest-xdist = "^3.3.1"
-pytest-sugar = "^1.0.0"
+pytest-xdist = "^3.8.0"
+pytest-sugar = "^1.1.1"
 
 [build-system]
 requires = ["poetry-core"]
