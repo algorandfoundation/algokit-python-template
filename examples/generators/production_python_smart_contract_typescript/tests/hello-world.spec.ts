@@ -1,8 +1,7 @@
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing'
 import { HelloWorldFactory } from '../smart_contracts/artifacts/hello_world/HelloWorldClient'
-import { Account, Algodv2, Indexer } from 'algosdk'
 import { Config } from '@algorandfoundation/algokit-utils'
-import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
+import { AddressWithSigners } from '@algorandfoundation/algokit-utils/transact'
 
 describe('hello world contract', () => {
   const localnet = algorandFixture()
@@ -14,7 +13,7 @@ describe('hello world contract', () => {
   })
   beforeEach(localnet.newScope)
 
-  const deploy = async (account: Account & TransactionSignerAccount) => {
+  const deploy = async (account: AddressWithSigners) => {
     const factory = localnet.algorand.client.getTypedAppFactory(HelloWorldFactory, {
       defaultSender: account.addr,
       defaultSigner: account.signer,

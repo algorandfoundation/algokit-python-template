@@ -8,13 +8,13 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-algokit-utils = "^4.0.0"
+algokit-utils = "^5.0.0a7"
 python-dotenv = "^1.0.0"
 algorand-python = "^3"
-algorand-python-testing = "^1"
+algorand-python-testing = {git = "https://github.com/algorandfoundation/algorand-python-testing.git", branch = "refactor/util-v5"}
 
 [tool.poetry.group.dev.dependencies]
-algokit-client-generator = "^2.1.0"
+algokit-client-generator = "^3.0.0a2"
 puyapy = "*"
 
 [build-system]
