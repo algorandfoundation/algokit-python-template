@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import { fileURLToPath, pathToFileURL } from 'url'
 import { consoleLogger } from '@algorandfoundation/algokit-utils/types/logging'
 import { Config } from '@algorandfoundation/algokit-utils'
 // import { registerDebugEventHandlers } from '@algorandfoundation/algokit-utils-debug' // Uncomment to enable persisting artifacts required by AlgoKit AVM Debugger
@@ -15,13 +16,16 @@ Config.configure({
 // registerDebugEventHandlers() // Uncomment to enable persisting artifacts required by AlgoKit AVM Debugger
 
 // base directory
-const baseDir = path.resolve(__dirname)
+const baseDir = path.dirname(fileURLToPath(import.meta.url))
 
 // function to validate and dynamically import a module
 async function importDeployerIfExists(dir: string) {
-  const deployerPath = path.resolve(dir, 'deploy-config')
-  if (fs.existsSync(deployerPath + '.ts') || fs.existsSync(deployerPath + '.js')) {
-    const deployer = await import(deployerPath)
+  const tsPath = path.resolve(dir, 'deploy-config.ts')
+  const jsPath = path.resolve(dir, 'deploy-config.js')
+  const deployerPath = fs.existsSync(tsPath) ? tsPath : fs.existsSync(jsPath) ? jsPath : undefined
+
+  if (deployerPath) {
+    const deployer = await import(pathToFileURL(deployerPath).href)
     return { ...deployer, name: path.basename(dir) }
   }
   return null

@@ -14,8 +14,8 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true

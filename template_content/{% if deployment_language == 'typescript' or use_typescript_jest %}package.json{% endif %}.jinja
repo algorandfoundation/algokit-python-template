@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Smart contract deployer",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "deploy": "ts-node-dev --transpile-only --watch .env -r dotenv/config smart_contracts/index.ts",
-    "deploy:ci": "ts-node --transpile-only -r dotenv/config smart_contracts/index.ts",
+    "deploy": "tsx watch -r dotenv/config smart_contracts/index.ts",
+    "deploy:ci": "tsx -r dotenv/config smart_contracts/index.ts",
     {%- if use_typescript_jest  %}
-    "test": "jest --coverage",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     {%- endif %}
     "format": "prettier --write ."
   },
@@ -28,8 +29,9 @@
     "prettier": "^2.8.4",
     {%- if use_typescript_jest  %}
     "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
     {%- endif %}
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^4.9.5"
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
   }
 }
