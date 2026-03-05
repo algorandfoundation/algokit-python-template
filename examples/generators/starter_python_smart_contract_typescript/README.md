@@ -100,7 +100,7 @@ This project makes use of Algorand Python to build Algorand smart contracts. The
 - [Poetry](https://python-poetry.org/): Python packaging and dependency management.
 - [npm](https://www.npmjs.com/): Node.js package manager
 - [TypeScript](https://www.typescriptlang.org/): Strongly typed programming language that builds on JavaScript
-- [ts-node-dev](https://github.com/wclr/ts-node-dev): TypeScript development execution environment
+- [tsx](https://github.com/wclr/tsx): TypeScript development execution environment
 
 It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
 

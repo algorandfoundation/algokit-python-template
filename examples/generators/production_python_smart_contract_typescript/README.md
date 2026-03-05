@@ -151,7 +151,7 @@ This project makes use of Algorand Python to build Algorand smart contracts. The
 - [pre-commit](https://pre-commit.com/): A framework for managing and maintaining multi-language pre-commit hooks, to enable pre-commit you need to run `pre-commit install` in the root of the repository. This will install the pre-commit hooks and run them against modified files when committing. If any of the hooks fail, the commit will be aborted. To run the hooks on all files, use `pre-commit run --all-files`.
 - [npm](https://www.npmjs.com/): Node.js package manager
 - [TypeScript](https://www.typescriptlang.org/): Strongly typed programming language that builds on JavaScript
-- [ts-node-dev](https://github.com/wclr/ts-node-dev): TypeScript development execution environment
+- [tsx](https://github.com/wclr/tsx): TypeScript development execution environment
 
 It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
 
