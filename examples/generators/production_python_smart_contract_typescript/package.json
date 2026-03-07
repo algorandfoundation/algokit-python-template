@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "deploy": "tsx watch -r dotenv/config smart_contracts/index.ts",
+    "deploy": "tsx watch --watch .env -r dotenv/config smart_contracts/index.ts",
     "deploy:ci": "tsx -r dotenv/config smart_contracts/index.ts",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "format": "prettier --write ."
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "^7.0.0-alpha.5",
+    "jest": "^29.7.0",
     "@types/jest": "^29.5.11",
     "dotenv": "^16.0.3",
     "prettier": "^2.8.4",
