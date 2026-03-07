@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "deploy": "tsx watch -r dotenv/config smart_contracts/index.ts",
+    "deploy": "tsx watch --watch .env -r dotenv/config smart_contracts/index.ts",
     "deploy:ci": "tsx -r dotenv/config smart_contracts/index.ts",
     {%- if use_typescript_jest  %}
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
