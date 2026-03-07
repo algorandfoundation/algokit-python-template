@@ -9,6 +9,9 @@ on:
 
 concurrency: release
 
+permissions:
+  contents: write
+
 jobs:
   ci-check-python:
     name: Check Python
@@ -20,12 +23,15 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Tag release
         id: tag
         uses: TriPSs/conventional-changelog-action@v3.18.0
         with:
-          skip-commit: "true"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          skip-commit: "false"
           tag-prefix: ""
           skip-on-empty: "false"
 
