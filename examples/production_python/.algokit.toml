@@ -32,18 +32,18 @@ environment_secrets = [
 [project.run]
 # Commands intented for use locally and in CI
 build = { commands = [
-  'poetry run python -m smart_contracts build',
+  'uv run python -m smart_contracts build',
 ], description = 'Build all smart contracts in the project' }
 test = { commands = [
-  'poetry run pytest',
+  'uv run pytest',
 ], description = 'Run smart contract tests' }
 audit = { commands = [
-  'poetry run pip-audit',
+  'uv run pip-audit',
 ], description = 'Audit with pip-audit. NOTE: If used with poetry >v2, make sure to install `poetry-plugin-export` as per https://github.com/python-poetry/poetry-plugin-export#installation.' }
 lint = { commands = [
-  'poetry run black --check --diff .',
-  'poetry run ruff check .',
-  'poetry run mypy',
+  'uv run black --check --diff .',
+  'uv run ruff check .',
+  'uv run mypy',
 ], description = 'Perform linting' }
 audit-teal = { commands = [
   # 🚨 IMPORTANT 🚨: For strict TEAL validation, remove --exclude statements. The default starter contract is not for production. Ensure thorough testing and adherence to best practices in smart contract development. This is not a replacement for a professional audit.

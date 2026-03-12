@@ -1,11 +1,11 @@
-import algokit_utils
 import pytest
 from algokit_utils import (
     AddressWithSigners,
     AlgoAmount,
     AlgorandClient,
+    OnSchemaBreak,
+    OnUpdate,
 )
-
 from smart_contracts.artifacts.hello_world.hello_world_client import (
     HelloWorldClient,
     HelloWorldFactory,
@@ -30,8 +30,8 @@ def hello_world_client(
     )
 
     client, _ = factory.deploy(
-        on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
-        on_update=algokit_utils.OnUpdate.AppendApp,
+        on_schema_break=OnSchemaBreak.AppendApp,
+        on_update=OnUpdate.AppendApp,
     )
     return client
 

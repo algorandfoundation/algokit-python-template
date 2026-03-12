@@ -1,30 +1,35 @@
-[tool.poetry]
+[project]
 name = "production_python_smart_contract_typescript"
 version = "0.1.0"
 description = "Algorand smart contracts"
-authors = ["None <None>"]
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.12"
+dependencies = [
+  "algokit-utils>=5.0.0a13",
+  "python-dotenv>=1.0.0",
+  "algorand-python>=3",
+  "algorand-python-testing @ git+https://github.com/algorandfoundation/algorand-python-testing.git@refactor/util-v5",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-algokit-utils = "^5.0.0a13"
-python-dotenv = "^1.0.0"
-algorand-python = "^3"
-algorand-python-testing = {git = "https://github.com/algorandfoundation/algorand-python-testing.git", branch = "refactor/util-v5"}
-
-[tool.poetry.group.dev.dependencies]
-black = {extras = ["d"], version = "*"}
-ruff = "^0.9.4"
-mypy = "^1"
-pip-audit = "*"
-pre-commit = "*"
-puyapy = "*"
+[dependency-groups]
+dev = [
+"black[d]",
+"ruff>=0.9.4",
+"mypy>=1",
+"pip-audit",
+"pre-commit",
+"puyapy",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv]
+package = false
 [tool.ruff]
 line-length = 120
 lint.select = ["E", "F", "ANN", "UP", "N", "C4", "B", "A", "YTT", "W", "FBT", "Q", "RUF", "I"]

@@ -30,7 +30,7 @@ environment_secrets = [
 [project.run]
 # Commands intented for use locally and in CI
 build = { commands = [
-  'poetry run python -m smart_contracts build',
+  'uv run python -m smart_contracts build',
 ], description = 'Build all smart contracts in the project' }
 lint = { commands = [
 ], description = 'Perform linting' }

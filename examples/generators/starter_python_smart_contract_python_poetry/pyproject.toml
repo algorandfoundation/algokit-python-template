@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "starter_python_smart_contract_python_poetry"
+version = "0.1.0"
+description = "Algorand smart contracts"
+authors = ["None <None>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+algokit-utils = "^5.0.0a13"
+python-dotenv = "^1.0.0"
+algorand-python = "^3"
+algorand-python-testing = {git = "https://github.com/algorandfoundation/algorand-python-testing.git", branch = "refactor/util-v5"}
+
+[tool.poetry.group.dev.dependencies]
+algokit-client-generator = "^3.0.0a3"
+puyapy = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
