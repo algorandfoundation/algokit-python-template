@@ -2,9 +2,9 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-import type { Config } from 'jest'
 
-const config: Config = {
+/** @type {import('jest').Config} */
+const config = {
   preset: 'ts-jest/presets/default-esm',
   verbose: true,
   transform: {
