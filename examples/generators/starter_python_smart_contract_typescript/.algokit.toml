@@ -1,5 +1,5 @@
 [algokit]
-min_version = "v2.0.0"
+min_version = "v2.11.0"
 
 [generate.smart-contract]
 description = "Generate a new smart contract for existing project"
@@ -30,7 +30,7 @@ environment_secrets = [
 [project.run]
 # Commands intented for use locally and in CI
 build = { commands = [
-  'poetry run python -m smart_contracts build',
+  'uv run python -m smart_contracts build',
 ], description = 'Build all smart contracts in the project' }
 lint = { commands = [
 ], description = 'Perform linting' }
