@@ -33,7 +33,7 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
     "hello_world",
 ]
 JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:

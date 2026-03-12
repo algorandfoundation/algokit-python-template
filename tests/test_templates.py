@@ -23,7 +23,7 @@ BUILD_ARGS = ["algokit", "project", "run", "build"]
 TEST_ARGS = ["algokit", "project", "run", "test"]
 LINT_ARGS = ["algokit", "project", "run", "lint"]
 JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
