@@ -14,6 +14,7 @@ const config = {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
+  transformIgnorePatterns: ['node_modules/(?!(@noble|@algorandfoundation)/)'],
   testPathIgnorePatterns: ['node_modules', '.venv', 'coverage'],
   testTimeout: 10000,
 }

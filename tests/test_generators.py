@@ -135,12 +135,40 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [
+    check_args: list[list[str]] = [
         JS_PKG_MGR_ARGS,
         PY_PKG_MGR_ARGS,
-        BUILD_ARGS,
-        BUILD_SINGLE_CONTRACT_ARGS,
     ]
+
+    # Install npm deps for TypeScript deployment projects
+    if (copy_to / "package.json").exists():
+        check_args.append(["npm", "install"])
+
+    # Patch jest.config.ts to handle ESM node_modules (e.g. @noble/hashes)
+    # The smart-contract generator produces a config that doesn't transform ESM packages.
+    # This is needed because @algorandfoundation/algokit-utils depends on @noble/hashes (pure ESM).
+    jest_config = copy_to / "jest.config.ts"
+    if jest_config.exists():
+        jest_content = jest_config.read_text("utf-8")
+        if "transformIgnorePatterns" not in jest_content:
+            jest_config.write_text(
+                "import type { Config } from 'jest'\n"
+                "\n"
+                "const config: Config = {\n"
+                "  preset: 'ts-jest',\n"
+                "  verbose: true,\n"
+                "  transform: {\n"
+                "    '^.+\\\\.[jt]sx?$': 'ts-jest',\n"
+                "  },\n"
+                "  transformIgnorePatterns: ['node_modules/(?!(@noble|@algorandfoundation)/)'],\n"
+                "  testPathIgnorePatterns: ['node_modules', '.venv', 'coverage'],\n"
+                "  testTimeout: 10000,\n"
+                "}\n"
+                "export default config\n",
+                "utf-8",
+            )
+
+    check_args.extend([BUILD_ARGS, BUILD_SINGLE_CONTRACT_ARGS])
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":
