@@ -7,6 +7,14 @@ use_workspace:
   help: Automatically filled by AlgoKit CLI (>1.13.x) - passes the --workspace/--no-workspace flag's value, can be used to reason whether this template is currently being instantiated as part of a workspace or not.
   default: no
 
+python_package_manager:
+  type: str
+  help: Python dependency manager to target in generated project files.
+  choices:
+    uv: "uv"
+    Poetry: "poetry"
+  default: "uv"
+
 # questions
 project_name:
   type: str

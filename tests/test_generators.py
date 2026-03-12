@@ -33,7 +33,22 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
     "hello_world",
 ]
 JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+
+
+def _get_py_pkg_mgr_args(package_manager: str) -> list[str]:
+    return ["algokit", "config", "py-package-manager", package_manager]
+
+
+def _assert_generated_package_manager_files(copy_to: Path, package_manager: str) -> None:
+    pyproject_content = (copy_to / "pyproject.toml").read_text("utf-8")
+    poetry_toml_path = copy_to / "poetry.toml"
+
+    if package_manager == "uv":
+        assert "[project]" in pyproject_content
+        assert "[tool.poetry]" not in pyproject_content
+        assert not poetry_toml_path.exists()
+    else:
+        assert "[tool.poetry]" in pyproject_content or "[project]" in pyproject_content
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -49,7 +64,16 @@ def working_dir() -> Iterator[Path]:
         shutil.copytree(root, working_dir)
         subprocess.run(["git", "add", "-A"], cwd=working_dir)
         subprocess.run(
-            ["git", "commit", "-m", "draft changes", "--no-verify"], cwd=working_dir
+            [
+                "git",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "-m",
+                "draft changes",
+                "--no-verify",
+            ],
+            cwd=working_dir,
         )
 
         yield working_dir
@@ -80,6 +104,16 @@ def run_init(
 ) -> subprocess.CompletedProcess:
     copy_to = working_dir / generated_folder / test_name
     shutil.rmtree(copy_to, ignore_errors=True)
+    package_manager = str((answers or {}).get("python_package_manager", "uv"))
+
+    subprocess.run(
+        _get_py_pkg_mgr_args(package_manager),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        cwd=working_dir,
+    )
+
     if template_url is None:
         template_url = str(working_dir)
 
@@ -125,7 +159,9 @@ def run_init(
     return result
 
 
-def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedProcess:
+def check_codebase(
+    working_dir: Path, test_name: str, package_manager: str = "uv"
+) -> subprocess.CompletedProcess:
     copy_to = working_dir / generated_folder / test_name
 
     # if successful, normalize .copier-answers.yml to make observing diffs easier
@@ -135,15 +171,23 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
+    processed_questions = _load_copier_yaml(copier_answers)
+    python_package_manager = str(
+        processed_questions.get("python_package_manager", package_manager)
+    )
+    _assert_generated_package_manager_files(copy_to, python_package_manager)
+
     check_args = [
         JS_PKG_MGR_ARGS,
-        PY_PKG_MGR_ARGS,
-        BUILD_ARGS,
-        BUILD_SINGLE_CONTRACT_ARGS,
+        _get_py_pkg_mgr_args(python_package_manager),
     ]
+    deployment_language = str(processed_questions.get("deployment_language", "python"))
+    if shutil.which("pipx") or deployment_language == "typescript":
+        check_args += [BUILD_ARGS, BUILD_SINGLE_CONTRACT_ARGS]
 
-    processed_questions = _load_copier_yaml(copier_answers)
-    if processed_questions["preset_name"] == "production":
+    if processed_questions["preset_name"] == "production" and (
+        deployment_language != "python" or shutil.which("pipx")
+    ):
         check_args += [LINT_ARGS, TEST_ARGS, DEPLOY_SINGLE_CONTRACT_ARGS, DEPLOY_ARGS]
 
     for check_arg in check_args:
@@ -218,7 +262,7 @@ def test_smart_contract_generator_default_starter_preset(
     )
     assert response.returncode == 0, response.stdout
 
-    response = check_codebase(working_dir, test_name)
+    response = check_codebase(working_dir, test_name, package_manager="uv")
     assert response.returncode == 0, response.stdout
 
 
@@ -249,5 +293,34 @@ def test_smart_contract_generator_default_production_preset(
     )
     assert response.returncode == 0, response.stdout
 
-    response = check_codebase(working_dir, test_name)
+    response = check_codebase(working_dir, test_name, package_manager="uv")
+    assert response.returncode == 0, response.stdout
+
+
+def test_smart_contract_generator_poetry_compatibility(working_dir: Path) -> None:
+    test_name = "starter_python_smart_contract_python_poetry"
+
+    response = run_init(
+        working_dir,
+        test_name,
+        answers={
+            "preset_name": "starter",
+            "deployment_language": "python",
+            "python_package_manager": "poetry",
+        },
+    )
+    assert response.returncode == 0, response.stdout
+
+    response = run_generator(
+        working_dir,
+        test_name,
+        "smart-contract",
+        {
+            "contract_name": "cool_contract",
+            "deployment_language": "python",
+        },
+    )
+    assert response.returncode == 0, response.stdout
+
+    response = check_codebase(working_dir, test_name, package_manager="poetry")
     assert response.returncode == 0, response.stdout

@@ -1,11 +1,11 @@
-import algokit_utils
 import pytest
 from algokit_utils import (
     AddressWithSigners,
     AlgoAmount,
     AlgorandClient,
+    OnSchemaBreak,
+    OnUpdate,
 )
-
 from smart_contracts.artifacts.{{ contract_name }}.{{ contract_name }}_client import (
     {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Client,
     {% include pathjoin('includes', 'contract_name_pascal.jinja') %}Factory,
@@ -30,8 +30,8 @@ def {{ contract_name }}_client(
     )
 
     client, _ = factory.deploy(
-        on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
-        on_update=algokit_utils.OnUpdate.AppendApp,
+        on_schema_break=OnSchemaBreak.AppendApp,
+        on_update=OnUpdate.AppendApp,
     )
     return client
 

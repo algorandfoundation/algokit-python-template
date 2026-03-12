@@ -1,3 +1,57 @@
+{% set use_uv = python_package_manager == "uv" -%}
+{% if use_uv -%}
+[project]
+name = "{{ project_name }}"
+version = "0.1.0"
+description = "Algorand smart contracts"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "algokit-utils>=5.0.0a13",
+  "python-dotenv>=1.0.0",
+  "algorand-python>=3",
+  "algorand-python-testing @ git+https://github.com/algorandfoundation/algorand-python-testing.git@refactor/util-v5",
+]
+
+[dependency-groups]
+dev = [
+{% if deployment_language == 'python' -%}
+  "algokit-client-generator>=3.0.0a3",
+{% endif -%}
+{% if use_python_black -%}
+  "black[d]",
+{% endif -%}
+{% if python_linter == 'ruff' -%}
+  "ruff>=0.9.4",
+{% elif python_linter == 'flake8' -%}
+  "flake8",
+{% endif -%}
+{% if use_python_mypy -%}
+  "mypy>=1",
+{% endif -%}
+{% if use_python_pytest -%}
+  "pytest",
+  "pytest-cov",
+{% endif -%}
+{% if use_python_pip_audit -%}
+  "pip-audit",
+{% endif -%}
+{% if use_pre_commit -%}
+  "pre-commit",
+{% endif -%}
+  "puyapy",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv]
+package = false
+{% else -%}
 [tool.poetry]
 name = "{{ project_name }}"
 version = "0.1.0"
@@ -43,6 +97,7 @@ puyapy = "*"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+{% endif -%}
 
 {% if python_linter == 'ruff' -%}
 [tool.ruff]

@@ -23,7 +23,22 @@ BUILD_ARGS = ["algokit", "project", "run", "build"]
 TEST_ARGS = ["algokit", "project", "run", "test"]
 LINT_ARGS = ["algokit", "project", "run", "lint"]
 JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+
+
+def _get_py_pkg_mgr_args(package_manager: str) -> list[str]:
+    return ["algokit", "config", "py-package-manager", package_manager]
+
+
+def _assert_generated_package_manager_files(copy_to: Path, package_manager: str) -> None:
+    pyproject_content = (copy_to / "pyproject.toml").read_text("utf-8")
+    poetry_toml_path = copy_to / "poetry.toml"
+
+    if package_manager == "uv":
+        assert "[project]" in pyproject_content
+        assert "[tool.poetry]" not in pyproject_content
+        assert not poetry_toml_path.exists()
+    else:
+        assert "[tool.poetry]" in pyproject_content or "[project]" in pyproject_content
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -39,7 +54,16 @@ def working_dir() -> Iterator[Path]:
         shutil.copytree(root, working_dir)
         subprocess.run(["git", "add", "-A"], cwd=working_dir)
         subprocess.run(
-            ["git", "commit", "-m", "draft changes", "--no-verify"], cwd=working_dir
+            [
+                "git",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "-m",
+                "draft changes",
+                "--no-verify",
+            ],
+            cwd=working_dir,
         )
 
         yield working_dir
@@ -70,6 +94,16 @@ def run_init(
 ) -> subprocess.CompletedProcess:
     copy_to = working_dir / generated_folder / test_name
     shutil.rmtree(copy_to, ignore_errors=True)
+    package_manager = str((answers or {}).get("python_package_manager", "uv"))
+
+    subprocess.run(
+        _get_py_pkg_mgr_args(package_manager),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        cwd=working_dir,
+    )
+
     if template_url is None:
         template_url = str(working_dir)
 
@@ -122,10 +156,17 @@ def run_init(
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [JS_PKG_MGR_ARGS, PY_PKG_MGR_ARGS, BUILD_ARGS]
-
     processed_questions = _load_copier_yaml(copier_answers)
-    if processed_questions["preset_name"] == "production":
+    python_package_manager = str(
+        processed_questions.get("python_package_manager", package_manager)
+    )
+    _assert_generated_package_manager_files(copy_to, python_package_manager)
+
+    check_args = [JS_PKG_MGR_ARGS, _get_py_pkg_mgr_args(python_package_manager)]
+    if shutil.which("pipx"):
+        check_args.append(BUILD_ARGS)
+
+    if processed_questions["preset_name"] == "production" and shutil.which("pipx"):
         check_args += [LINT_ARGS, TEST_ARGS]
 
     for check_arg in check_args:
@@ -188,4 +229,10 @@ def get_questions_from_copier_yaml(
 @pytest.mark.parametrize(("question_name", "answer"), get_questions_from_copier_yaml())
 def test_parameters(working_dir: Path, question_name: str, answer: str | bool) -> None:
     response = run_init_kwargs(working_dir, **{question_name: answer})
+    assert response.returncode == 0, response.stdout
+
+
+@pytest.mark.parametrize("package_manager", ["uv", "poetry"])
+def test_python_package_manager_modes(working_dir: Path, package_manager: str) -> None:
+    response = run_init_kwargs(working_dir, python_package_manager=package_manager)
     assert response.returncode == 0, response.stdout

@@ -1,3 +1,4 @@
+{% set py_runner = "uv run" if python_package_manager == "uv" else "poetry run" -%}
 repos:
   - repo: local
     hooks:
@@ -5,7 +6,7 @@ repos:
       - id: black
         name: black
         description: "Black: The uncompromising Python code formatter"
-        entry: poetry run black
+        entry: {{ py_runner }} black
         language: system
         minimum_pre_commit_version: 2.9.2
         require_serial: true
@@ -15,7 +16,7 @@ repos:
       - id: ruff
         name: ruff
         description: "Run 'ruff' for extremely fast Python linting"
-        entry: poetry run ruff
+        entry: {{ py_runner }} ruff
         language: system
         types: [ python ]
         args: [ "check", "--fix" ]
@@ -28,7 +29,7 @@ repos:
       - id: mypy
         name: mypy
         description: '`mypy` will check Python types for correctness'
-        entry: poetry run mypy
+        entry: {{ py_runner }} mypy
         language: system
         types_or: [ python, pyi ]
         require_serial: true
