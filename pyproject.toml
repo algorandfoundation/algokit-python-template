@@ -1,27 +1,36 @@
-[tool.poetry]
+[project]
 name = "copier-testing-template"
 version = "0.1.0"
 description = ""
-authors = ["MakerX <cto@makerx.com.au>"]
+authors = [{ name = "MakerX", email = "cto@makerx.com.au" }]
+requires-python = ">=3.12,<4"
 readme = "README.md"
-package-mode = false
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = ["python-dotenv>=1.0.0,<2"]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-python-dotenv = "^1.0.0"
+[dependency-groups]
+dev = [
+    "ruff>=0.9.4,<0.10",
+    "pytest>=8.3.2,<9",
+    "mypy>=1.1.1,<2",
+    "pre-commit>=3.2.1,<4",
+    "types-pyyaml>=6.0.12.9,<7",
+    "pytest-xdist>=3.3.1,<4",
+    "pytest-sugar>=1.0.0,<2",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9.4"
-pytest = "^8.3.2"
-mypy = "^1.1.1"
-pre-commit = "^3.2.1"
-types-pyyaml = "^6.0.12.9"
-pytest-xdist = "^3.3.1"
-pytest-sugar = "^1.0.0"
+[tool.uv]
+package = false
+default-groups = "all"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.10.6,<0.11.0"]
+build-backend = "uv_build"
 
 [tool.ruff]
 lint.select = [
@@ -40,13 +49,6 @@ lint.select = [
   "RUF",
   "I",
 ]
-extend-exclude = [
-  "examples/*",       # Ignoring generated tests, ruff specific errors are to be caught by pytest
-  "template_content",
-  ".git",
-  ".mypy_cache",
-  ".ruff_cache",
-]
 lint.ignore = [
   "RET505", # allow else after return
   "SIM108", # allow if-else in place of ternary
@@ -61,6 +63,13 @@ lint.ignore = [
   "W191",   # indentation contains tabs
 ]
 lint.unfixable = ["B", "RUF"]
+extend-exclude = [
+  "examples/*",       # Ignoring generated tests, ruff specific errors are to be caught by pytest
+  "template_content",
+  ".git",
+  ".mypy_cache",
+  ".ruff_cache",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["tests"]
