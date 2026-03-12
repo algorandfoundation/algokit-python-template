@@ -1,5 +1,5 @@
 [algokit]
-min_version = "v2.0.0"
+min_version = "v2.11.0"
 
 [generate.smart-contract]
 description = "Generate a new smart contract for existing project"
@@ -16,7 +16,7 @@ artifacts = 'smart_contracts/artifacts'
 
 [project.deploy]
 {%- if deployment_language == 'python' %}
-command = "poetry run python -m smart_contracts deploy"
+command = "uv run python -m smart_contracts deploy"
 {%- elif deployment_language == 'typescript' %}
 command = "npm run deploy:ci"
 {%- endif %}
@@ -40,11 +40,11 @@ environment_secrets = [
 [project.run]
 # Commands intented for use locally and in CI
 build = { commands = [
-  'poetry run python -m smart_contracts build',
+  'uv run python -m smart_contracts build',
 ], description = 'Build all smart contracts in the project' }
 {%- if deployment_language == 'python' and use_python_pytest %}
 test = { commands = [
-  'poetry run pytest',
+  'uv run pytest',
 ], description = 'Run smart contract tests' }
 {%- elif deployment_language == 'typescript' and use_typescript_jest %}
 test = { commands = [
@@ -53,20 +53,20 @@ test = { commands = [
 {%- endif %}
 {%- if use_python_pip_audit %}
 audit = { commands = [
-  'poetry run pip-audit',
-], description = 'Audit with pip-audit. NOTE: If used with poetry >v2, make sure to install `poetry-plugin-export` as per https://github.com/python-poetry/poetry-plugin-export#installation.' }
+  'uv run pip-audit',
+], description = 'Audit with pip-audit' }
 {%- endif %}
 lint = { commands = [
 {%- if use_python_black %}
-  'poetry run black --check --diff .',
+  'uv run black --check --diff .',
 {%- endif %}
 {%- if python_linter == 'ruff' %}
-  'poetry run ruff check .',
+  'uv run ruff check .',
 {%- elif python_linter == 'flake8' %}
-  'poetry run flake8 .',
+  'uv run flake8 .',
 {%- endif %}
 {%- if use_python_mypy %}
-  'poetry run mypy',
+  'uv run mypy',
 {%- endif %}
 ], description = 'Perform linting' }
 audit-teal = { commands = [
