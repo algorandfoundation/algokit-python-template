@@ -32,7 +32,6 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
     "--",
     "hello_world",
 ]
-JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
 PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
@@ -136,37 +135,8 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     copier_answers.write_text(content, "utf-8")
 
     check_args: list[list[str]] = [
-        JS_PKG_MGR_ARGS,
         PY_PKG_MGR_ARGS,
     ]
-
-    # Install npm deps for TypeScript deployment projects
-    if (copy_to / "package.json").exists():
-        check_args.append(["npm", "install"])
-
-    # Patch jest.config.ts to handle ESM node_modules (e.g. @noble/hashes)
-    # The smart-contract generator produces a config that doesn't transform ESM packages.
-    # This is needed because @algorandfoundation/algokit-utils depends on @noble/hashes (pure ESM).
-    jest_config = copy_to / "jest.config.ts"
-    if jest_config.exists():
-        jest_content = jest_config.read_text("utf-8")
-        if "transformIgnorePatterns" not in jest_content:
-            jest_config.write_text(
-                "import type { Config } from 'jest'\n"
-                "\n"
-                "const config: Config = {\n"
-                "  preset: 'ts-jest',\n"
-                "  verbose: true,\n"
-                "  transform: {\n"
-                "    '^.+\\\\.[jt]sx?$': 'ts-jest',\n"
-                "  },\n"
-                "  transformIgnorePatterns: ['node_modules/(?!(@noble|@algorandfoundation)/)'],\n"
-                "  testPathIgnorePatterns: ['node_modules', '.venv', 'coverage'],\n"
-                "  testTimeout: 10000,\n"
-                "}\n"
-                "export default config\n",
-                "utf-8",
-            )
 
     check_args.extend([BUILD_ARGS, BUILD_SINGLE_CONTRACT_ARGS])
 
@@ -219,18 +189,16 @@ def run_generator(
     return result
 
 
-@pytest.mark.parametrize("language", ["python", "typescript"])
 def test_smart_contract_generator_default_starter_preset(
-    language: str, working_dir: Path
+    working_dir: Path,
 ) -> None:
-    test_name = f"starter_python_smart_contract_{language}"
+    test_name = "starter_python_smart_contract_python"
 
     response = run_init(
         working_dir,
         test_name,
         answers={
             "preset_name": "starter",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
@@ -241,7 +209,6 @@ def test_smart_contract_generator_default_starter_preset(
         "smart-contract",
         {
             "contract_name": "cool_contract",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
@@ -250,18 +217,16 @@ def test_smart_contract_generator_default_starter_preset(
     assert response.returncode == 0, response.stdout
 
 
-@pytest.mark.parametrize("language", ["python", "typescript"])
 def test_smart_contract_generator_default_production_preset(
-    language: str, working_dir: Path
+    working_dir: Path,
 ) -> None:
-    test_name = f"production_python_smart_contract_{language}"
+    test_name = "production_python_smart_contract_python"
 
     response = run_init(
         working_dir,
         test_name,
         answers={
             "preset_name": "production",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
@@ -272,7 +237,6 @@ def test_smart_contract_generator_default_production_preset(
         "smart-contract",
         {
             "contract_name": "cool_contract",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout

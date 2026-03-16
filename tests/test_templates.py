@@ -22,7 +22,6 @@ config_path = Path(__file__).parent.parent / "pyproject.toml"
 BUILD_ARGS = ["algokit", "project", "run", "build"]
 TEST_ARGS = ["algokit", "project", "run", "test"]
 LINT_ARGS = ["algokit", "project", "run", "lint"]
-JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
 PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
@@ -96,7 +95,6 @@ def run_init(
         "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
-    answers["deployment_language"] = "python"
 
     for question, answer in answers.items():
         init_args.extend(["-a", question, answer])
@@ -122,7 +120,7 @@ def run_init(
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [JS_PKG_MGR_ARGS, PY_PKG_MGR_ARGS, BUILD_ARGS]
+    check_args = [PY_PKG_MGR_ARGS, BUILD_ARGS]
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":

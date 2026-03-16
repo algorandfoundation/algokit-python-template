@@ -13,9 +13,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-{% if deployment_language == 'python' -%}
   "algokit-client-generator>=3.0.0a3",
-{% endif -%}
 {% if use_python_black -%}
   "black[d]",
 {% endif -%}
