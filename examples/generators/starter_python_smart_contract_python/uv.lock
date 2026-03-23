@@ -4,13 +4,13 @@ requires-python = ">=3.12, <3.14"
 
 [[package]]
 name = "algokit-client-generator"
-version = "3.0.0a3"
+version = "3.0.0a4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "algokit-utils" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/eb/c7/557764324b53a004d014af5add9797862c424285eb2d4611fa67f0e232eb/algokit_client_generator-3.0.0a3-py3-none-any.whl", hash = "sha256:5e532cd15e2a7faf89984c704765c15673ca272cd4e696ed910d048df8a1b0f5", size = 30963, upload-time = "2025-12-29T02:44:05.46Z" },
+    { url = "https://files.pythonhosted.org/packages/01/3f/c77e5dfaa3d036ba902ab4a43b2c982e7f018c16187a239812f1a0ebfb84/algokit_client_generator-3.0.0a4-py3-none-any.whl", hash = "sha256:eae0cf1a9ba5f2bed5a5300f7bc90188cc11113bb0504f2031e287866ca5f411", size = 30962, upload-time = "2026-03-16T20:15:23.662Z" },
 ]
 
 [[package]]
@@ -40,8 +40,8 @@ wheels = [
 
 [[package]]
 name = "algorand-python-testing"
-version = "1.2.0b3"
-source = { git = "https://github.com/algorandfoundation/algorand-python-testing.git?rev=refactor%2Futil-v5#ae611df2e99d39d1b1083994da456fc7bb4e3c6c" }
+version = "1.2.0b4"
+source = { git = "https://github.com/algorandfoundation/algorand-python-testing.git?rev=refactor%2Futil-v5#c65178ded4c1dbd9abdc230858e0030ae7d028b6" }
 dependencies = [
     { name = "algokit-utils" },
     { name = "algorand-python" },
@@ -500,16 +500,16 @@ wheels = [
 
 [[package]]
 name = "pygls"
-version = "2.0.1"
+version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "cattrs" },
     { name = "lsprotocol" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1b/94/cce3560f6c7296be43bd67ba342f8972b8adddfe407b62b25d1fb90c514b/pygls-2.0.1.tar.gz", hash = "sha256:2f774a669fbe2ece977d302786f01f9b0c5df7d0204ea0fa371ecb08288d6b86", size = 55796, upload-time = "2026-01-26T23:04:33.8Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/39/06/de0a8db764391f1b3ab8ba4eaa6d1fe923151a1999350c15b987b46a3718/pygls-2.1.0.tar.gz", hash = "sha256:3f2247717deeda9174d9c2f76130ff4d3e0e0788a5be47212df248d163453aac", size = 54852, upload-time = "2026-03-19T09:16:56.853Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/48/8b/d0d7e51f928ec6e555c943f7c07a712b992e9cf061d52cbf37fbf8622c05/pygls-2.0.1-py3-none-any.whl", hash = "sha256:d29748042cea5bedc98285eb3e2c0c60bf3fc73786319519001bf72bbe8f36cc", size = 69536, upload-time = "2026-01-26T23:04:35.197Z" },
+    { url = "https://files.pythonhosted.org/packages/be/1b/523fa1d7a9ed16d41dc1a33533def97712eb3aff660d2f124033db019461/pygls-2.1.0-py3-none-any.whl", hash = "sha256:cfa8443561488cb15b59f6ce64cabfa37d79753f7120c1bf729419246bf747f9", size = 68719, upload-time = "2026-03-19T09:16:57.961Z" },
 ]
 
 [[package]]
