@@ -35,6 +35,14 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
 PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
+def assert_deploy_config_exists(project_root: Path, *contract_names: str) -> None:
+    for contract_name in contract_names:
+        deploy_config = (
+            project_root / "smart_contracts" / contract_name / "deploy_config.py"
+        )
+        assert deploy_config.exists(), f"Expected deploy config at {deploy_config}"
+
+
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
     with path.open("r", encoding="utf-8") as stream:
         return yaml.safe_load(stream)
@@ -202,6 +210,9 @@ def test_smart_contract_generator_default_starter_preset(
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "hello_world"
+    )
 
     response = run_generator(
         working_dir,
@@ -212,6 +223,9 @@ def test_smart_contract_generator_default_starter_preset(
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "cool_contract"
+    )
 
     response = check_codebase(working_dir, test_name)
     assert response.returncode == 0, response.stdout
@@ -230,6 +244,9 @@ def test_smart_contract_generator_default_production_preset(
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "hello_world"
+    )
 
     response = run_generator(
         working_dir,
@@ -240,6 +257,9 @@ def test_smart_contract_generator_default_production_preset(
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "cool_contract"
+    )
 
     response = check_codebase(working_dir, test_name)
     assert response.returncode == 0, response.stdout

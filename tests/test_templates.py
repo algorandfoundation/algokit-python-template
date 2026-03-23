@@ -25,6 +25,13 @@ LINT_ARGS = ["algokit", "project", "run", "lint"]
 PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
 
 
+def _assert_deploy_config_exists(project_root: Path) -> None:
+    deploy_config = (
+        project_root / "smart_contracts" / "hello_world" / "deploy_config.py"
+    )
+    assert deploy_config.exists(), f"Expected deploy config at {deploy_config}"
+
+
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
     with path.open("r", encoding="utf-8") as stream:
         return yaml.safe_load(stream)
@@ -167,6 +174,12 @@ def run_init_kwargs(
     return run_init(working_dir, f"{name_suffix}", answers=answers)
 
 
+def _get_init_output_path(working_dir: Path, **kwargs: str | bool) -> Path:
+    answers = {k: str(v) for k, v in kwargs.items()}
+    name_suffix = "_".join(f"{v}_python" for _, v in answers.items())
+    return working_dir / generated_folder / name_suffix
+
+
 def get_questions_from_copier_yaml(
     allowed_questions: list[str] | None = None,
 ) -> Iterator[tuple[str, str | bool]]:
@@ -187,3 +200,7 @@ def get_questions_from_copier_yaml(
 def test_parameters(working_dir: Path, question_name: str, answer: str | bool) -> None:
     response = run_init_kwargs(working_dir, **{question_name: answer})
     assert response.returncode == 0, response.stdout
+    if question_name == "preset_name":
+        _assert_deploy_config_exists(
+            _get_init_output_path(working_dir, **{question_name: answer})
+        )
