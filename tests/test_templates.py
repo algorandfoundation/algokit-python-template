@@ -22,8 +22,14 @@ config_path = Path(__file__).parent.parent / "pyproject.toml"
 BUILD_ARGS = ["algokit", "project", "run", "build"]
 TEST_ARGS = ["algokit", "project", "run", "test"]
 LINT_ARGS = ["algokit", "project", "run", "lint"]
-JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
+
+
+def _assert_deploy_config_exists(project_root: Path) -> None:
+    deploy_config = (
+        project_root / "smart_contracts" / "hello_world" / "deploy_config.py"
+    )
+    assert deploy_config.exists(), f"Expected deploy config at {deploy_config}"
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -96,7 +102,6 @@ def run_init(
         "--no-workspace",
     ]
     answers = {**DEFAULT_PARAMETERS, **(answers or {})}
-    answers["deployment_language"] = "python"
 
     for question, answer in answers.items():
         init_args.extend(["-a", question, answer])
@@ -122,7 +127,7 @@ def run_init(
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [JS_PKG_MGR_ARGS, PY_PKG_MGR_ARGS, BUILD_ARGS]
+    check_args = [PY_PKG_MGR_ARGS, BUILD_ARGS]
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":
@@ -169,6 +174,12 @@ def run_init_kwargs(
     return run_init(working_dir, f"{name_suffix}", answers=answers)
 
 
+def _get_init_output_path(working_dir: Path, **kwargs: str | bool) -> Path:
+    answers = {k: str(v) for k, v in kwargs.items()}
+    name_suffix = "_".join(f"{v}_python" for _, v in answers.items())
+    return working_dir / generated_folder / name_suffix
+
+
 def get_questions_from_copier_yaml(
     allowed_questions: list[str] | None = None,
 ) -> Iterator[tuple[str, str | bool]]:
@@ -189,3 +200,7 @@ def get_questions_from_copier_yaml(
 def test_parameters(working_dir: Path, question_name: str, answer: str | bool) -> None:
     response = run_init_kwargs(working_dir, **{question_name: answer})
     assert response.returncode == 0, response.stdout
+    if question_name == "preset_name":
+        _assert_deploy_config_exists(
+            _get_init_output_path(working_dir, **{question_name: answer})
+        )

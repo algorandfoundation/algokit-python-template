@@ -32,8 +32,15 @@ DEPLOY_SINGLE_CONTRACT_ARGS = [
     "--",
     "hello_world",
 ]
-JS_PKG_MGR_ARGS = ["algokit", "config", "js-package-manager", "npm"]
-PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "poetry"]
+PY_PKG_MGR_ARGS = ["algokit", "config", "py-package-manager", "uv"]
+
+
+def assert_deploy_config_exists(project_root: Path, *contract_names: str) -> None:
+    for contract_name in contract_names:
+        deploy_config = (
+            project_root / "smart_contracts" / contract_name / "deploy_config.py"
+        )
+        assert deploy_config.exists(), f"Expected deploy config at {deploy_config}"
 
 
 def _load_copier_yaml(path: Path) -> dict[str, str | bool | dict]:
@@ -135,12 +142,11 @@ def check_codebase(working_dir: Path, test_name: str) -> subprocess.CompletedPro
     content = src_path_pattern.sub("_src_path: <src>", content)
     copier_answers.write_text(content, "utf-8")
 
-    check_args = [
-        JS_PKG_MGR_ARGS,
+    check_args: list[list[str]] = [
         PY_PKG_MGR_ARGS,
-        BUILD_ARGS,
-        BUILD_SINGLE_CONTRACT_ARGS,
     ]
+
+    check_args.extend([BUILD_ARGS, BUILD_SINGLE_CONTRACT_ARGS])
 
     processed_questions = _load_copier_yaml(copier_answers)
     if processed_questions["preset_name"] == "production":
@@ -191,21 +197,22 @@ def run_generator(
     return result
 
 
-@pytest.mark.parametrize("language", ["python", "typescript"])
 def test_smart_contract_generator_default_starter_preset(
-    language: str, working_dir: Path
+    working_dir: Path,
 ) -> None:
-    test_name = f"starter_python_smart_contract_{language}"
+    test_name = "starter_python_smart_contract_python"
 
     response = run_init(
         working_dir,
         test_name,
         answers={
             "preset_name": "starter",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "hello_world"
+    )
 
     response = run_generator(
         working_dir,
@@ -213,30 +220,33 @@ def test_smart_contract_generator_default_starter_preset(
         "smart-contract",
         {
             "contract_name": "cool_contract",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "cool_contract"
+    )
 
     response = check_codebase(working_dir, test_name)
     assert response.returncode == 0, response.stdout
 
 
-@pytest.mark.parametrize("language", ["python", "typescript"])
 def test_smart_contract_generator_default_production_preset(
-    language: str, working_dir: Path
+    working_dir: Path,
 ) -> None:
-    test_name = f"production_python_smart_contract_{language}"
+    test_name = "production_python_smart_contract_python"
 
     response = run_init(
         working_dir,
         test_name,
         answers={
             "preset_name": "production",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "hello_world"
+    )
 
     response = run_generator(
         working_dir,
@@ -244,10 +254,12 @@ def test_smart_contract_generator_default_production_preset(
         "smart-contract",
         {
             "contract_name": "cool_contract",
-            "deployment_language": language,
         },
     )
     assert response.returncode == 0, response.stdout
+    assert_deploy_config_exists(
+        working_dir / generated_folder / test_name, "cool_contract"
+    )
 
     response = check_codebase(working_dir, test_name)
     assert response.returncode == 0, response.stdout

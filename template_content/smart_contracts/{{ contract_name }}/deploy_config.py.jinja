@@ -16,7 +16,7 @@ def deploy() -> None:
     deployer_ = algorand.account.from_environment("DEPLOYER")
 
     factory = algorand.client.get_typed_app_factory(
-        {{ contract_name.split('_')|map('capitalize')|join }}Factory, default_sender=deployer_.address
+        {{ contract_name.split('_')|map('capitalize')|join }}Factory, default_sender=deployer_.addr
     )
 
     app_client, result = factory.deploy(
@@ -31,7 +31,7 @@ def deploy() -> None:
         algorand.send.payment(
             algokit_utils.PaymentParams(
                 amount=algokit_utils.AlgoAmount(algo=1),
-                sender=deployer_.address,
+                sender=deployer_.addr,
                 receiver=app_client.app_address,
             )
         )

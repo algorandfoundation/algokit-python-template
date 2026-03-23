@@ -14,19 +14,19 @@
     },
     {
       "file": ".algokit.toml",
-      "description": "This is the main configuration file used by algokit-cli to manage the project. The default template includes a starter 'Hello World' contract that is deployed via the `algokit-utils` package (either `ts` or `py`, depending on your choice). To create a new smart contract, you can use the [`algokit generate`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/generate.md) command and invoke a pre-bundled generator template by running `algokit generate smart-contract` (see how it is defined in the `.algokit.toml`, you can create your own generators if needed). This action will create a new folder in the `smart_contracts` directory, named after your project. Each folder contains a `contract.py` file, which is the entry point for your contract implementation, and `deploy_config.py` | `deployConfig.ts` files (depending on the language chosen for the template), that perform the deployment of the contract. Additionally you can define custom commands to run (similar to `npm` scripts), see definitions under `[project]` section in `.algokit.toml`.",
+      "description": "This is the main configuration file used by algokit-cli to manage the project. The default template includes a starter 'Hello World' contract that is deployed via the `algokit-utils` package. To create a new smart contract, you can use the [`algokit generate`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/generate.md) command and invoke a pre-bundled generator template by running `algokit generate smart-contract` (see how it is defined in the `.algokit.toml`, you can create your own generators if needed). This action will create a new folder in the `smart_contracts` directory, named after your project. Each folder contains a `contract.py` file, which is the entry point for your contract implementation, and a `deploy_config.py` file that performs deployment of the contract. Additionally you can define custom commands to run (similar to `npm` scripts), see definitions under `[project]` section in `.algokit.toml`.",
       "line": 1
     },
     {
-      "file": "smart_contracts/hello_world/{% if deployment_language == 'typescript' %}deploy-config.ts{% else %}deploy_config.py{% endif %}",
+      "file": "smart_contracts/hello_world/deploy_config.py",
       "description": "The default deployment scripts invoke a sample method on the starter contract that demonstrates how to interact with your deployed Algorand on-chain applications using the [`AlgoKit Typed Clients`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/generate.md#1-typed-clients) feature. The invocation if deploy is aliased in `.algokit.toml` file, allowing simple deployments via `algokit project deploy` command.",
       "line": 32
     },
     {%- if use_python_pytest %}
     {
-      "file": "tests/{% if deployment_language == 'typescript' %}{% include pathjoin('includes', 'contract_name_kebab.jinja') %}.spec.ts{% else %}{{ contract_name }}_test.py{% endif %}",
+      "file": "tests/{{ contract_name }}_test.py",
       "description": "If you opted to include unit tests, the default tests provided demonstrate an example of mocking, setting up fixtures, and testing smart contract calls on an AlgoKit typed client.",
-      "line": {% if deployment_language == 'typescript' %}39{% else %}36{% endif %}
+      "line": 36
     },
     {%- endif %}
     {
@@ -45,7 +45,7 @@
       "line": 3
     },
     {
-      "file": "smart_contracts/{% if deployment_language == 'python' %}__main__.py{% else %}index.ts{% endif %}",
+      "file": "smart_contracts/__main__.py",
       "description": "Uncomment the following lines to enable complementary utilities that will generate artifacts required for the [AlgoKit AVM Debugger](https://github.com/algorandfoundation/algokit-avm-vscode-debugger) VSCode plugin available on the [VSCode Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=algorandfoundation.algokit-avm-vscode-debugger). A new folder will be automatically created in the `.algokit` directory with source maps of all TEAL contracts in this workspace, as well as traces that will appear in a folder at the root of the workspace. You can then use the traces as entry points to trigger the debug extension. Make sure to have the `.algokit.toml` file available at the root of the workspace.",
       "line": 15
     },

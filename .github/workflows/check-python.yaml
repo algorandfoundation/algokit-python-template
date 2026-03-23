@@ -10,28 +10,27 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Install poetry
-        run: pipx install poetry
-
-      - name: Install algokit
-        run: pipx install algokit
-
-      - name: Run algokit localnet
-        run: algokit localnet start
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "poetry"
+
+      - name: Install uv
+        run: pipx install uv
+
+      - name: Install algokit decoupling branch
+        run: uv tool install --force "git+https://github.com/algorandfoundation/algokit-cli@decoupling"
+
+      - name: Run algokit localnet
+        run: algokit localnet start
 
       - name: Install dependencies
-        run: poetry env use 3.12 && poetry install --no-interaction --no-root
+        run: uv sync --locked
 
       - name: Check linting with Ruff
         run: |
           # stop the build if there are Python syntax errors or undefined names
-          poetry run ruff check .
+          uv run ruff check .
 
       - name: Configure git
         shell: bash
@@ -48,7 +47,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          poetry run pytest --junitxml=pytest-junit.xml
+          uv run pytest --junitxml=pytest-junit.xml
 
       - name: Check generated templates have been reviewed
         shell: bash

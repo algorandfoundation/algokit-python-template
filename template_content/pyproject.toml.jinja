@@ -1,48 +1,52 @@
-[tool.poetry]
+[project]
 name = "{{ project_name }}"
 version = "0.1.0"
 description = "Algorand smart contracts"
-authors = ["{{ author_name }} <{{ author_email }}>"]
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "algokit-utils>=5.0.0a13",
+  "python-dotenv>=1.0.0",
+  "algorand-python>=3",
+  "algorand-python-testing @ git+https://github.com/algorandfoundation/algorand-python-testing.git@refactor/util-v5",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-algokit-utils = "^4.0.0"
-python-dotenv = "^1.0.0"
-algorand-python = "^3"
-algorand-python-testing = "^1"
-
-[tool.poetry.group.dev.dependencies]
-{% if deployment_language == 'python' -%}
-algokit-client-generator = "^2.1.0"
-{% endif -%}
+[dependency-groups]
+dev = [
+  "algokit-client-generator>=3.0.0a3",
 {% if use_python_black -%}
-black = {extras = ["d"], version = "*"}
+  "black[d]",
 {% endif -%}
 {% if python_linter == 'ruff' -%}
-ruff = "^0.9.4"
+  "ruff>=0.9.4",
 {% elif python_linter == 'flake8' -%}
-flake8 = "*"
+  "flake8",
 {% endif -%}
 {% if use_python_mypy -%}
-mypy = "^1"
+  "mypy>=1",
 {% endif -%}
 {% if use_python_pytest -%}
-pytest = "*"
-pytest-cov = "*"
+  "pytest",
+  "pytest-cov",
 {% endif -%}
 {% if use_python_pip_audit -%}
-pip-audit = "*"
+  "pip-audit",
 {% endif -%}
 {% if use_pre_commit -%}
-pre-commit = "*"
+  "pre-commit",
 {% endif -%}
-puyapy = "*"
+  "puyapy",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv]
+package = false
 
 {% if python_linter == 'ruff' -%}
 [tool.ruff]
@@ -78,9 +82,8 @@ disallow_any_unimported = true
 disallow_any_expr = true
 disallow_any_decorated = true
 disallow_any_explicit = true
-untyped_calls_exclude = ["algosdk"]
 # Remove if you prefer to use mypy's default behavior against 
-# untyped algosdk types
+# untyped types
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_any_expr = false
