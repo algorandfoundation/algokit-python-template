@@ -44,14 +44,6 @@ preset_name:
     "Custom - for tailoring the template output to your needs": "custom"
   default: "starter"
 
-deployment_language:
-  type: str
-  help: What programming language do you want to use for your contract deployment code?
-  choices:
-    Python: "python"
-    TypeScript: "typescript"
-  default: "python"
-
 ide_vscode:
   type: bool
   help: Do you want to add VSCode configuration?
@@ -72,15 +64,9 @@ ide_jetbrains:
 
 use_python_pytest:
   type: bool
-  when: "{{ deployment_language == 'python' and preset_name == 'custom' }}"
+  when: "{{ preset_name == 'custom' }}"
   help: Do you want to include unit tests (via pytest)?
-  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'python' else 'no' }}"
-
-use_typescript_jest:
-  type: bool
-  when: "{{ deployment_language == 'typescript' and preset_name == 'custom' }}"
-  help: Do you want to include unit tests (via jest)?
-  default: "{{ 'yes' if preset_name == 'production' and deployment_language == 'typescript' else 'no' }}"
+  default: "{{ 'yes' if preset_name == 'production' else 'no' }}"
 
 python_linter:
   type: str
